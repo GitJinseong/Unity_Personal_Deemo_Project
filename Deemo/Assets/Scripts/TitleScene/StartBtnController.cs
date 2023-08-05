@@ -6,6 +6,7 @@ public class StartBtnController : MonoBehaviour
     public LoadScene loadScene = new LoadScene(); // LoadScene 클래스의 인스턴스 생성
     public Image img_Background_Clone = default;
     public Image img_Background_Light_Clone = default;
+    public Image img_DeemoLogo = default;
     public GameObject obj_Background = default;
     public GameObject obj_Background_Light = default;
     public GameObject obj_Background_Clone = default;
@@ -22,8 +23,8 @@ public class StartBtnController : MonoBehaviour
         obj_Background_Light.SetActive(false);
         StartCoroutine(TransparencyController.FadeOutImage(img_Background_Clone, fadeDuration));
         StartCoroutine(TransparencyController.FadeOutImage(img_Background_Light_Clone, fadeDuration));
-
+        StartCoroutine(TransparencyController.BeginLateFadeOutImage(img_DeemoLogo, 3.0f, fadeDuration));
         // 다음 씬으로 전환
-        loadScene.Run(3.0f, "MainScene");
+        loadScene.Run(5.0f, "MainScene");
     }
 }

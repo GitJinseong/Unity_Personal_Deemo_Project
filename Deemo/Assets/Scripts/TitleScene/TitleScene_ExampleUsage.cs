@@ -1,6 +1,7 @@
+using UnityEditor;
 using UnityEngine;
 
-public class ExampleUsage : MonoBehaviour
+public class TitleScene_ExampleUsage : MonoBehaviour
 {
     private DelayManager delayManager = default;
     private void Start()
@@ -23,7 +24,7 @@ public class ExampleUsage : MonoBehaviour
         delayManager.AddDelayedAction(8.0f, () => TitleSceneTasks.instance.StartDeemoLogo());
 
         // 터치 투 스타트 문구 실행
-        delayManager.AddDelayedAction(4.0f, () => TitleSceneTasks.instance.StartTouchToStart());
+        delayManager.AddDelayedAction(3.0f, () => TitleSceneTasks.instance.StartTouchToStart());
 
     }
 }

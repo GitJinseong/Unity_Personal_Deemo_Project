@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundController : MonoBehaviour
+public class TitleScene_BackgroundController : MonoBehaviour
 {
     public Vector2 initialPosition = Vector2.zero;      // 시작 지점
     public Vector2 targetPosition = Vector2.zero;       // 목표 지점
