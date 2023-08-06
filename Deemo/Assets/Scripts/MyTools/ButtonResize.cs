@@ -11,6 +11,7 @@ public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     private bool isPressed = false;        // 버튼이 눌렸는지 여부를 확인하는 플래그
     private bool isResizing = false;       // 이미지 사이즈 조절 중인지 확인하는 플래그
     private bool isPointerOverButton = false; // 마우스 커서가 버튼 위에 있는지 확인하는 플래그
+    public float resizeScale = 0.9f;
 
     private void Start()
     {
@@ -25,7 +26,7 @@ public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         if (!isResizing)
         {
             isPressed = true;
-            ResizeButtonImage(0.96f); // 이미지 사이즈를 96%로 축소
+            ResizeButtonImage(resizeScale); // 이미지 사이즈를 96%로 축소
         }
     }
 
