@@ -43,8 +43,5 @@ public class BackgroundOpacityController : MonoBehaviour
 
             yield return null;
         }
-
-        // 알파값 변경이 완료되었을 때 추가적인 로직을 처리할 수 있습니다.
-        Debug.Log("Opacity change complete!");
     }
 }

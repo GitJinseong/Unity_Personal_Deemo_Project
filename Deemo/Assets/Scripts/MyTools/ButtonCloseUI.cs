@@ -5,25 +5,28 @@ using UnityEngine.UI;
 
 public class ButtonCloseUI : MonoBehaviour
 {
-    private Image img_Btn = default;
-    public GameObject clouseUI = default;
+    private Button btn_Setting = default;
+    public GameObject closeUI = default;
+    public GameObject obj_Setting = default;
     public float waitForCloseTime = 1.0f;
 
     private void Start()
     {
-        img_Btn = GetComponent<Image>();
+        btn_Setting = obj_Setting.GetComponent<Button>();
     }
 
     public void CloseUI()
     {
-        img_Btn.raycastTarget = false;
-        StartCoroutine(Delay());
+        if (btn_Setting.enabled == false)
+        {
+            StartCoroutine(Delay());
+        }
     }
 
     public IEnumerator Delay()
     {
         yield return new WaitForSeconds(waitForCloseTime);
-        img_Btn.raycastTarget = true;
-        clouseUI.SetActive(false);
+        btn_Setting.enabled = true;
+        closeUI.SetActive(false);
     }
 }

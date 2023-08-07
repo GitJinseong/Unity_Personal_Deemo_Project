@@ -1,26 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SkipScrollObject : MonoBehaviour
 {
-    public GameObject skipObj;
-    public Vector2 targetPosition = Vector2.zero;       // 목표 지점
-
+    public GameObject obj_Bg;
+    public Vector2 targetPosition = Vector2.zero; // 목표 지점
     private RectTransform rectTransform;
 
     // Start is called before the first frame update
     void Start()
     {
-        rectTransform = skipObj.GetComponent<RectTransform>();
+        rectTransform = obj_Bg.GetComponent<RectTransform>();
     }
 
-    public void RunSkipObject()
+    // 스크롤을 즉시 목표 지점으로 이동시키는 함수
+    public void SkipScroll()
     {
-        Vector2 newPos = Vector2.Lerp(targetPosition, targetPosition, 0f);
-
-        rectTransform.anchoredPosition = newPos;
-
+        obj_Bg.SetActive(false);
+        obj_Bg.SetActive(true);
+        rectTransform.anchoredPosition = targetPosition;
     }
-
 }

@@ -7,6 +7,7 @@ public class TitleScene_BackgroundLightController : MonoBehaviour
     public float delay = 0.1f; // 딜레이
     public int blinkInterval = 5; // 투명도 조정 간격
     public float stopTime = 3f; // 투명도가 1이 될 때 정지할 시간
+    public float startDelay = 4f; // 최초 시작 딜레이
 
     private Image image;
     private float currentOpacity = 1f; // 현재 투명도 (1은 완전 불투명, 0은 완전 투명)
@@ -22,7 +23,7 @@ public class TitleScene_BackgroundLightController : MonoBehaviour
     // 최초 시작을 4초 후로 늦추는 코루틴
     private IEnumerator StartAfterDelay()
     {
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(startDelay);
         StartCoroutine(BlinkCoroutine());
     }
 
