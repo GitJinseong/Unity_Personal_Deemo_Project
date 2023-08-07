@@ -1,40 +1,40 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 
-public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler
+public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandler, IPointerExitHandler, IPointerEnterHandler
 {
-    private Image buttonImage;             // 버튼의 Image 컴포넌트를 참조하기 위한 변수
-    private RectTransform buttonRectTransform; // 버튼 이미지의 RectTransform
-    private Vector2 originalPivot;         // 버튼 이미지의 원래 피벗을 저장하기 위한 변수
-    private Vector3 originalScale;         // 버튼의 원래 스케일을 저장하기 위한 변수
-    private bool isPressed = false;        // 버튼이 눌렸는지 여부를 확인하는 플래그
-    private bool isResizing = false;       // 이미지 사이즈 조절 중인지 확인하는 플래그
-    private bool isPointerOverButton = false; // 마우스 커서가 버튼 위에 있는지 확인하는 플래그
-    public float resizeScale = 0.9f;
+    private RectTransform buttonRectTransform;
+    private Vector2 originalScale;
+    private bool isPressed = false;
+    private bool isReleased = false;
+    private bool isResizing = false;
+    private bool isPointerOverButton = false;
+    private bool isPointerDown = false;
+    public float resizeScale = 0.93f; // 클릭된 상태에서 크기를 줄이는 비율
+    public float resizeDuration = 0.3f; // 크기 조절에 걸리는 시간
 
     private void Start()
     {
-        buttonImage = GetComponent<Image>();
-        buttonRectTransform = buttonImage.rectTransform;
-        originalPivot = buttonRectTransform.pivot;
+        buttonRectTransform = GetComponent<RectTransform>();
         originalScale = buttonRectTransform.localScale;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        if (!isResizing)
-        {
-            isPressed = true;
-            ResizeButtonImage(resizeScale); // 이미지 사이즈를 96%로 축소
-        }
+        isPointerDown = true;
+        isPressed = true;
+        isReleased = false;
+        ResizeButtonImage(resizeScale); // 이미지 사이즈를 축소
     }
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        if (isPressed)
+        if (isPressed && !isReleased)
         {
             isPressed = false;
+            isReleased = true;
 
             if (!isPointerOverButton)
             {
@@ -46,9 +46,10 @@ public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
     public void OnPointerExit(PointerEventData eventData)
     {
         isPointerOverButton = false;
-        if (isPressed)
+        if (isPressed && !isReleased)
         {
             isPressed = false;
+            isReleased = true;
             ResetButtonImageScale(); // 마우스 커서가 버튼 밖으로 이동했을 때 이미지 사이즈를 원래 크기로 되돌림
         }
     }
@@ -60,9 +61,9 @@ public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
 
     private void Update()
     {
-        if (isPressed)
+        if (isPointerDown && !isReleased)
         {
-            // 버튼이 눌린 상태에서 추가적인 동작을 원한다면 여기에 필요한 로직을 추가하세요.
+            // 버튼이 포인트되어 눌려진 상태에서 추가적인 동작을 원한다면 여기에 필요한 로직을 추가하세요.
         }
     }
 
@@ -75,11 +76,29 @@ public class ButtonResize : MonoBehaviour, IPointerDownHandler, IPointerUpHandle
         buttonRectTransform.pivot = new Vector2(0.5f, 0.5f);
 
         isResizing = false;
+
+        // 보간을 위해 코루틴 시작
+        StartCoroutine(InterpolateButtonScale(originalScale * scaleFactor, resizeDuration));
     }
 
-    private void ResetButtonImageScale()
+    public void ResetButtonImageScale()
     {
-        buttonRectTransform.localScale = originalScale;
-        buttonRectTransform.pivot = originalPivot;
+        StartCoroutine(InterpolateButtonScale(originalScale, resizeDuration));
+    }
+
+    private IEnumerator InterpolateButtonScale(Vector2 targetScale, float duration)
+    {
+        float timeElapsed = 0.0f;
+        Vector2 startScale = buttonRectTransform.localScale;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+            float t = Mathf.Clamp01(timeElapsed / duration);
+            buttonRectTransform.localScale = Vector2.Lerp(startScale, targetScale, t);
+            yield return null;
+        }
+
+        buttonRectTransform.localScale = targetScale;
     }
 }

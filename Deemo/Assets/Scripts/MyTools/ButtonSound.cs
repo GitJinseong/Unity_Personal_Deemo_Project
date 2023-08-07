@@ -9,12 +9,18 @@ public class ButtonSound : MonoBehaviour
     // 재생하게 변경함.
     private AudioSource audioSource;
 
-    private void Start()
+    private void Awake()
     {
         // AudioSource 컴포넌트를 추가하고 가져옵니다.
         audioSource = gameObject.AddComponent<AudioSource>();
         // AudioClip을 설정합니다.
         audioSource.clip = buttonClickSound;
+
+        // AudioSource가 null이 아닌 경우, playOnAwake 속성을 false로 설정합니다.
+        if (audioSource != null)
+        {
+            audioSource.playOnAwake = false;
+        }
     }
 
     public void PlayButtonClickSound()
