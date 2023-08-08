@@ -18,6 +18,17 @@ public class FadeInSettingObjects : MonoBehaviour
     private Color[] originalTextColors; // 원본 TMP 텍스트 색상 배열
     private Vector3[] originalScales; // 원본 크기 배열
 
+    public void Awake()
+    {
+        childImages = GetComponentsInChildren<Image>();
+        originalScales = new Vector3[childImages.Length];
+
+        for (int i = 0; i < originalScales.Length; i++)
+        {
+            originalScales[i] = childImages[i].rectTransform.localScale;
+        }
+    }
+
     // 페이드 인 효과를 시작하는 함수
     public void StartFadeIn()
     {
@@ -25,13 +36,10 @@ public class FadeInSettingObjects : MonoBehaviour
         gameObject.SetActive(true); // 스크립트가 활성화된 오브젝트를 활성화합니다.
 
         // 이미지 컴포넌트를 찾아서 페이드 아웃 효과를 적용합니다.
-        childImages = GetComponentsInChildren<Image>();
         originalImageColors = new Color[childImages.Length];
-        originalScales = new Vector3[childImages.Length];
         for (int i = 0; i < childImages.Length; i++)
         {
             originalImageColors[i] = childImages[i].color;
-            originalScales[i] = childImages[i].rectTransform.localScale;
             StartFadeOutImage(childImages[i]);
         }
 

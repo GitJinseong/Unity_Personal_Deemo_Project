@@ -270,7 +270,6 @@ GameObject:
   - component: {fileID: 158642944}
   - component: {fileID: 158642943}
   - component: {fileID: 158642942}
-  - component: {fileID: 158642945}
   - component: {fileID: 158642946}
   m_Layer: 5
   m_Name: Btn_NoteEffect
@@ -406,20 +405,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 158642940}
   m_CullTransparentMesh: 1
---- !u!114 &158642945
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 158642940}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &158642946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -621,8 +606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa981684386bd824190138e1623a4359, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clouseUI: {fileID: 1493387846}
-  obj_Setting: {fileID: 411639159}
+  obj_closeUI: {fileID: 1493387846}
+  obj_BtnSetting: {fileID: 411639159}
+  obj_Btns: {fileID: 1640769528}
+  obj_SettingUIPanel: {fileID: 1493387846}
   waitForCloseTime: 1.2
 --- !u!114 &235409570
 MonoBehaviour:
@@ -668,33 +655,21 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 235409571}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_raycastTarget
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 235409569}
         m_TargetAssemblyTypeName: ButtonCloseUI, Assembly-CSharp
         m_MethodName: CloseUI
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1640769530}
-        m_TargetAssemblyTypeName: FadeOutEffect, Assembly-CSharp
-        m_MethodName: StartFadeOut
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1493387851}
-        m_TargetAssemblyTypeName: FadeOutSettingPanel, Assembly-CSharp
-        m_MethodName: StartFadeOut
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -841,6 +816,18 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 235409571}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_raycastTarget
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
       - m_Target: {fileID: 411639168}
         m_TargetAssemblyTypeName: SettingUIResetAlpha, Assembly-CSharp
@@ -1276,7 +1263,6 @@ GameObject:
   - component: {fileID: 630105470}
   - component: {fileID: 630105469}
   - component: {fileID: 630105468}
-  - component: {fileID: 630105471}
   - component: {fileID: 630105472}
   m_Layer: 5
   m_Name: Btn_Ranking
@@ -1412,20 +1398,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 630105466}
   m_CullTransparentMesh: 1
---- !u!114 &630105471
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 630105466}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &630105472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1726,7 +1698,6 @@ GameObject:
   - component: {fileID: 947246602}
   - component: {fileID: 947246601}
   - component: {fileID: 947246600}
-  - component: {fileID: 947246603}
   - component: {fileID: 947246604}
   m_Layer: 5
   m_Name: Btn_KeySound
@@ -1862,20 +1833,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 947246598}
   m_CullTransparentMesh: 1
---- !u!114 &947246603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947246598}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &947246604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2037,7 +1994,6 @@ GameObject:
   - component: {fileID: 980301755}
   - component: {fileID: 980301754}
   - component: {fileID: 980301753}
-  - component: {fileID: 980301756}
   - component: {fileID: 980301757}
   m_Layer: 5
   m_Name: Btn_CloudStorage
@@ -2173,20 +2129,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 980301751}
   m_CullTransparentMesh: 1
---- !u!114 &980301756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 980301751}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &980301757
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,7 +2290,6 @@ GameObject:
   - component: {fileID: 1094882321}
   - component: {fileID: 1094882320}
   - component: {fileID: 1094882319}
-  - component: {fileID: 1094882322}
   - component: {fileID: 1094882323}
   m_Layer: 5
   m_Name: Btn_ClassicUI
@@ -2484,20 +2425,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1094882317}
   m_CullTransparentMesh: 1
---- !u!114 &1094882322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1094882317}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &1094882323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2721,7 +2648,6 @@ GameObject:
   - component: {fileID: 1258678593}
   - component: {fileID: 1258678592}
   - component: {fileID: 1258678591}
-  - component: {fileID: 1258678594}
   - component: {fileID: 1258678595}
   m_Layer: 5
   m_Name: Btn_Achivement
@@ -2819,6 +2745,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: ButtonSound, Assembly-CSharp
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1258678592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2857,20 +2795,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1258678589}
   m_CullTransparentMesh: 1
---- !u!114 &1258678594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1258678589}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &1258678595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3255,7 +3179,6 @@ GameObject:
   - component: {fileID: 1558952125}
   - component: {fileID: 1558952124}
   - component: {fileID: 1558952123}
-  - component: {fileID: 1558952126}
   - component: {fileID: 1558952127}
   m_Layer: 5
   m_Name: Btn_JudmentControl
@@ -3391,20 +3314,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558952121}
   m_CullTransparentMesh: 1
---- !u!114 &1558952126
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1558952121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75636979fb454534f91bfa8270c84fc4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  resizeScale: 0.95
-  resizeDuration: 0.2
 --- !u!114 &1558952127
 MonoBehaviour:
   m_ObjectHideFlags: 0
