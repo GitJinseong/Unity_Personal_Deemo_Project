@@ -10,6 +10,7 @@ public class BackgroundOpacityController : MonoBehaviour
     private float duration = 0.5f; // 알파값이 변경되는데 걸리는 시간 (초 단위)
     private float startAlpha = 0f; // 시작 알파값
     private float targetAlpha = 120f; // 목표 알파값
+    
 
     private void Start()
     {
