@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
 
 public class JSONReader : MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class JSONReader : MonoBehaviour
     [System.Serializable]
     public class JSONData
     {
-        public int speed;
+        public float speed;
         public List<NoteData> notes;
     }
 
@@ -47,15 +48,17 @@ public class JSONReader : MonoBehaviour
         JSONData jsonData = JsonUtility.FromJson<JSONData>(jsonText);
 
         // 데이터 처리
-        int speed = jsonData.speed;
+        float speed = jsonData.speed;
         List<NoteData> notes = jsonData.notes;
 
-        // 각 노트 데이터 처리
+        Debug.Log($"Music Speed: {speed}");
+
         foreach (NoteData note in notes)
         {
             int noteId = note.noteId;
             int noteType = note.type;
-            List<SoundData> sounds = note.sounds;
+            List<SoundData> sounds = note.sounds; // note의 sounds 리스트에 접근
+
             float pos = note.pos;
             float size = note.size;
             float _time = note._time;
@@ -63,15 +66,19 @@ public class JSONReader : MonoBehaviour
             float time = note.time;
 
             // 노트 정보 출력
-            Debug.Log($"Note ID: {noteId}");
-            Debug.Log($"Note Type: {noteType}");
-            Debug.Log($"Sounds Count: {sounds.Count}");
-            Debug.Log($"Position: {pos}");
-            Debug.Log($"Size: {size}");
-            Debug.Log($"Time: {_time}");
-            Debug.Log($"Shift: {shift}");
-            Debug.Log($"Time: {time}");
-            Debug.Log("=====================");
+            Debug.Log($"Note ID: {noteId} Note Type: {noteType} Sounds : {sounds.Count} Position: {pos}" +
+                $"Position: {pos} Size: {size} Time: {_time} Shift: {shift} Time: {time}");
+
+            // 각 노트의 사운드 데이터 처리
+            foreach (SoundData sound in sounds)
+            {
+                float delay = sound.d;
+                int pitch = sound.p;
+                int volume = sound.v;
+
+                // 사운드 정보 출력
+                Debug.Log($"Sound Delay: {delay} Sound Pitch: {pitch} Sound Volume: {volume}");
+            }
         }
 
         // 추가 데이터 처리 가능
