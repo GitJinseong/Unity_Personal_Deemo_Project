@@ -1,36 +1,48 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
+using System.Collections;
 
 public class NoteManager : MonoBehaviour
 {
+    public static NoteManager instance;
     public GameObject notePrefab; // 노트 프리팹
     public int initialPoolSize = 10; // 초기 오브젝트 풀 크기
+    public float spacing = 1.0f; // 오브젝트 간격
 
+    private Vector3 originalScale = default;
     private List<GameObject> notePool = new List<GameObject>();
+
+    public LayerMask noteLayerMask; // Note의 레이어 마스크
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     private void Start()
     {
-        // 초기 오브젝트 풀 생성
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameObject note = Instantiate(notePrefab);
             note.SetActive(false);
             notePool.Add(note);
         }
+        originalScale = notePool[0].transform.localScale;
     }
 
-    // 노트 생성 및 활성화
-    public void SpawnNote(Vector3 spawnPosition)
+    public IEnumerator SpawnNote(float time, Vector3 spawnPosition, float size)
     {
+        yield return new WaitForSeconds(time);
         GameObject note = GetPooledNote();
         if (note != null)
         {
             note.transform.position = spawnPosition;
+            note.transform.localScale = originalScale * size;
             note.SetActive(true);
+            AdjustNotePosition(note);
         }
     }
 
-    // 오브젝트 풀에서 비활성화된 노트 오브젝트 반환
     private GameObject GetPooledNote()
     {
         foreach (GameObject note in notePool)
@@ -40,13 +52,41 @@ public class NoteManager : MonoBehaviour
                 return note;
             }
         }
-        // 오브젝트 풀 크기 확장 또는 노트 생성 로직 추가 가능
         return null;
     }
 
-    // 노트 재활용
-    public void RecycleNote(GameObject note)
+    //private void AdjustNotePosition(GameObject note)
+    //{
+    //    Collider[] colliders = Physics.OverlapSphere(note.transform.position, spacing, noteLayerMask);
+
+    //    foreach (Collider collider in colliders)
+    //    {
+    //        Debug.Log("충돌");
+    //        if (collider.gameObject != note)
+    //        {
+    //            Vector3 newPos = note.transform.position;
+    //            newPos.x = collider.bounds.max.x + spacing;
+    //            note.transform.position = newPos;
+    //        }
+    //    }
+    //}
+
+    private void AdjustNotePosition(GameObject note)
     {
-        note.SetActive(false);
+        float increasedRadius = spacing * 2.0f; // 반경 값을 두 배로 늘리기
+
+        Collider[] colliders = Physics.OverlapSphere(note.transform.position, increasedRadius, noteLayerMask);
+
+        foreach (Collider collider in colliders)
+        {
+            Debug.Log("충돌");
+            if (collider.gameObject != note)
+            {
+                Vector3 newPos = note.transform.position;
+                newPos.x = collider.bounds.max.x + spacing;
+                note.transform.position = newPos;
+            }
+        }
     }
+
 }

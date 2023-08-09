@@ -65,9 +65,13 @@ public class JSONReader : MonoBehaviour
             float shift = note.shift;
             float time = note.time;
 
+            Vector3 notePos = new Vector3(((pos * 1.5f) / 2.5f), 4f);    // 기본 Pos Y는 4f
+
+            StartCoroutine(NoteManager.instance.SpawnNote(_time, notePos, size));
+
             // 노트 정보 출력
             Debug.Log($"Note ID: {noteId} Note Type: {noteType} Sounds : {sounds.Count} Position: {pos}" +
-                $"Position: {pos} Size: {size} Time: {_time} Shift: {shift} Time: {time}");
+                $"Size: {size} Time: {_time} Shift: {shift} Time: {time}");
 
             // 각 노트의 사운드 데이터 처리
             foreach (SoundData sound in sounds)

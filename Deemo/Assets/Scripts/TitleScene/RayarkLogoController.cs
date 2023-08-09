@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class RayarkLogoController : MonoBehaviour
 {
     public float fadeInDuration = 3f; // 페이드 인이 완료되는 시간
-    public float fadeDelay = 4f; // 페이드 아웃이 시작되는 딜레이 시간
+    public float fadeOutDelay = 4f; // 페이드 아웃이 시작되는 딜레이 시간
     public float fadeOutDuration = 1f; // 페이드 아웃이 완료되는 시간
     private Image image;
 
@@ -38,7 +38,7 @@ public class RayarkLogoController : MonoBehaviour
 
     private IEnumerator FadeOutCoroutine()
     {
-        yield return new WaitForSeconds(fadeDelay);
+        yield return new WaitForSeconds(fadeOutDelay);
 
         float startTime = Time.time;
         float startAlpha = 1f; // 초기 알파값 (완전 불투명)
