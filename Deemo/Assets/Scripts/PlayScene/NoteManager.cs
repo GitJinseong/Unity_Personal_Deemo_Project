@@ -6,11 +6,13 @@ public class NoteManager : MonoBehaviour
 {
     public static NoteManager instance;
     public GameObject notePrefab; // 노트 프리팹
-    public int initialPoolSize = 10; // 초기 오브젝트 풀 크기
-    public float spacing = 1.0f; // 오브젝트 간격
-
+    public GameObject slideNotePrefab; // 슬라이드 노트 프리팹
+    public int initialPoolSize = 30; // 초기 오브젝트 풀 크기
     private Vector3 originalScale = default;
+    private Vector3 originalScale_Slide = default;
     private List<GameObject> notePool = new List<GameObject>();
+    private List<GameObject> slideNotePool = new List<GameObject>();
+
 
     public LayerMask noteLayerMask; // Note의 레이어 마스크
 
@@ -24,10 +26,14 @@ public class NoteManager : MonoBehaviour
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameObject note = Instantiate(notePrefab);
+            GameObject slideNote = Instantiate(slideNotePrefab);
             note.SetActive(false);
+            slideNote.SetActive(false);
             notePool.Add(note);
+            slideNotePool.Add(note);
         }
         originalScale = notePool[0].transform.localScale;
+        originalScale_Slide = notePool[0].transform.localScale;
     }
 
     public IEnumerator SpawnNote(float time, Vector3 spawnPosition, float size)
@@ -39,6 +45,21 @@ public class NoteManager : MonoBehaviour
             note.transform.position = spawnPosition;
             note.transform.localScale = originalScale * size;
             note.SetActive(true);
+            Physics.SyncTransforms(); // 이 부분 추가
+            AdjustNotePosition(note);
+        }
+    }
+
+    public IEnumerator SpawnSlideNote(float time, Vector3 spawnPosition, float size)
+    {
+        yield return new WaitForSeconds(time);
+        GameObject note = GetPooledSlideNote();
+        if (note != null)
+        {
+            note.transform.position = spawnPosition;
+            note.transform.localScale = originalScale * size;
+            note.SetActive(true);
+            Physics.SyncTransforms(); // 이 부분 추가
             AdjustNotePosition(note);
         }
     }
@@ -55,38 +76,48 @@ public class NoteManager : MonoBehaviour
         return null;
     }
 
-    //private void AdjustNotePosition(GameObject note)
-    //{
-    //    Collider[] colliders = Physics.OverlapSphere(note.transform.position, spacing, noteLayerMask);
-
-    //    foreach (Collider collider in colliders)
-    //    {
-    //        Debug.Log("충돌");
-    //        if (collider.gameObject != note)
-    //        {
-    //            Vector3 newPos = note.transform.position;
-    //            newPos.x = collider.bounds.max.x + spacing;
-    //            note.transform.position = newPos;
-    //        }
-    //    }
-    //}
+    private GameObject GetPooledSlideNote()
+    {
+        foreach (GameObject note in slideNotePool)
+        {
+            if (!note.activeInHierarchy)
+            {
+                return note;
+            }
+        }
+        return null;
+    }
 
     private void AdjustNotePosition(GameObject note)
     {
-        float increasedRadius = spacing * 2.0f; // 반경 값을 두 배로 늘리기
+        // 여기서 노트의 위치 조정 로직을 구현하세요.
+    }
 
-        Collider[] colliders = Physics.OverlapSphere(note.transform.position, increasedRadius, noteLayerMask);
-
-        foreach (Collider collider in colliders)
+    public IEnumerator SpawnNoteWithDelay(float time, Vector3 spawnPosition, float size)
+    {
+        yield return new WaitForSeconds(time + 0.15f);
+        GameObject note = GetPooledNote();
+        if (note != null)
         {
-            Debug.Log("충돌");
-            if (collider.gameObject != note)
-            {
-                Vector3 newPos = note.transform.position;
-                newPos.x = collider.bounds.max.x + spacing;
-                note.transform.position = newPos;
-            }
+            note.transform.position = spawnPosition;
+            note.transform.localScale = originalScale * size;
+            note.SetActive(true);
+            Physics.SyncTransforms();
+            AdjustNotePosition(note);
         }
     }
 
+    public void DeactivateOverlappingNotes(Vector3 position, float radius)
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(position, radius, noteLayerMask);
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.gameObject != null && collider.gameObject != gameObject)
+            {
+                Debug.Log("충돌제거");
+                collider.gameObject.SetActive(false);
+            }
+        }
+    }
 }

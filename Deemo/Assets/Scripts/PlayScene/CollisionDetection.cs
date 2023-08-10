@@ -14,23 +14,8 @@ public class CollisionDetection : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("JudgeLine"))
         {
-
             gameObject.SetActive(false);
-            //StartCoroutine(DelayForRemove());
         }
     }
 
-    public IEnumerator DelayForRemove()
-    {
-        animator.SetBool("Destroy", true);
-
-        // 애니메이션 길이만큼 기다림
-        //yield return new WaitForSeconds(animator.GetCurrentAnimatorClipInfo(0)[0].clip.length);
-        yield return new WaitForSeconds(1f);
-
-        // 애니메이션 트리거 리셋
-        animator.SetBool("Destroy", false);
-
-        gameObject.SetActive(false);
-    }
 }

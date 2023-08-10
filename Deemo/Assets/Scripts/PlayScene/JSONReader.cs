@@ -2,12 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 
 public class JSONReader : MonoBehaviour
 {
-    // JSON 파일 경로
-    private string defaultDirectoryPath = "Assets/Resources/MusicJSONs/";
     public string jsonFilePath = "ad2discovered.easy.json.txt";
+    public const float DEFAULT_POS_Y = 7f;
+    private string defaultDirectoryPath = "Assets/Resources/MusicJSONs/";
+    private LayerMask noteLayerMask;
 
     [System.Serializable]
     public class SoundData
@@ -40,44 +42,80 @@ public class JSONReader : MonoBehaviour
 
     void Start()
     {
-        // JSON 파일 찾기
         jsonFilePath = defaultDirectoryPath + jsonFilePath;
-
-        // JSON 파일 읽기
+        noteLayerMask = LayerMask.GetMask("Note");
         string jsonText = File.ReadAllText(jsonFilePath);
         JSONData jsonData = JsonUtility.FromJson<JSONData>(jsonText);
 
-        // 데이터 처리
         float speed = jsonData.speed;
         List<NoteData> notes = jsonData.notes;
 
         Debug.Log($"Music Speed: {speed}");
 
-        foreach (NoteData note in notes)
+        int skippedNoteCount = 0;
+
+        foreach (NoteData note in notes.OrderBy(n => n._time))
         {
             int noteId = note.noteId;
             int noteType = note.type;
-            List<SoundData> sounds = note.sounds; // note의 sounds 리스트에 접근
-
+            List<SoundData> sounds = note.sounds;
             float pos = note.pos;
             float size = note.size;
             float _time = note._time;
-            float shift = note.shift;
-            float time = note.time;
+            int pitch = default;
 
-            Vector3 notePos = new Vector3(((pos * 1.5f) / 2.5f), 4f);    // 기본 Pos Y는 4f
+            // 중앙을 기준으로 노트 생성
+            Vector3 notePos = new Vector3(pos, DEFAULT_POS_Y);
 
-            StartCoroutine(NoteManager.instance.SpawnNote(_time, notePos, size));
+            if (sounds.Count > 0)
+            {
+                pitch = sounds[0].p;
+                float pitchPercentage = (float)pitch / 127f;
+                float xPos = Mathf.Lerp(-6f, 6f, pitchPercentage);
+                notePos = new Vector3(xPos, DEFAULT_POS_Y);
+            }
+            else
+            {
+                if (pos <= -6f)
+                {
+                    notePos = new Vector3(-6f, DEFAULT_POS_Y);
+                }
+                else if (pos >= 6f)
+                {
+                    notePos = new Vector3(6f, DEFAULT_POS_Y);
+                }
+            }
 
-            // 노트 정보 출력
-            Debug.Log($"Note ID: {noteId} Note Type: {noteType} Sounds : {sounds.Count} Position: {pos}" +
-                $"Size: {size} Time: {_time} Shift: {shift} Time: {time}");
+
+            var sameTimeNotes = notes.Where(n => Mathf.Abs(n._time - _time) < 0.01f).ToList();
+
+            if (sameTimeNotes.Count >= 2)
+            {
+                bool shouldSkipNote = ShouldSkipNoteCreation(note, sameTimeNotes);
+
+                if (!shouldSkipNote)
+                {
+                    CreateNotesAtStarts(sameTimeNotes);
+                }
+                else
+                {
+                    Debug.Log($"Note ID: {noteId} - Skipping creation");
+                }
+            }
+            else
+            {
+                Vector3 adjustedPos = AdjustNotePosition(notePos, pitch, size);
+                StartCoroutine(NoteManager.instance.SpawnNote(_time, adjustedPos, size));
+                Debug.Log($"Note ID: {noteId} - Creating");
+            }
+
+
 
             // 각 노트의 사운드 데이터 처리
             foreach (SoundData sound in sounds)
             {
                 float delay = sound.d;
-                int pitch = sound.p;
+                pitch = sound.p;
                 int volume = sound.v;
 
                 // 사운드 정보 출력
@@ -85,8 +123,102 @@ public class JSONReader : MonoBehaviour
             }
         }
 
+        Debug.Log($"Skipped Note Count: {skippedNoteCount}");
+
         // 추가 데이터 처리 가능
 
         // 유니티 오브젝트 생성, 애니메이션 등의 작업 가능
+    }
+    bool ShouldSkipNoteCreation(NoteData currentNote, List<NoteData> sameTimeNotes)
+    {
+        NoteData farthestNote = GetFarthestNoteFromList(sameTimeNotes);
+        return farthestNote != currentNote;
+    }
+
+    void CreateNotesAtStarts(List<NoteData> sameTimeNotes)
+    {
+        NoteData leftNote = sameTimeNotes[0];
+        NoteData rightNote = sameTimeNotes[1];
+
+        // 큰 사이즈를 선택
+        float maxSize = Mathf.Max(leftNote.size, rightNote.size);
+
+        Vector3 leftStartPos = new Vector3(-6f + maxSize, DEFAULT_POS_Y);
+        Vector3 rightStartPos = new Vector3(6f - maxSize, DEFAULT_POS_Y);
+
+        StartCoroutine(NoteManager.instance.SpawnNote(leftNote._time, leftStartPos, maxSize));
+        StartCoroutine(NoteManager.instance.SpawnNote(rightNote._time, rightStartPos, maxSize));
+
+        Debug.Log($"Note ID: {leftNote.noteId} - Creating at Left Start with Size {maxSize}");
+        Debug.Log($"Note ID: {rightNote.noteId} - Creating at Right Start with Size {maxSize}");
+    }
+
+
+    Vector3 AdjustNotePosition(Vector3 originalPosition, int pitch, float noteSize)
+    {
+        float adjustedX = originalPosition.x;
+
+        float pitchPercentage = (float)pitch / 127f;
+
+        if (pitchPercentage >= 0.5f)
+        {
+            float xPos = Mathf.Lerp(1.2f, 7.6f, (pitchPercentage - 0.5f) * 2);
+            adjustedX = xPos;
+        }
+        else
+        {
+            float xPos = Mathf.Lerp(-7.6f, -1.2f, pitchPercentage * 2);
+            adjustedX = xPos;
+
+            if (pitch == 0)
+            {
+                adjustedX = -7.6f + noteSize;
+            }
+            else if (pitch == 1)
+            {
+                adjustedX = -1.2f + noteSize;
+            }
+        }
+
+        float leftBoundary = -7.6f + noteSize;
+        if (adjustedX < leftBoundary)
+        {
+            adjustedX = leftBoundary;
+        }
+
+        float rightBoundary = 7.6f - noteSize;
+        if (adjustedX > rightBoundary)
+        {
+            adjustedX = rightBoundary;
+        }
+
+        Vector3 adjustedPosition = new Vector3(adjustedX, originalPosition.y);
+        NoteManager.instance.DeactivateOverlappingNotes(adjustedPosition, 0.1f); // 수정된 부분
+
+        return adjustedPosition;
+    }
+
+    NoteData GetFarthestNoteFromList(List<NoteData> noteList)
+    {
+        NoteData farthestNote = null;
+        float maxDistance = 0f;
+
+        foreach (NoteData note in noteList)
+        {
+            foreach (NoteData otherNote in noteList)
+            {
+                if (note != otherNote)
+                {
+                    float distance = Mathf.Abs(note.pos - otherNote.pos);
+                    if (distance > maxDistance)
+                    {
+                        maxDistance = distance;
+                        farthestNote = note;
+                    }
+                }
+            }
+        }
+
+        return farthestNote;
     }
 }
