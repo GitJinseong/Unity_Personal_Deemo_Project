@@ -7,6 +7,7 @@ public class NoteManager : MonoBehaviour
 {
     public static NoteManager instance;
     public GameObject notePrefab; // 노트 프리팹
+    public Animator noteAnimator; // 노트 애니메이터
     public int initialPoolSize = 30; // 초기 오브젝트 풀 크기
     private Vector3 originalScale = default;
     private List<GameObject> notePool = new List<GameObject>();
@@ -39,12 +40,18 @@ public class NoteManager : MonoBehaviour
             note.transform.position = spawnPosition;
             note.transform.localScale = originalScale * size;
             note.SetActive(true);
+
+            // 애니메이터 컴포넌트 초기화
+            noteAnimator = note.GetComponent<Animator>();
+            noteAnimator.Rebind(); // 애니메이터 초기화
+
             Note noteComponent = note.GetComponent<Note>();
             noteComponent.noteId = id; // 노트 오브젝트에 ID 값을 할당
-            Physics.SyncTransforms(); // 이 부분 추가
-            AdjustNotePosition(note);
+            Physics.SyncTransforms();
+            //AdjustNotePosition(note);
         }
     }
+
 
     private GameObject GetPooledNote()
     {
@@ -58,10 +65,10 @@ public class NoteManager : MonoBehaviour
         return null;
     }
 
-    private void AdjustNotePosition(GameObject note)
-    {
-        // 여기서 노트의 위치 조정 로직을 구현하세요.
-    }
+    //private void AdjustNotePosition(GameObject note)
+    //{
+    //    // 여기서 노트의 위치 조정 로직을 구현하세요.
+    //}
 
     public IEnumerator SpawnNoteWithDelay(float time, Vector3 spawnPosition, float size)
     {
@@ -73,7 +80,7 @@ public class NoteManager : MonoBehaviour
             note.transform.localScale = originalScale * size;
             note.SetActive(true);
             Physics.SyncTransforms();
-            AdjustNotePosition(note);
+            //AdjustNotePosition(note);
         }
     }
 
