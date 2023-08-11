@@ -7,9 +7,8 @@ using UnityEditor.Experimental.GraphView;
 public class JSONReader : MonoBehaviour
 {
     public string jsonFilePath = "ad2discovered.easy.json.txt";
-    public const float DEFAULT_POS_Y = 7f;
+    public const float DEFAULT_POS_Y = 13f;
     private string defaultDirectoryPath = "Assets/Resources/MusicJSONs/";
-    private LayerMask noteLayerMask;
 
     [System.Serializable]
     public class SoundData
@@ -43,7 +42,6 @@ public class JSONReader : MonoBehaviour
     void Start()
     {
         jsonFilePath = defaultDirectoryPath + jsonFilePath;
-        noteLayerMask = LayerMask.GetMask("Note");
         string jsonText = File.ReadAllText(jsonFilePath);
         JSONData jsonData = JsonUtility.FromJson<JSONData>(jsonText);
 
@@ -95,7 +93,7 @@ public class JSONReader : MonoBehaviour
 
                 if (!shouldSkipNote)
                 {
-                    CreateNotesAtStarts(sameTimeNotes);
+                    CreateNotesAtStarts(sameTimeNotes, noteId);
                 }
                 else
                 {
@@ -105,7 +103,7 @@ public class JSONReader : MonoBehaviour
             else
             {
                 Vector3 adjustedPos = AdjustNotePosition(notePos, pitch, size);
-                StartCoroutine(NoteManager.instance.SpawnNote(_time, adjustedPos, size));
+                StartCoroutine(NoteManager.instance.SpawnNote(noteId, _time, adjustedPos, size));
                 Debug.Log($"Note ID: {noteId} - Creating");
             }
 
@@ -135,7 +133,7 @@ public class JSONReader : MonoBehaviour
         return farthestNote != currentNote;
     }
 
-    void CreateNotesAtStarts(List<NoteData> sameTimeNotes)
+    void CreateNotesAtStarts(List<NoteData> sameTimeNotes, int id)
     {
         NoteData leftNote = sameTimeNotes[0];
         NoteData rightNote = sameTimeNotes[1];
@@ -146,8 +144,8 @@ public class JSONReader : MonoBehaviour
         Vector3 leftStartPos = new Vector3(-6f + maxSize, DEFAULT_POS_Y);
         Vector3 rightStartPos = new Vector3(6f - maxSize, DEFAULT_POS_Y);
 
-        StartCoroutine(NoteManager.instance.SpawnNote(leftNote._time, leftStartPos, maxSize));
-        StartCoroutine(NoteManager.instance.SpawnNote(rightNote._time, rightStartPos, maxSize));
+        StartCoroutine(NoteManager.instance.SpawnNote(id, leftNote._time, leftStartPos, maxSize));
+        StartCoroutine(NoteManager.instance.SpawnNote(id, rightNote._time, rightStartPos, maxSize));
 
         Debug.Log($"Note ID: {leftNote.noteId} - Creating at Left Start with Size {maxSize}");
         Debug.Log($"Note ID: {rightNote.noteId} - Creating at Right Start with Size {maxSize}");

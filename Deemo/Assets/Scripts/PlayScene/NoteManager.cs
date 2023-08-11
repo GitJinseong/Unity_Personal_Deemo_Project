@@ -1,17 +1,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Networking.Types;
 
 public class NoteManager : MonoBehaviour
 {
     public static NoteManager instance;
     public GameObject notePrefab; // 노트 프리팹
-    public GameObject slideNotePrefab; // 슬라이드 노트 프리팹
     public int initialPoolSize = 30; // 초기 오브젝트 풀 크기
     private Vector3 originalScale = default;
-    private Vector3 originalScale_Slide = default;
     private List<GameObject> notePool = new List<GameObject>();
-    private List<GameObject> slideNotePool = new List<GameObject>();
 
 
     public LayerMask noteLayerMask; // Note의 레이어 마스크
@@ -26,17 +24,13 @@ public class NoteManager : MonoBehaviour
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameObject note = Instantiate(notePrefab);
-            GameObject slideNote = Instantiate(slideNotePrefab);
             note.SetActive(false);
-            slideNote.SetActive(false);
             notePool.Add(note);
-            slideNotePool.Add(note);
         }
         originalScale = notePool[0].transform.localScale;
-        originalScale_Slide = notePool[0].transform.localScale;
     }
 
-    public IEnumerator SpawnNote(float time, Vector3 spawnPosition, float size)
+    public IEnumerator SpawnNote(int id, float time, Vector3 spawnPosition, float size)
     {
         yield return new WaitForSeconds(time);
         GameObject note = GetPooledNote();
@@ -45,20 +39,8 @@ public class NoteManager : MonoBehaviour
             note.transform.position = spawnPosition;
             note.transform.localScale = originalScale * size;
             note.SetActive(true);
-            Physics.SyncTransforms(); // 이 부분 추가
-            AdjustNotePosition(note);
-        }
-    }
-
-    public IEnumerator SpawnSlideNote(float time, Vector3 spawnPosition, float size)
-    {
-        yield return new WaitForSeconds(time);
-        GameObject note = GetPooledSlideNote();
-        if (note != null)
-        {
-            note.transform.position = spawnPosition;
-            note.transform.localScale = originalScale * size;
-            note.SetActive(true);
+            Note noteComponent = note.GetComponent<Note>();
+            noteComponent.noteId = id; // 노트 오브젝트에 ID 값을 할당
             Physics.SyncTransforms(); // 이 부분 추가
             AdjustNotePosition(note);
         }
@@ -67,18 +49,6 @@ public class NoteManager : MonoBehaviour
     private GameObject GetPooledNote()
     {
         foreach (GameObject note in notePool)
-        {
-            if (!note.activeInHierarchy)
-            {
-                return note;
-            }
-        }
-        return null;
-    }
-
-    private GameObject GetPooledSlideNote()
-    {
-        foreach (GameObject note in slideNotePool)
         {
             if (!note.activeInHierarchy)
             {
