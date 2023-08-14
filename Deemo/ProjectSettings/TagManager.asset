@@ -10,6 +10,8 @@ TagManager:
   - Miss
   - Normal
   - Charming
+  - JudgeCollider
+  - RayCastNote
   layers:
   - Default
   - TransparentFX
@@ -52,4 +54,7 @@ TagManager:
     locked: 0
   - name: Object
     uniqueID: 2938560015
+    locked: 0
+  - name: JudgeBtn
+    uniqueID: 3184333219
     locked: 0
