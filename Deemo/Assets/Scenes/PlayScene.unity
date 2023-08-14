@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 60759332}
   m_Layer: 5
   m_Name: NormalCollider_Up
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 92267188}
   m_Layer: 5
   m_Name: NormalCollider
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -265,7 +265,7 @@ GameObject:
   - component: {fileID: 162427508}
   m_Layer: 5
   m_Name: CharmingCollider
-  m_TagString: Untagged
+  m_TagString: Charming
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,7 +365,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 292848374}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.026511863, y: -0.57356507, z: 0.058891863}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -373,6 +373,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &315426949
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 315426950}
+  - component: {fileID: 315426951}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &315426950
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315426949}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 564714461}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &315426951
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 315426949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8db6489f724d104b8ff4e542b3273ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  judgeAreaBtn_1: {fileID: 0}
+  judgeAreaBtn_2: {fileID: 0}
+  judgeAreaBtn_3: {fileID: 0}
+  judgeAreaBtn_4: {fileID: 0}
+  activatedJudgeColliderCount: 0
 --- !u!1 &330352568
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,7 +436,7 @@ GameObject:
   - component: {fileID: 330352570}
   m_Layer: 5
   m_Name: NormalCollider_Up
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -629,7 +678,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: d33456ba67a03c44f803bc9cf6e8a23d, type: 3}
+  m_audioClip: {fileID: 8300000, guid: b52f0cb1e7785cb48a74d05673c53311, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -755,9 +804,11 @@ GameObject:
   - component: {fileID: 504839483}
   - component: {fileID: 504839482}
   - component: {fileID: 504839481}
+  - component: {fileID: 504839484}
+  - component: {fileID: 504839485}
   m_Layer: 5
   m_Name: MissCollider_Down
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -864,6 +915,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 504839479}
   m_CullTransparentMesh: 1
+--- !u!61 &504839484
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504839479}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 80}
+  m_EdgeRadius: 0
+--- !u!114 &504839485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 504839479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &510545208
 GameObject:
   m_ObjectHideFlags: 0
@@ -878,7 +967,7 @@ GameObject:
   - component: {fileID: 510545210}
   m_Layer: 5
   m_Name: NormalCollider_Down
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1072,6 +1161,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1333411990}
+  - {fileID: 315426950}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1084,9 +1174,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 582616857}
+  - component: {fileID: 582616858}
   m_Layer: 5
   m_Name: MissCollider
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1113,6 +1204,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &582616858
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582616856}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &726270340
 GameObject:
   m_ObjectHideFlags: 0
@@ -1127,7 +1230,7 @@ GameObject:
   - component: {fileID: 726270342}
   m_Layer: 5
   m_Name: NormalCollider_Down
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1217,7 +1320,7 @@ GameObject:
   - component: {fileID: 787945719}
   m_Layer: 5
   m_Name: NormalCollider_Down
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1305,9 +1408,11 @@ GameObject:
   - component: {fileID: 798694605}
   - component: {fileID: 798694604}
   - component: {fileID: 798694603}
+  - component: {fileID: 798694606}
+  - component: {fileID: 798694607}
   m_Layer: 5
   m_Name: MissCollider_Down
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1414,6 +1519,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 798694601}
   m_CullTransparentMesh: 1
+--- !u!61 &798694606
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798694601}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 80}
+  m_EdgeRadius: 0
+--- !u!114 &798694607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798694601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &805379943
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,12 +1643,12 @@ GameObject:
   m_Component:
   - component: {fileID: 890278231}
   m_Layer: 5
-  m_Name: JudgeCollider
+  m_Name: JudgeColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &890278231
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1538,9 +1681,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 917393487}
+  - component: {fileID: 917393488}
   m_Layer: 0
   m_Name: MissCollider
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1562,6 +1706,18 @@ Transform:
   m_Father: {fileID: 972529670}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &917393488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 917393486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &921050628
 GameObject:
   m_ObjectHideFlags: 0
@@ -1572,12 +1728,12 @@ GameObject:
   m_Component:
   - component: {fileID: 921050629}
   m_Layer: 5
-  m_Name: JudgeCollider
+  m_Name: JudgeColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &921050629
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1611,12 +1767,12 @@ GameObject:
   m_Component:
   - component: {fileID: 972529670}
   m_Layer: 5
-  m_Name: JudgeCollider
+  m_Name: JudgeColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &972529670
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1654,7 +1810,7 @@ GameObject:
   - component: {fileID: 988289988}
   m_Layer: 5
   m_Name: CharmingCollider
-  m_TagString: Untagged
+  m_TagString: Charming
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1742,6 +1898,7 @@ GameObject:
   - component: {fileID: 990041877}
   - component: {fileID: 990041876}
   - component: {fileID: 990041875}
+  - component: {fileID: 990041878}
   m_Layer: 5
   m_Name: JudgeAreaBtn_4
   m_TagString: Untagged
@@ -1813,7 +1970,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 990041876}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 990041878}
+        m_TargetAssemblyTypeName: JudgeButtonController, Assembly-CSharp
+        m_MethodName: SetActiveColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &990041876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1852,6 +2021,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 990041873}
   m_CullTransparentMesh: 1
+--- !u!114 &990041878
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 990041873}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JudgeColliders: {fileID: 921050628}
+  isActive: 0
 --- !u!1 &1042755712
 GameObject:
   m_ObjectHideFlags: 0
@@ -1864,9 +2047,11 @@ GameObject:
   - component: {fileID: 1042755716}
   - component: {fileID: 1042755715}
   - component: {fileID: 1042755714}
+  - component: {fileID: 1042755717}
+  - component: {fileID: 1042755718}
   m_Layer: 5
   m_Name: MissCollider_Down
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1973,6 +2158,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1042755712}
   m_CullTransparentMesh: 1
+--- !u!61 &1042755717
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042755712}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 80}
+  m_EdgeRadius: 0
+--- !u!114 &1042755718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042755712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1077917875
 GameObject:
   m_ObjectHideFlags: 0
@@ -1985,9 +2208,11 @@ GameObject:
   - component: {fileID: 1077917879}
   - component: {fileID: 1077917878}
   - component: {fileID: 1077917877}
+  - component: {fileID: 1077917880}
+  - component: {fileID: 1077917881}
   m_Layer: 5
   m_Name: MissCollider_Up
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2094,6 +2319,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077917875}
   m_CullTransparentMesh: 1
+--- !u!61 &1077917880
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077917875}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 350}
+  m_EdgeRadius: 0
+--- !u!114 &1077917881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1077917875}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1090153393
 GameObject:
   m_ObjectHideFlags: 0
@@ -2108,7 +2371,7 @@ GameObject:
   - component: {fileID: 1090153395}
   m_Layer: 5
   m_Name: NormalCollider_Down
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2196,6 +2459,7 @@ GameObject:
   - component: {fileID: 1097164997}
   - component: {fileID: 1097164996}
   - component: {fileID: 1097164995}
+  - component: {fileID: 1097164998}
   m_Layer: 5
   m_Name: JudgeAreaBtn_2
   m_TagString: Untagged
@@ -2267,7 +2531,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1097164996}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1097164998}
+        m_TargetAssemblyTypeName: JudgeButtonController, Assembly-CSharp
+        m_MethodName: SetActiveColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1097164996
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2306,6 +2582,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1097164993}
   m_CullTransparentMesh: 1
+--- !u!114 &1097164998
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1097164993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JudgeColliders: {fileID: 890278230}
+  isActive: 0
 --- !u!1 &1117364423
 GameObject:
   m_ObjectHideFlags: 0
@@ -2385,7 +2675,7 @@ GameObject:
   - component: {fileID: 1147018523}
   m_Layer: 5
   m_Name: NormalCollider
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2426,7 +2716,7 @@ GameObject:
   - component: {fileID: 1148403896}
   m_Layer: 5
   m_Name: CharmingCollider
-  m_TagString: Untagged
+  m_TagString: Charming
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2514,9 +2804,11 @@ GameObject:
   - component: {fileID: 1155594456}
   - component: {fileID: 1155594455}
   - component: {fileID: 1155594454}
+  - component: {fileID: 1155594457}
+  - component: {fileID: 1155594458}
   m_Layer: 5
   m_Name: MissCollider_Up
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2623,6 +2915,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155594452}
   m_CullTransparentMesh: 1
+--- !u!61 &1155594457
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155594452}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 350}
+  m_EdgeRadius: 0
+--- !u!114 &1155594458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1155594452}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1171408850
 GameObject:
   m_ObjectHideFlags: 0
@@ -2637,7 +2967,7 @@ GameObject:
   - component: {fileID: 1171408852}
   m_Layer: 5
   m_Name: NormalCollider_Up
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2722,9 +3052,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1197925397}
+  - component: {fileID: 1197925398}
   m_Layer: 5
   m_Name: MissCollider
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2751,6 +3082,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1197925398
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1197925396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1205788922
 GameObject:
   m_ObjectHideFlags: 0
@@ -2765,7 +3108,7 @@ GameObject:
   - component: {fileID: 1205788924}
   m_Layer: 5
   m_Name: CharmingCollider
-  m_TagString: Untagged
+  m_TagString: Charming
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2870,7 +3213,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ca27e823e08c43b00af1a7cf97d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFilePath: ad2longinus.hard.json.txt
+  jsonFilePath: entrance.hard.json.txt
 --- !u!4 &1223476547
 Transform:
   m_ObjectHideFlags: 0
@@ -2879,7 +3222,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1223476545}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.026511863, y: 0.57356507, z: -0.058891863}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2898,6 +3241,7 @@ GameObject:
   - component: {fileID: 1318734200}
   - component: {fileID: 1318734199}
   - component: {fileID: 1318734198}
+  - component: {fileID: 1318734201}
   m_Layer: 5
   m_Name: JudgeAreaBtn
   m_TagString: Untagged
@@ -2969,7 +3313,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1318734199}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1318734201}
+        m_TargetAssemblyTypeName: JudgeButtonController, Assembly-CSharp
+        m_MethodName: SetActiveColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1318734199
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3008,6 +3364,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1318734196}
   m_CullTransparentMesh: 1
+--- !u!114 &1318734201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318734196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JudgeColliders: {fileID: 972529669}
+  isActive: 0
 --- !u!1 &1333411989
 GameObject:
   m_ObjectHideFlags: 0
@@ -3070,6 +3440,7 @@ GameObject:
   - component: {fileID: 1380347921}
   - component: {fileID: 1380347920}
   - component: {fileID: 1380347919}
+  - component: {fileID: 1380347922}
   m_Layer: 5
   m_Name: JudgeAreaBtn_3
   m_TagString: Untagged
@@ -3141,7 +3512,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1380347920}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1380347922}
+        m_TargetAssemblyTypeName: JudgeButtonController, Assembly-CSharp
+        m_MethodName: SetActiveColliders
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1380347920
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3180,6 +3563,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1380347917}
   m_CullTransparentMesh: 1
+--- !u!114 &1380347922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1380347917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  JudgeColliders: {fileID: 1590737981}
+  isActive: 0
 --- !u!1 &1381054169
 GameObject:
   m_ObjectHideFlags: 0
@@ -3192,9 +3589,11 @@ GameObject:
   - component: {fileID: 1381054173}
   - component: {fileID: 1381054172}
   - component: {fileID: 1381054171}
+  - component: {fileID: 1381054174}
+  - component: {fileID: 1381054175}
   m_Layer: 5
   m_Name: MissCollider_Up
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3301,6 +3700,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1381054169}
   m_CullTransparentMesh: 1
+--- !u!61 &1381054174
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381054169}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 350}
+  m_EdgeRadius: 0
+--- !u!114 &1381054175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1381054169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1431778547
 GameObject:
   m_ObjectHideFlags: 0
@@ -3313,9 +3750,11 @@ GameObject:
   - component: {fileID: 1431778551}
   - component: {fileID: 1431778550}
   - component: {fileID: 1431778549}
+  - component: {fileID: 1431778552}
+  - component: {fileID: 1431778553}
   m_Layer: 5
   m_Name: MissCollider_Up
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3422,6 +3861,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431778547}
   m_CullTransparentMesh: 1
+--- !u!61 &1431778552
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431778547}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 350}
+  m_EdgeRadius: 0
+--- !u!114 &1431778553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1431778547}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1479148422
 GameObject:
   m_ObjectHideFlags: 0
@@ -3433,7 +3910,7 @@ GameObject:
   - component: {fileID: 1479148423}
   m_Layer: 5
   m_Name: NormalCollider
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3640,12 +4117,12 @@ GameObject:
   m_Component:
   - component: {fileID: 1590737982}
   m_Layer: 5
-  m_Name: JudgeCollider
+  m_Name: JudgeColliders
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1590737982
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3816,9 +4293,11 @@ GameObject:
   - component: {fileID: 1656275784}
   - component: {fileID: 1656275783}
   - component: {fileID: 1656275782}
+  - component: {fileID: 1656275785}
+  - component: {fileID: 1656275786}
   m_Layer: 5
   m_Name: MissCollider_Down
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3925,6 +4404,44 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656275780}
   m_CullTransparentMesh: 1
+--- !u!61 &1656275785
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656275780}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 320, y: 80}
+  m_EdgeRadius: 0
+--- !u!114 &1656275786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656275780}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1668819783
 GameObject:
   m_ObjectHideFlags: 0
@@ -4015,7 +4532,7 @@ GameObject:
   - component: {fileID: 1748714689}
   m_Layer: 5
   m_Name: NormalCollider_Up
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4100,9 +4617,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1814986665}
+  - component: {fileID: 1814986666}
   m_Layer: 5
   m_Name: MissCollider
-  m_TagString: Untagged
+  m_TagString: Miss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4129,6 +4647,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1814986666
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1814986664}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2003737272
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,7 +4670,7 @@ GameObject:
   - component: {fileID: 2003737273}
   m_Layer: 5
   m_Name: NormalCollider
-  m_TagString: Untagged
+  m_TagString: Normal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

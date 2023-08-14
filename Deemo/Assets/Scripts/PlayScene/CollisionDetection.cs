@@ -16,23 +16,41 @@ public class CollisionDetection : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("TopLine"))
+        if (collision.gameObject.CompareTag("Miss"))
         {
-            Debug.Log("TopLine");
+            Debug.Log("Miss");
+            HideForParent(collision.gameObject);
+            Hide();
         }
 
         if (collision.gameObject.CompareTag("JudgeLine"))
         {
-            if (isHide == false)
-            {
-                isHide = true;
-                animator.SetBool("Destroy", true);
-                StopObjectMovement(); // 충돌시 바로 정지
+            Debug.Log("JudgeLine");
+            Hide();
+        }
+    }
 
-                // 오브젝트 활성화 후 코루틴 실행
-                gameObject.SetActive(true);
-                StartCoroutine(DelayForHide());
-            }
+    private void HideForParent(GameObject childObject)
+    {
+        // 충돌한 객체의 부모의 부모 비활성화
+        Transform grandparent = childObject.transform.parent.parent;
+        if (grandparent != null)
+        {
+            grandparent.gameObject.SetActive(false);
+        }
+    }
+
+    private void Hide()
+    {
+        if (isHide == false)
+        {
+            isHide = true;
+            animator.SetBool("Destroy", true);
+            StopObjectMovement(); // 충돌시 바로 정지
+
+            // 오브젝트 활성화 후 코루틴 실행
+            gameObject.SetActive(true);
+            StartCoroutine(DelayForHide());
         }
     }
 
