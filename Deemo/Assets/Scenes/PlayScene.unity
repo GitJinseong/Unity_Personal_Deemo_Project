@@ -1439,6 +1439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj_Parent: {fileID: 0}
+  script_Parent: {fileID: 0}
   normalStart: 177.45
   normalEnd: 175.59
   charmingStart: 176.73
@@ -2079,6 +2081,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj_Parent: {fileID: 0}
+  script_Parent: {fileID: 0}
   normalStart: 177.45
   normalEnd: 175.59
   charmingStart: 176.73
@@ -2644,7 +2648,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1131553320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2663,8 +2667,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -160, y: 0}
-  m_SizeDelta: {x: 320, y: 720}
+  m_AnchoredPosition: {x: -320, y: 0}
+  m_SizeDelta: {x: 640, y: 720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1131553321
 MonoBehaviour:
@@ -2678,8 +2682,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_RayCastNote: {fileID: 0}
-  script_RayCastNote: {fileID: 0}
+  obj_JudgeCollider: {fileID: 1725242506}
+  script_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &1131553322
 MonoBehaviour:
@@ -2727,7 +2731,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1131553321}
         m_TargetAssemblyTypeName: JudgeButtonController, Assembly-CSharp
-        m_MethodName: SetActiveColliders
+        m_MethodName: SetActiveTrue
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3069,7 +3073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1318734197
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3198,8 +3202,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_RayCastNote: {fileID: 873121338}
-  script_RayCastNote: {fileID: 0}
+  obj_JudgeCollider: {fileID: 0}
+  script_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!1 &1333411989
 GameObject:
@@ -3510,7 +3514,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1461554213
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3651,7 +3655,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1569904561
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4083,8 +4087,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_RayCastNote: {fileID: 0}
-  script_RayCastNote: {fileID: 0}
+  obj_JudgeCollider: {fileID: 0}
+  script_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &1662793758
 MonoBehaviour:
@@ -4273,7 +4277,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1723993398
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4350,7 +4354,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1725242507
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4372,7 +4376,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -180}
-  m_SizeDelta: {x: 320, y: 360}
+  m_SizeDelta: {x: 640, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1725242508
 CanvasRenderer:
@@ -4394,6 +4398,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj_Parent: {fileID: 1131553319}
+  script_Parent: {fileID: 0}
   normalStart: 177.45
   normalEnd: 175.59
   charmingStart: 176.73
@@ -4423,7 +4429,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 320, y: 360}
+  m_Size: {x: 640, y: 360}
   m_EdgeRadius: 0
 --- !u!1 &1783729090
 GameObject:
@@ -4487,6 +4493,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj_Parent: {fileID: 0}
+  script_Parent: {fileID: 0}
   normalStart: 177.45
   normalEnd: 175.59
   charmingStart: 176.73
@@ -4571,8 +4579,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b49525e0a7399524d8d8c82218282ef2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_RayCastNote: {fileID: 0}
-  script_RayCastNote: {fileID: 0}
+  obj_JudgeCollider: {fileID: 0}
+  script_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &1799111643
 MonoBehaviour:
@@ -4730,6 +4738,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c52a42f22ada0b74fb0c5c6c1d2314e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  obj_Parent: {fileID: 0}
+  script_Parent: {fileID: 0}
   normalStart: 177.45
   normalEnd: 175.59
   charmingStart: 176.73

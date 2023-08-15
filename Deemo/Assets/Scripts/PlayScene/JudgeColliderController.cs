@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class JudgeColliderController : MonoBehaviour
 {
+    public GameObject obj_Parent;
+    public JudgeButtonController script_Parent;
+    public CollisionDetection script_collision;
+
     public float normalStart = 177.45f;
     public float normalEnd = 175.59f;
     public float charmingStart = 176.73f;
@@ -16,61 +20,85 @@ public class JudgeColliderController : MonoBehaviour
 
     public bool isProcessed = false; // 중복 처리를 방지하기 위한 플래그
 
-    private void Start()
+    private void Awake()
     {
+        script_Parent = obj_Parent.GetComponent<JudgeButtonController>();
         rectTransform = GetComponent<RectTransform>();
     }
 
-    private void Update()
-    {
-        // 현재 오브젝트의 Y 포지션을 확인
-        float currentPosY = rectTransform.anchoredPosition.y;
+    //private void Update()
+    //{
+    //    // 현재 오브젝트의 Y 포지션을 확인
+    //    float currentPosY = rectTransform.anchoredPosition.y;
 
-        // Y 포지션이 340 이상이면 오브젝트를 비활성화
-        if (currentPosY >= 340f)
-        {
-            Debug.Log("충돌처리무시함");
-            gameObject.SetActive(false);
-        }
-    }
+    //    // Y 포지션이 340 이상이면 오브젝트를 비활성화
+    //    if (currentPosY >= 340f)
+    //    {
+    //        Debug.Log("충돌처리무시함");
+    //        gameObject.SetActive(false);
+    //    }
+    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isProcessed) return; // 이미 처리되었으면 더 이상 진행하지 않음
+        if (isProcessed) return;
 
-        Debug.Log("충돌충돌");
-        if (collision.gameObject.CompareTag("TopLine"))
+        if (collision.CompareTag("Note"))
         {
-            gameObject.SetActive(false);
-            return;
-        }
+            script_collision = collision.GetComponent<CollisionDetection>();
 
-        if (!processedColliders.Contains(collision))
-        {
-            processedColliders.Add(collision);
+            if (script_collision.isHide == false)
+            {
+                if (!processedColliders.Contains(collision))
+                {
+                    processedColliders.Add(collision);
 
-            Vector3 notePosition = collision.transform.localPosition;
-            float distance = Mathf.Abs(notePosition.y - converPositionY);
-            Debug.Log(distance);
-            if (IsDistanceInRange(distance, charmingStart, charmingEnd))
-            {
-                Debug.Log("Note: CHARMING!");
-            }
-            else if (IsDistanceInRange(distance, normalStart, normalEnd))
-            {
-                Debug.Log("Note: NORMAL!");
+                    List<Collider2D> colliders = new List<Collider2D>(processedColliders);
+
+                    colliders.Sort((a, b) =>
+                    {
+                        Vector3 notePositionA = a.transform.localPosition;
+                        Vector3 notePositionB = b.transform.localPosition;
+
+                        float distanceA = Mathf.Abs(notePositionA.y - rectTransform.anchoredPosition.y);
+                        float distanceB = Mathf.Abs(notePositionB.y - rectTransform.anchoredPosition.y);
+
+                        return distanceA.CompareTo(distanceB); // 이 부분을 다시 원래대로 변경합니다.
+                    });
+
+                    if (colliders.Count > 0)
+                    {
+                        Debug.Log(colliders.Count);
+
+                        Vector3 notePosition = colliders[0].transform.localPosition;
+                        float distance = Mathf.Abs(notePosition.y - rectTransform.anchoredPosition.y);
+                        Debug.Log(distance);
+
+                        if (IsDistanceInRange(distance, charmingStart, charmingEnd))
+                        {
+                            Debug.Log("Note: CHARMING!");
+                        }
+                        else if (IsDistanceInRange(distance, normalStart, normalEnd))
+                        {
+                            Debug.Log("Note: NORMAL!");
+                        }
+                        else
+                        {
+                            Debug.Log("Note: MISS!");
+                        }
+
+                        SetActiveFalseObjects(colliders[0].gameObject);
+                    }
+                    isProcessed = true;
+                }
             }
             else
             {
-                Debug.Log("Note: MISS!");
+                Debug.Log("중복충돌");
             }
-
-            SetActiveFalseObjects(collision.gameObject);
-
-            isProcessed = true; // 처리 완료 플래그 설정
         }
-    }
 
+    }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (processedColliders.Contains(collision))
@@ -83,6 +111,7 @@ public class JudgeColliderController : MonoBehaviour
     {
         CollisionDetection script_Note = obj_Note.GetComponent<CollisionDetection>();
         script_Note.Hide();
+        script_Parent.isActive = false;
         gameObject.SetActive(false);
     }
 
@@ -91,11 +120,4 @@ public class JudgeColliderController : MonoBehaviour
         return distance <= start && distance >= end;
     }
 
-    public void ProcessRaycastHit(GameObject hitObject)
-    {
-        // 레이와 충돌한 객체에 대한 처리를 수행
-        // hitObject가 노트일 경우에는 해당 노트에 대한 처리를 수행
-        Debug.Log("Hit object: " + hitObject.name);
-        // 이 부분에 레이와 충돌한 객체에 대한 처리 코드를 작성
-    }
 }

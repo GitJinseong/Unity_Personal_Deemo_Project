@@ -6,7 +6,7 @@ public class CollisionDetection : MonoBehaviour
     private Rigidbody2D rigid2D;
     private Animator animator; // Animator 컴포넌트 레퍼런스
     private float hideTime = 1f;
-    private bool isHide = false;
+    public bool isHide = false;
 
     private void Awake()
     {
