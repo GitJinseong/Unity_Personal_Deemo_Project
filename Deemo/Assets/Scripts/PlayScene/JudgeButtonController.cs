@@ -9,6 +9,7 @@ public class JudgeButtonController : MonoBehaviour
     public bool isActive = false;
 
     private const float POS_Y = -370f; // 절대 좌표로 설정할 Y 값
+    private float delay = 0.1f; // 콜라이더를 자동으로 종료할 시간
 
     private void Awake()
     {
@@ -20,17 +21,22 @@ public class JudgeButtonController : MonoBehaviour
         if (isActive == false && GameManager.instance.activatedJudgeColliderCount < 2)
         {
             isActive = true;
-            //Debug.Log("Create");
 
             // 오브젝트 활성화
             obj_JudgeCollider.SetActive(true);
 
-            //// 오브젝트 위치 초기화
-            //Vector3 startPosition = new Vector3(160f, POS_Y);
-            //obj_JudgeCollider.GetComponent<RectTransform>().anchoredPosition = startPosition;
-
             //// 오브젝트 충돌 가능여부 초기화
             script_JudgeCollider.isProcessed = false;
+
+            StartCoroutine(DelayForActiveFalse());
         }
+    }
+
+    private IEnumerator DelayForActiveFalse()
+    {
+        yield return new WaitForSeconds(delay);
+
+        obj_JudgeCollider.SetActive(false);
+        isActive = false;
     }
 }

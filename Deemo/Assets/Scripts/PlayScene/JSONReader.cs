@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 
 public class JSONReader : MonoBehaviour
 {

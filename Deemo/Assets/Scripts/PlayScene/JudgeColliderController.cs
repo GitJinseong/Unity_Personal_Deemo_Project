@@ -9,9 +9,7 @@ public class JudgeColliderController : MonoBehaviour
     public CollisionDetection script_collision;
 
     public float normalStart = 177.45f;
-    public float normalEnd = 175.59f;
     public float charmingStart = 176.73f;
-    public float charmingEnd = 176.25f;
     private float converPositionY = 180f;
 
     private HashSet<Collider2D> processedColliders = new HashSet<Collider2D>();
@@ -25,19 +23,6 @@ public class JudgeColliderController : MonoBehaviour
         script_Parent = obj_Parent.GetComponent<JudgeButtonController>();
         rectTransform = GetComponent<RectTransform>();
     }
-
-    //private void Update()
-    //{
-    //    // 현재 오브젝트의 Y 포지션을 확인
-    //    float currentPosY = rectTransform.anchoredPosition.y;
-
-    //    // Y 포지션이 340 이상이면 오브젝트를 비활성화
-    //    if (currentPosY >= 340f)
-    //    {
-    //        Debug.Log("충돌처리무시함");
-    //        gameObject.SetActive(false);
-    //    }
-    //}
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -74,17 +59,20 @@ public class JudgeColliderController : MonoBehaviour
                         float distance = Mathf.Abs(notePosition.y - rectTransform.anchoredPosition.y);
                         Debug.Log(distance);
 
-                        if (IsDistanceInRange(distance, charmingStart, charmingEnd))
+                        if (distance <= charmingStart)
                         {
                             Debug.Log("Note: CHARMING!");
+                            GameManager.instance.ChangeJudgeText("CHARMING!");
                         }
-                        else if (IsDistanceInRange(distance, normalStart, normalEnd))
+                        else if (distance <= normalStart)
                         {
                             Debug.Log("Note: NORMAL!");
+                            GameManager.instance.ChangeJudgeText("NORMAL!");
                         }
                         else
                         {
                             Debug.Log("Note: MISS!");
+                            GameManager.instance.ChangeJudgeText("MISS!");
                         }
 
                         SetActiveFalseObjects(colliders[0].gameObject);
@@ -114,10 +102,4 @@ public class JudgeColliderController : MonoBehaviour
         script_Parent.isActive = false;
         gameObject.SetActive(false);
     }
-
-    private bool IsDistanceInRange(float distance, float start, float end)
-    {
-        return distance <= start && distance >= end;
-    }
-
 }
