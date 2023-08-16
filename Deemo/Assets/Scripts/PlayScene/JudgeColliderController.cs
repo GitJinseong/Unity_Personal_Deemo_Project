@@ -108,7 +108,7 @@ public class JudgeColliderController : MonoBehaviour
     {
         CollisionDetection script_Note = obj_Note.GetComponent<CollisionDetection>();
         script_Note.Hide();
-        script_Parent.isActive = false;
+        //script_Parent.isActive = false;
         gameObject.SetActive(false);
     }
 }
