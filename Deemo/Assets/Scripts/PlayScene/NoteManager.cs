@@ -2,13 +2,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Networking.Types;
+using TMPro;
 
 public class NoteManager : MonoBehaviour
 {
     public static NoteManager instance;
     public GameObject notePrefab; // 노트 프리팹
     public Transform noteParent; // 노트 부모
-    public int initialPoolSize = 30; // 초기 오브젝트 풀 크기
+    public int initialPoolSize = 100; // 초기 오브젝트 풀 크기
     private Vector3 originalScale = default;
     private List<GameObject> notePool = new List<GameObject>();
 

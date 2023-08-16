@@ -2,12 +2,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using TMPro;
 
 public class JSONReader : MonoBehaviour
 {
-    public string jsonFilePath = "ad2discovered.easy.json.txt";
+    public string jsonFileName = "leviathan.easy";
     public const float DEFAULT_POS_Y = 13f;
-    private string defaultDirectoryPath = "Assets/Resources/MusicJSONs/";
 
     [System.Serializable]
     public class SoundData
@@ -40,8 +40,21 @@ public class JSONReader : MonoBehaviour
 
     void Start()
     {
-        jsonFilePath = defaultDirectoryPath + jsonFilePath;
-        string jsonText = File.ReadAllText(jsonFilePath);
+        string jsonText = "";
+        string jsonFilePath = $"MusicJSONs/{jsonFileName}";
+
+        TextAsset jsonAsset = Resources.Load<TextAsset>(jsonFilePath);
+
+        if (jsonAsset != null)
+        {
+            jsonText = jsonAsset.text;
+            // 이후 처리
+        }
+        else
+        {
+            Debug.LogError($"JSON file not found at path: {jsonFilePath}");
+        }
+
         JSONData jsonData = JsonUtility.FromJson<JSONData>(jsonText);
 
         float speed = jsonData.speed;

@@ -7,10 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public TMP_Text judgeText;
-    public JudgeButtonController judgeAreaBtn_1;
-    public JudgeButtonController judgeAreaBtn_2;
-    public JudgeButtonController judgeAreaBtn_3;
-    public JudgeButtonController judgeAreaBtn_4;
+    private int combo;
 
     public int activatedJudgeColliderCount = 0;
 
@@ -21,6 +18,16 @@ public class GameManager : MonoBehaviour
 
     public void ChangeJudgeText(string txt)
     {
-        judgeText.text = txt;
+        judgeText.text = "(" + combo.ToString() + ") " + txt;
+    }
+
+    public void AddCombo()
+    {
+        combo++;
+    }
+
+    public void ResetCombo()
+    {
+        combo = 0;
     }
 }
