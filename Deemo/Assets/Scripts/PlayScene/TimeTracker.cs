@@ -12,13 +12,10 @@ public class TimeTracker : MonoBehaviour
 
     private void Awake()
     {
-        instance = this;    
-    }
-
-    private void Start()
-    {
         // 게임 시작 시간을 저장
         startTime = Time.time;
+
+        instance = this;
     }
 
     public void ResetTime()

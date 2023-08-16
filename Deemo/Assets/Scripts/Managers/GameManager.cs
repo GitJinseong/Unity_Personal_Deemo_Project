@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public TMP_Text judgeText;
+    public TMP_Text timingText;
     private int combo;
 
     public int activatedJudgeColliderCount = 0;
@@ -16,6 +17,11 @@ public class GameManager : MonoBehaviour
         instance = this;
     }
 
+    public void ChangeTimingText(string txt)
+    {
+        timingText.text = txt;
+
+    }
     public void ChangeJudgeText(string txt)
     {
         judgeText.text = "(" + combo.ToString() + ") " + txt;

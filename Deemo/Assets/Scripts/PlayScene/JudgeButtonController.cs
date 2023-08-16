@@ -12,7 +12,7 @@ public class JudgeButtonController : MonoBehaviour
     private float gameTime;
     private float judgeTime;
 
-    private void Awake()
+    private void Start()
     {
         gameTime = TimeTracker.instance.startTime;
     }
@@ -49,17 +49,20 @@ public class JudgeButtonController : MonoBehaviour
                 if (judgeTime >= 0.8f)
                 {
                     Debug.Log("Charming");
+                    GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     GameManager.instance.AddCombo();
                     GameManager.instance.ChangeJudgeText("CHARMING!");
                 }
                 else if (judgeTime >= 0.7f)
                 {
                     Debug.Log("Normal");
+                    GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     GameManager.instance.AddCombo();
                     GameManager.instance.ChangeJudgeText("NORMAL");
                 }
                 else
                 {
+                    GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     GameManager.instance.ResetCombo();
                     GameManager.instance.ChangeJudgeText("MISS!");
                 }
