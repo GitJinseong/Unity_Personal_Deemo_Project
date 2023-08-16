@@ -74,6 +74,7 @@ public class JSONReader : MonoBehaviour
             float _time = note._time;
             int pitch = default;
 
+            Debug.Log($"Time: {_time}");
             // 중앙을 기준으로 노트 생성
             Vector3 notePos = new Vector3(pos, DEFAULT_POS_Y);
 

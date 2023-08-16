@@ -8,21 +8,22 @@ public class JudgeColliderController : MonoBehaviour
     public JudgeButtonController script_Parent;
     public CollisionDetection script_collision;
 
-    public float normalStart = 177.45f;
-    public float charmingStart = 176.73f;
-    private float converPositionY = 180f;
+    private float normalStart = 2f;
+    private float charmingStart = 3f;
 
     private HashSet<Collider2D> processedColliders = new HashSet<Collider2D>();
 
     private RectTransform rectTransform;
 
     public bool isProcessed = false; // 중복 처리를 방지하기 위한 플래그
+    private bool isAnimationRunning = false; // 추가된 변수
 
     private void Awake()
     {
         script_Parent = obj_Parent.GetComponent<JudgeButtonController>();
         rectTransform = GetComponent<RectTransform>();
     }
+
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -37,46 +38,7 @@ public class JudgeColliderController : MonoBehaviour
                 if (!processedColliders.Contains(collision))
                 {
                     processedColliders.Add(collision);
-
-                    List<Collider2D> colliders = new List<Collider2D>(processedColliders);
-
-                    colliders.Sort((a, b) =>
-                    {
-                        Vector3 notePositionA = a.transform.localPosition;
-                        Vector3 notePositionB = b.transform.localPosition;
-
-                        float distanceA = Mathf.Abs(notePositionA.y - rectTransform.anchoredPosition.y);
-                        float distanceB = Mathf.Abs(notePositionB.y - rectTransform.anchoredPosition.y);
-
-                        return distanceA.CompareTo(distanceB); // 이 부분을 다시 원래대로 변경합니다.
-                    });
-
-                    if (colliders.Count > 0)
-                    {
-                        Debug.Log(colliders.Count);
-
-                        Vector3 notePosition = colliders[0].transform.localPosition;
-                        float distance = Mathf.Abs(notePosition.y - rectTransform.anchoredPosition.y);
-                        Debug.Log(distance);
-
-                        if (distance <= charmingStart)
-                        {
-                            Debug.Log("Note: CHARMING!");
-                            GameManager.instance.ChangeJudgeText("CHARMING!");
-                        }
-                        else if (distance <= normalStart)
-                        {
-                            Debug.Log("Note: NORMAL!");
-                            GameManager.instance.ChangeJudgeText("NORMAL!");
-                        }
-                        else
-                        {
-                            Debug.Log("Note: MISS!");
-                            GameManager.instance.ChangeJudgeText("MISS!");
-                        }
-
-                        SetActiveFalseObjects(colliders[0].gameObject);
-                    }
+                    ProcessColliders();
                     isProcessed = true;
                 }
             }
@@ -86,6 +48,53 @@ public class JudgeColliderController : MonoBehaviour
             }
         }
 
+    }
+
+    private void ProcessColliders()
+    {
+        List<Collider2D> colliders = new List<Collider2D>(processedColliders);
+
+        colliders.Sort((a, b) =>
+        {
+            Vector3 notePositionA = a.transform.localPosition;
+            Vector3 notePositionB = b.transform.localPosition;
+
+            float distanceA = Mathf.Abs(notePositionA.y);
+            float distanceB = Mathf.Abs(notePositionB.y);
+
+            return distanceA.CompareTo(distanceB); // distanceA가 더 작은 경우에 음수 값을 리턴하도록 변경합니다.
+        });
+
+        if (colliders.Count > 0)
+        {
+            foreach (Collider2D col in colliders)
+            {
+                Vector3 notePosition = col.transform.localPosition;
+                float distance = Mathf.Abs(notePosition.y);
+                Debug.Log(distance);
+
+                if (distance >= charmingStart)
+                {
+                    Debug.Log("Note: CHARMING!");
+                    GameManager.instance.AddCombo();
+                    GameManager.instance.ChangeJudgeText("CHARMING!");
+                }
+                else if (distance >= normalStart)
+                {
+                    Debug.Log("Note: NORMAL!");
+                    GameManager.instance.AddCombo();
+                    GameManager.instance.ChangeJudgeText("NORMAL!");
+                }
+                else
+                {
+                    Debug.Log("Note: MISS!");
+                    GameManager.instance.ResetCombo();
+                    GameManager.instance.ChangeJudgeText("MISS!");
+                }
+
+                SetActiveFalseObjects(col.gameObject);
+            }
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {

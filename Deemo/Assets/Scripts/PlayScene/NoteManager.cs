@@ -1,19 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
-using UnityEngine.Networking.Types;
 using TMPro;
 
 public class NoteManager : MonoBehaviour
 {
     public static NoteManager instance;
-    public GameObject notePrefab; // 노트 프리팹
-    public Transform noteParent; // 노트 부모
-    public int initialPoolSize = 100; // 초기 오브젝트 풀 크기
+    public GameObject notePrefab;
+    public Transform noteParent;
+    public int initialPoolSize = 100;
     private Vector3 originalScale = default;
     private List<GameObject> notePool = new List<GameObject>();
 
-    public LayerMask noteLayerMask; // Note의 레이어 마스크
+    public LayerMask noteLayerMask;
+    public string stringPos;
+
+    // 새로 추가한 변수
+    private float originalGravityScale = 0f;
 
     private void Awake()
     {
@@ -25,12 +28,14 @@ public class NoteManager : MonoBehaviour
         for (int i = 0; i < initialPoolSize; i++)
         {
             GameObject note = Instantiate(notePrefab);
-            note.transform.SetParent(noteParent); // 노트를 noteParent의 자식으로 설정
+            note.transform.SetParent(noteParent);
             note.SetActive(false);
             notePool.Add(note);
         }
         originalScale = notePool[0].transform.localScale;
+        //originalGravityScale = notePool[0].GetComponent<Rigidbody2D>().gravityScale; // 리지드바디의 그래비티 스케일 저장
     }
+
 
     public IEnumerator SpawnNote(int id, float time, Vector3 spawnPosition, float size)
     {
@@ -43,11 +48,34 @@ public class NoteManager : MonoBehaviour
             note.SetActive(true);
 
             Note noteComponent = note.GetComponent<Note>();
-            noteComponent.noteId = id; // 노트 오브젝트에 ID 값을 할당
+            noteComponent.noteId = id;
+            noteComponent.time = time;
+
+            noteComponent.stringPos = GetStringPos(spawnPosition);
+
+            Rigidbody2D noteRigidbody = note.GetComponent<Rigidbody2D>();
+            noteRigidbody.gravityScale = 0f;
+
+            // 이 부분에서 stringPos 값을 노트 컴포넌트에 설정
+            //noteComponent.stringPos = stringPos;
+
             Physics.SyncTransforms();
         }
     }
 
+    private string GetStringPos(Vector3 spawnPosition)
+    {
+        Debug.Log("aaa: " + spawnPosition.x);
+        if (spawnPosition.x <= 0f)
+        {
+            stringPos = "left";
+        }
+        else if (spawnPosition.x >= 0f)
+        {
+            stringPos = "right";
+        }
+        return stringPos;
+    }
 
     private GameObject GetPooledNote()
     {
@@ -59,6 +87,19 @@ public class NoteManager : MonoBehaviour
             }
         }
         return null;
+    }
+
+    public string CalculateStringPosition(float adjustedX, float leftBoundary, float rightBoundary)
+    {
+        if (adjustedX < leftBoundary)
+        {
+            return "left";
+        }
+        else if (adjustedX > rightBoundary)
+        {
+            return "right";
+        }
+        return "";
     }
 
     public IEnumerator SpawnNoteWithDelay(float time, Vector3 spawnPosition, float size)

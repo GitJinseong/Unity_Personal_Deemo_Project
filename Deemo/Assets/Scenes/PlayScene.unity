@@ -193,6 +193,7 @@ MonoBehaviour:
   obj_JudgeCollider: {fileID: 1207120615}
   script_JudgeCollider: {fileID: 0}
   rectTransform_JudgeCollider: {fileID: 0}
+  collider_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &262783631
 MonoBehaviour:
@@ -377,10 +378,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   judgeText: {fileID: 791161795}
-  judgeAreaBtn_1: {fileID: 0}
-  judgeAreaBtn_2: {fileID: 0}
-  judgeAreaBtn_3: {fileID: 0}
-  judgeAreaBtn_4: {fileID: 0}
   activatedJudgeColliderCount: 0
 --- !u!1 &346641266
 GameObject:
@@ -1064,6 +1061,7 @@ MonoBehaviour:
   obj_JudgeCollider: {fileID: 1493545681}
   script_JudgeCollider: {fileID: 0}
   rectTransform_JudgeCollider: {fileID: 0}
+  collider_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &793558045
 MonoBehaviour:
@@ -1317,6 +1315,7 @@ MonoBehaviour:
   obj_JudgeCollider: {fileID: 2068736661}
   script_JudgeCollider: {fileID: 0}
   rectTransform_JudgeCollider: {fileID: 0}
+  collider_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &824753557
 MonoBehaviour:
@@ -1549,6 +1548,7 @@ MonoBehaviour:
   obj_JudgeCollider: {fileID: 1725242506}
   script_JudgeCollider: {fileID: 0}
   rectTransform_JudgeCollider: {fileID: 0}
+  collider_JudgeCollider: {fileID: 0}
   isActive: 0
 --- !u!114 &1131553322
 MonoBehaviour:
@@ -1695,7 +1695,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -180}
-  m_SizeDelta: {x: 250, y: 360}
+  m_SizeDelta: {x: 125, y: 360}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1207120617
 MonoBehaviour:
@@ -1750,8 +1750,6 @@ MonoBehaviour:
   obj_Parent: {fileID: 262783627}
   script_Parent: {fileID: 0}
   script_collision: {fileID: 0}
-  normalStart: 177.45
-  charmingStart: 176.73
   isProcessed: 0
 --- !u!61 &1207120620
 BoxCollider2D:
@@ -1777,7 +1775,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 250, y: 360}
+  m_Size: {x: 125, y: 360}
   m_EdgeRadius: 0
 --- !u!1 &1223476545
 GameObject:
@@ -1967,8 +1965,6 @@ MonoBehaviour:
   obj_Parent: {fileID: 793558041}
   script_Parent: {fileID: 0}
   script_collision: {fileID: 0}
-  normalStart: 177.45
-  charmingStart: 176.73
   isProcessed: 0
 --- !u!61 &1493545686
 BoxCollider2D:
@@ -2415,8 +2411,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -180}
-  m_SizeDelta: {x: 250, y: 360}
+  m_AnchoredPosition: {x: 0, y: -240}
+  m_SizeDelta: {x: 125, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1725242508
 CanvasRenderer:
@@ -2441,8 +2437,6 @@ MonoBehaviour:
   obj_Parent: {fileID: 1131553319}
   script_Parent: {fileID: 0}
   script_collision: {fileID: 0}
-  normalStart: 177.45
-  charmingStart: 176.73
   isProcessed: 0
 --- !u!61 &1725242510
 BoxCollider2D:
@@ -2468,7 +2462,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 250, y: 360}
+  m_Size: {x: 125, y: 20}
   m_EdgeRadius: 0
 --- !u!114 &1725242511
 MonoBehaviour:
@@ -2624,8 +2618,6 @@ MonoBehaviour:
   obj_Parent: {fileID: 824753553}
   script_Parent: {fileID: 0}
   script_collision: {fileID: 0}
-  normalStart: 177.45
-  charmingStart: 176.73
   isProcessed: 0
 --- !u!61 &2068736666
 BoxCollider2D:

@@ -24,6 +24,13 @@ public class ScaleUpToMatchYPosition : MonoBehaviour
 
     private void Update()
     {
+        float screenHeight = Screen.height; // 사용자의 화면 세로 크기
+        float scaleFactor = screenHeight / 720f; // 720p(1280x720) 화면 기준으로 스케일 조정
+
+        // 화면 크기에 따라 이동 속도와 스케일 증가 속도 조정
+        float adjustedMoveSpeed = moveSpeed * scaleFactor;
+        float adjustedScaleIncreaseRate = scaleIncreaseRate * scaleFactor;
+
         elapsedTime += Time.deltaTime;
 
         if (!scaleReverted && elapsedTime >= 0.1f)
@@ -34,7 +41,7 @@ public class ScaleUpToMatchYPosition : MonoBehaviour
 
         if (transform.position.y < targetYPosition)
         {
-            float newYPosition = Mathf.Lerp(transform.position.y, targetYPosition, moveSpeed * Time.deltaTime);
+            float newYPosition = Mathf.Lerp(transform.position.y, targetYPosition, adjustedMoveSpeed * Time.deltaTime);
             transform.position = new Vector3(transform.position.x, newYPosition, transform.position.z);
         }
         else
@@ -44,8 +51,8 @@ public class ScaleUpToMatchYPosition : MonoBehaviour
 
         if (shouldGrow && transform.localScale.magnitude < targetScale.magnitude)
         {
-            float scaleFactor = 1 + (scaleIncreaseRate * Time.deltaTime);
-            transform.localScale *= scaleFactor;
+            float scaleIncrement = 1 + (adjustedScaleIncreaseRate * Time.deltaTime);
+            transform.localScale *= scaleIncrement;
         }
     }
 }
