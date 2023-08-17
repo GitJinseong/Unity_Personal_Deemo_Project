@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using TMPro;
 using Unity.Burst.CompilerServices;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.GraphicsBuffer;
 
 public class Park_MoveContent : MonoBehaviour
 {
@@ -15,6 +17,7 @@ public class Park_MoveContent : MonoBehaviour
 
     private float pastPosition;
     private float nowPosition;
+    private float targetY;
 
     public bool isStop = false;
     private bool isCoroutine = false;
@@ -48,9 +51,12 @@ public class Park_MoveContent : MonoBehaviour
         }
     }
 
+
     private IEnumerator Check()
     {
         isCoroutine = true;
+
+        targetY = titleCount * 360.0f;
 
         pastPosition = (rectTransform.anchoredPosition.y + titleCount * 360.0f) - 720.0f;
 
@@ -60,7 +66,7 @@ public class Park_MoveContent : MonoBehaviour
 
         Debug.Log(Mathf.Abs(pastPosition - nowPosition));
 
-        if (Mathf.Abs(pastPosition - nowPosition) <= 10.0f)
+        if (Mathf.Abs(pastPosition - nowPosition) <= 100.0f)
         {
             isScrolling = false;
 
@@ -78,7 +84,7 @@ public class Park_MoveContent : MonoBehaviour
                         float time = Mathf.Clamp01(timeElapsed / 5.0f);
 
                         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x,
-                Mathf.Lerp(rectTransform.anchoredPosition.y, (i * 720.0f) - (titleCount * 360.0f - 720.0f), time));
+                            Mathf.Lerp(rectTransform.anchoredPosition.y, (i * 720.0f) - (titleCount * 360.0f - 720.0f), time));
 
                         yield return null;
                     }

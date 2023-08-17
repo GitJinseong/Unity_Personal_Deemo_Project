@@ -15,9 +15,6 @@ public class Choi_NoteManager : MonoBehaviour
     public LayerMask noteLayerMask;
     public string stringPos;
 
-    // 새로 추가한 변수
-    private float originalGravityScale = 0f;
-
     private void Awake()
     {
         instance = this;
@@ -43,6 +40,11 @@ public class Choi_NoteManager : MonoBehaviour
         if (note != null)
         {
             note.transform.position = spawnPosition;
+            if (size < 1.0f) { size = 1.0f;}
+            if (size > 1.0f)
+            {
+                size = (((size - 1.0f) * 0.4f) + 1.0f);
+            }
             note.transform.localScale = originalScale * size;
             note.SetActive(true);
 

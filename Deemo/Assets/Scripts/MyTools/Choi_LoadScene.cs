@@ -9,6 +9,7 @@ public class Choi_LoadScene : MonoBehaviour
         StartCoroutine(DelayForLoadScene(t, name));
     }
 
+    // 비동기 로딩 씬(미리 로딩 완료하고 원하는 타이밍에 씬 호출)
     public void asyncLoadScene(string name)
     {
         // 비동기 씬 로딩 시작

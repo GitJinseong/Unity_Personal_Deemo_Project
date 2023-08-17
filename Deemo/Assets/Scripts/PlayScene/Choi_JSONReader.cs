@@ -154,8 +154,24 @@ public class Choi_JSONReader : MonoBehaviour
         // 큰 사이즈를 선택
         float maxSize = Mathf.Max(leftNote.size, rightNote.size);
 
-        Vector3 leftStartPos = new Vector3(-6f + maxSize, DEFAULT_POS_Y);
-        Vector3 rightStartPos = new Vector3(6f - maxSize, DEFAULT_POS_Y);
+        // 왼쪽과 오른쪽 노트의 시작 위치 계산
+        float leftStartX = -6f + maxSize;
+        float rightStartX = 6f - maxSize;
+
+        // 왼쪽 노트의 시작 위치가 범위를 벗어나지 않도록 조정
+        if (leftStartX < -3.5f + maxSize)
+        {
+            leftStartX = -3.5f + maxSize;
+        }
+
+        // 오른쪽 노트의 시작 위치가 범위를 벗어나지 않도록 조정
+        if (rightStartX > 3.5f - maxSize)
+        {
+            rightStartX = 3.5f - maxSize;
+        }
+
+        Vector3 leftStartPos = new Vector3(leftStartX, DEFAULT_POS_Y);
+        Vector3 rightStartPos = new Vector3(rightStartX, DEFAULT_POS_Y);
 
         StartCoroutine(Choi_NoteManager.instance.SpawnNote(id, leftNote._time, leftStartPos, maxSize));
         StartCoroutine(Choi_NoteManager.instance.SpawnNote(id, rightNote._time, rightStartPos, maxSize));
@@ -163,7 +179,6 @@ public class Choi_JSONReader : MonoBehaviour
         Debug.Log($"Note ID: {leftNote.noteId} - Creating at Left Start with Size {maxSize}");
         Debug.Log($"Note ID: {rightNote.noteId} - Creating at Right Start with Size {maxSize}");
     }
-
 
     Vector3 AdjustNotePosition(Vector3 originalPosition, int pitch, float noteSize)
     {
@@ -173,41 +188,42 @@ public class Choi_JSONReader : MonoBehaviour
 
         if (pitchPercentage >= 0.5f)
         {
-            float xPos = Mathf.Lerp(1.2f, 7.6f, (pitchPercentage - 0.5f) * 2);
+            float xPos = Mathf.Lerp(1.5f, 3.5f, (pitchPercentage - 0.5f) * 2);
             adjustedX = xPos;
         }
         else
         {
-            float xPos = Mathf.Lerp(-7.6f, -1.2f, pitchPercentage * 2);
+            float xPos = Mathf.Lerp(-3.5f, -1.5f, pitchPercentage * 2);
             adjustedX = xPos;
 
             if (pitch == 0)
             {
-                adjustedX = -7.6f + noteSize;
+                adjustedX = -3.5f + noteSize;
             }
             else if (pitch == 1)
             {
-                adjustedX = -1.2f + noteSize;
+                adjustedX = -1.5f + noteSize;
             }
         }
 
-        float leftBoundary = -7.6f + noteSize;
+        float leftBoundary = -3.5f + noteSize;
         if (adjustedX < leftBoundary)
         {
             adjustedX = leftBoundary;
         }
 
-        float rightBoundary = 7.6f - noteSize;
+        float rightBoundary = 3.5f - noteSize;
         if (adjustedX > rightBoundary)
         {
             adjustedX = rightBoundary;
         }
 
         Vector3 adjustedPosition = new Vector3(adjustedX, originalPosition.y);
-        Choi_NoteManager.instance.DeactivateOverlappingNotes(adjustedPosition, 0.1f); // 수정된 부분
+        Choi_NoteManager.instance.DeactivateOverlappingNotes(adjustedPosition, 0.1f);
 
         return adjustedPosition;
     }
+
 
     NoteData GetFarthestNoteFromList(List<NoteData> noteList)
     {

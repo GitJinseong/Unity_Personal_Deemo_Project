@@ -428,7 +428,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1110634077
-  m_SortingLayer: 3
+  m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -640,7 +640,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: b2378f119fa726e45be7e8fb6fec054e, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 965f166067f6c60428d3abb678061c35, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -753,7 +753,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf7426bd25962c4bbcd457584d08542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayInSeconds: 1
+  delayInSeconds: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2074,7 +2074,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ca27e823e08c43b00af1a7cf97d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jsonFileName: imp.easy
+  jsonFileName: purewhite.hard
 --- !u!4 &1223476547
 Transform:
   m_ObjectHideFlags: 0
@@ -2451,7 +2451,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1300, y: 13, z: 100}
-  m_Center: {x: 0, y: 240, z: -600}
+  m_Center: {x: 0, y: 240, z: -647}
 --- !u!1 &1646966958
 GameObject:
   m_ObjectHideFlags: 0

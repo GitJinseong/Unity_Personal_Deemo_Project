@@ -7,7 +7,7 @@ public class Choi_NoteMovement : MonoBehaviour
     public Vector3 endCoords = new Vector3(0f, -2f, -6.2f);
     public float moveDuration = 3.0f;
 
-    private Vector3 startCoords;
+    private Vector3 startCoords = new Vector3(0f, 20f, 30f); // 노트 시작 위치(x는 다른 곳에서 값설정)
     private float startTime;
 
     private bool isMoving = true; // 이동 중인지 여부를 판단하는 변수
@@ -52,6 +52,8 @@ public class Choi_NoteMovement : MonoBehaviour
     public void ResetAndMove()
     {
         startCoords = transform.position; // 초기 위치로 이동하기 전에 startCoords 값을 현재 위치로 업데이트
+        startCoords.y = 20f;
+        startCoords.z = 30f;
         transform.position = startCoords; // 초기 위치로 이동
         endCoords.x = startCoords.x;
         ResumeMoving(); // 이동 재개

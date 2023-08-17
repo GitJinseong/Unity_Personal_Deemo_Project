@@ -6,7 +6,8 @@ public class Choi_CollisionDetection : MonoBehaviour
     private Rigidbody rigid;
     private Animator animator;
     private Choi_Note script_Note;
-    private float hideTime = 0.5f;
+    private Choi_NoteMovement script_NoteMovement;
+    private float hideTime = 0.1f;
     public bool isHide = false;
 
     private void Awake()
@@ -14,6 +15,7 @@ public class Choi_CollisionDetection : MonoBehaviour
         rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         script_Note = GetComponent<Choi_Note>();
+        script_NoteMovement = GetComponent<Choi_NoteMovement>();
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -43,13 +45,13 @@ public class Choi_CollisionDetection : MonoBehaviour
         yield return new WaitForSeconds(hideTime);
         StopObjectMovement();
         yield return new WaitForSeconds(hideTime);
-        gameObject.SetActive(false);
         isHide = false;
+        script_NoteMovement.enabled = true;
+        gameObject.SetActive(false);
     }
 
     private void StopObjectMovement()
     {
-        rigid.velocity = Vector2.zero;
-        rigid.Sleep();
+        script_NoteMovement.enabled = false;
     }
 }
