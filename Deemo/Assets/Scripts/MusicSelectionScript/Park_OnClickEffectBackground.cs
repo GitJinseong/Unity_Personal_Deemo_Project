@@ -6,6 +6,8 @@ using UnityEngine.UIElements;
 
 public class Park_OnClickEffectBackground : MonoBehaviour
 {
+    public Park_MoveContent moveContent;
+
     // 세팅 창이 활성화 되게 하기 위한 변수
     public GameObject settingUi;
 
@@ -97,6 +99,8 @@ public class Park_OnClickEffectBackground : MonoBehaviour
 
     private void OnMouseDown()
     {
+
+        moveContent.GetComponent<Park_MoveContent>().isStop = true;
         StartMousePosition = Input.mousePosition;
 
         isPoint = true;
@@ -106,6 +110,8 @@ public class Park_OnClickEffectBackground : MonoBehaviour
 
     private void OnMouseUp()
     {
+        moveContent.GetComponent<Park_MoveContent>().isScrolling = true;
+
         if (isPoint == true)
         {
             if (isCheck == false)

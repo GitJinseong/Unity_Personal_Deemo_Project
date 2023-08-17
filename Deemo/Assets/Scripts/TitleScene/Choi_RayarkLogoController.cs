@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RayarkLogoController : MonoBehaviour
+public class Choi_RayarkLogoController : MonoBehaviour
 {
     public float fadeInDuration = 3f; // 페이드 인이 완료되는 시간
     public float fadeOutDelay = 4f; // 페이드 아웃이 시작되는 딜레이 시간

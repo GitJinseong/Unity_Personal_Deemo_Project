@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class TransparencyController
+public class Choi_TransparencyController
 {
     public static IEnumerator BeginLateFadeOutImage(Image image, float lateDuration, float fadeDuration)
     {

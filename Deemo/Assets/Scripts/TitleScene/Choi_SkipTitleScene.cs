@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
-public class SkipTitleScene: MonoBehaviour
+public class Choi_SkipTitleScene : MonoBehaviour
 {
     public GameObject obj_Bg;
     public GameObject obj_Bg_Light;
@@ -15,7 +15,7 @@ public class SkipTitleScene: MonoBehaviour
     private RectTransform rect_Obj_Bg;
     private RectTransform rect_Obj_Bg_Light;
 
-    public Vector2 targetPosition = Vector2.zero; // 목표 지점
+    public Vector2 targetPosition = Vector2.zero; // 목표 지점(y:550)
 
     // Start is called before the first frame update
     void Start()

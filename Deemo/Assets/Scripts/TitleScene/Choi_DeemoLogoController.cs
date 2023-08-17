@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DeemoLogoController : MonoBehaviour
+public class Choi_DeemoLogoController : MonoBehaviour
 {
     public float fadeInDuration = 5f; // 페이드 인이 완료되는 시간
     private Image image;

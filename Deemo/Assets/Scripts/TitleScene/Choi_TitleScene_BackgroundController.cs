@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleScene_BackgroundController : MonoBehaviour
+public class Choi_TitleScene_BackgroundController : MonoBehaviour
 {
-    public Vector2 initialPosition = Vector2.zero;      // 시작 지점
-    public Vector2 targetPosition = Vector2.zero;       // 목표 지점
-    public float duration = 1.0f;                       // 걸리는 시간
+    public Vector2 initialPosition = Vector2.zero;      // 시작 지점(y: -700)
+    public Vector2 targetPosition = Vector2.zero;       // 목표 지점(y: 550)
+    public float duration = 10.0f;                       // 걸리는 시간
 
     private RectTransform rectTransform;
 

@@ -1,7 +1,7 @@
 using UnityEditor;
 using UnityEngine;
 
-public class TitleScene_ExampleUsage : MonoBehaviour
+public class Choi_TitleScene_ExampleUsage : MonoBehaviour
 {
     private Choi_DelayManager delayManager = default;
     private void Start()
@@ -15,16 +15,16 @@ public class TitleScene_ExampleUsage : MonoBehaviour
     private void RegisterDelayedActions()
     {
         // 기본 로고 실행
-        delayManager.AddDelayedAction(2.0f, () => TitleSceneTasks.instance.StartRayarkLogo());
+        delayManager.AddDelayedAction(2.0f, () => Choi_TitleSceneTasks.instance.StartRayarkLogo());
 
         // 배경 실행
-        delayManager.AddDelayedAction(4.0f, () => TitleSceneTasks.instance.StartBackgrounds());
+        delayManager.AddDelayedAction(4.0f, () => Choi_TitleSceneTasks.instance.StartBackgrounds());
 
         // 디모 로고 실행
-        delayManager.AddDelayedAction(8.0f, () => TitleSceneTasks.instance.StartDeemoLogo());
+        delayManager.AddDelayedAction(8.0f, () => Choi_TitleSceneTasks.instance.StartDeemoLogo());
 
         // 터치 투 스타트 문구 실행
-        delayManager.AddDelayedAction(3.0f, () => TitleSceneTasks.instance.StartTouchToStart());
+        delayManager.AddDelayedAction(3.0f, () => Choi_TitleSceneTasks.instance.StartTouchToStart());
 
     }
 }

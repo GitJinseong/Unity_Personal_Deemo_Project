@@ -2,9 +2,9 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TouchToStartController : MonoBehaviour
+public class Choi_TouchToStartController : MonoBehaviour
 {
-    public float delay = 0.5f; // 딜레이
+    public float delay = 0.1f; // 딜레이
     public int blinkInterval = 10;  // 투명도 조정 간격
     public float stopTime = 2f; // 투명도가 1이 될 때 정지할 시간
 

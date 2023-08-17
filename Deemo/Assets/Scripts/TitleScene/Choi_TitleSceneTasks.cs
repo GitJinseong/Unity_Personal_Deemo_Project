@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TitleSceneTasks : MonoBehaviour
+public class Choi_TitleSceneTasks : MonoBehaviour
 {
-    public static TitleSceneTasks instance = default;
+    public static Choi_TitleSceneTasks instance = default;
 
     public GameObject obj_RayarkLogo = default;
     public GameObject obj_Background = default;

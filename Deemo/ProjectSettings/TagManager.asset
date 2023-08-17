@@ -4,14 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - TopLine
+  - JudgeCollider
   - Note
   - JudgeLine
-  - TopLine
-  - Miss
-  - Normal
-  - Charming
-  - JudgeCollider
-  - RayCastNote
   layers:
   - Default
   - TransparentFX
@@ -19,8 +15,8 @@ TagManager:
   - 
   - Water
   - UI
-  - Btn
-  - Note
+  - 
+  - 
   - 
   - 
   - 
@@ -50,11 +46,11 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 2857287381
+    uniqueID: 2120380937
     locked: 0
   - name: Object
-    uniqueID: 2938560015
+    uniqueID: 951516317
     locked: 0
   - name: JudgeBtn
-    uniqueID: 3184333219
+    uniqueID: 1271097017
     locked: 0

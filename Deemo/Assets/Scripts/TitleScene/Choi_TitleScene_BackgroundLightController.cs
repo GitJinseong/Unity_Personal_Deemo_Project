@@ -2,7 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class TitleScene_BackgroundLightController : MonoBehaviour
+public class Choi_TitleScene_BackgroundLightController : MonoBehaviour
 {
     public float delay = 0.1f; // 딜레이
     public int blinkInterval = 5; // 투명도 조정 간격
