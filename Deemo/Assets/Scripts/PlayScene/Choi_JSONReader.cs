@@ -116,7 +116,8 @@ public class Choi_JSONReader : MonoBehaviour
             }
 
 
-            var sameTimeNotes = notes.Where(n => Mathf.Abs(n._time - _time) < 0.01f).ToList();
+            // 현재 노트와 다음 노트의 간격이 0.2초내 리면 생성하지 않기
+            var sameTimeNotes = notes.Where(n => Mathf.Abs(n._time - _time) < 0.2f).ToList();
 
             if (sameTimeNotes.Count >= 2)
             {

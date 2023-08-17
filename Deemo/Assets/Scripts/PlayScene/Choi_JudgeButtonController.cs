@@ -11,6 +11,8 @@ public class Choi_JudgeButtonController : MonoBehaviour
     public string stringPos;
     private float gameTime;
     private float judgeTime;
+    private float charmingTime = 2.9f;
+    private float normalTime = 2.8f;
 
     private void Start()
     {
@@ -46,14 +48,14 @@ public class Choi_JudgeButtonController : MonoBehaviour
 
                 collisionDetection.Hide(); // CollisionDetection 스크립트의 Hide 함수 호출
 
-                if (judgeTime >= 0.8f)
+                if (judgeTime >= charmingTime)
                 {
                     Debug.Log("Charming");
                     Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     Choi_GameManager.instance.AddCombo();
                     Choi_GameManager.instance.ChangeJudgeText("CHARMING!");
                 }
-                else if (judgeTime >= 0.7f)
+                else if (judgeTime >= normalTime)
                 {
                     Debug.Log("Normal");
                     Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
