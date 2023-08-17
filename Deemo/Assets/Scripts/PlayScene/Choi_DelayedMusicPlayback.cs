@@ -20,6 +20,14 @@ public class Choi_DelayedMusicPlayback : MonoBehaviour
 
             if (elapsedTime >= delayInSeconds)
             {
+                for (int i = 0; i < Park_GameManager.instance.musicInformation["Title"].Count; i++)
+                {
+                    if (Park_GameManager.instance.musicInformation["Title"][i] == Park_GameManager.instance.title)
+                    {
+                        musicSource.clip = Resources.Load<AudioClip>(Park_GameManager.instance.path + "MusicFileName/" + Park_GameManager.instance.musicInformation["MusicFileName"][i]);
+                    }
+                }
+
                 StartMusic();
             }
         }

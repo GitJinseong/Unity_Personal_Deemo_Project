@@ -6,7 +6,8 @@ using TMPro;
 
 public class Choi_JSONReader : MonoBehaviour
 {
-    public string jsonFileName = "leviathan.easy";
+    TextAsset jsonAsset;
+    //public string jsonFileName = "leviathan.easy";
     public const float DEFAULT_POS_Y = 13f;
 
     [System.Serializable]
@@ -40,19 +41,36 @@ public class Choi_JSONReader : MonoBehaviour
 
     void Start()
     {
-        string jsonText = "";
-        string jsonFilePath = $"MusicJSONs/{jsonFileName}";
+        
 
-        TextAsset jsonAsset = Resources.Load<TextAsset>(jsonFilePath);
+        for (int i = 0; i < Park_GameManager.instance.musicInformation["Title"].Count; i++)
+        {
+            if (Park_GameManager.instance.musicInformation["Title"][i] == Park_GameManager.instance.title)
+            {
+                jsonAsset = Resources.Load<TextAsset>(
+                    Park_GameManager.instance.path +
+                    "Json/" +
+                    Park_GameManager.instance.musicInformation["Json" + Park_GameManager.instance.difficulty][i]);
+
+                break;
+            }
+        }
+
+        string jsonText = "";
+        //string jsonFilePath = $"MusicJSONs/{jsonFileName}";
+
+        //TextAsset jsonAsset = Resources.Load<TextAsset>(jsonFilePath);
 
         if (jsonAsset != null)
         {
+            Debug.Log(jsonText);
+
             jsonText = jsonAsset.text;
             // 이후 처리
         }
         else
         {
-            Debug.LogError($"JSON file not found at path: {jsonFilePath}");
+            Debug.LogError($"JSON file not found at path");
         }
 
         JSONData jsonData = JsonUtility.FromJson<JSONData>(jsonText);

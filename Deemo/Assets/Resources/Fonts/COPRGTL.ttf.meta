@@ -1,22 +1,2 @@
 fileFormatVersion: 2
 guid: 28826edd602ece8448e5f01f4cf8babc
-TrueTypeFontImporter:
-  externalObjects: {}
-  serializedVersion: 4
-  fontSize: 16
-  forceTextureCase: -2
-  characterSpacing: 0
-  characterPadding: 1
-  includeFontData: 1
-  fontNames:
-  - Copperplate Gothic Light
-  fallbackFontReferences:
-  - {fileID: 12800000, guid: a76f5c7788cf5fe4686de92ffedbdfb3, type: 3}
-  customCharacters: 
-  fontRenderingMode: 0
-  ascentCalculationMode: 1
-  useLegacyBoundsCalculation: 0
-  shouldRoundAdvanceValue: 1
-  userData: 
-  assetBundleName: 
-  assetBundleVariant: 

@@ -36,7 +36,7 @@ public class Park_SceneChange : MonoBehaviour
     {
         if (isPoint == true)
         {
-            loadScene.Run(0.0f, "ResultScene");
+            loadScene.Run(0.0f, "PlayScene");
         }
 
         isPressed = false;
