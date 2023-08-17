@@ -33,7 +33,6 @@ public class Choi_NoteManager : MonoBehaviour
             notePool.Add(note);
         }
         originalScale = notePool[0].transform.localScale;
-        //originalGravityScale = notePool[0].GetComponent<Rigidbody2D>().gravityScale; // 리지드바디의 그래비티 스케일 저장
     }
 
 
@@ -48,16 +47,18 @@ public class Choi_NoteManager : MonoBehaviour
             note.SetActive(true);
 
             Choi_Note noteComponent = note.GetComponent<Choi_Note>();
+            Choi_NoteMovement noteMovement = note.GetComponent<Choi_NoteMovement>();
             noteComponent.noteId = id;
             noteComponent.time = time;
 
             noteComponent.stringPos = GetStringPos(spawnPosition);
 
-            Rigidbody2D noteRigidbody = note.GetComponent<Rigidbody2D>();
-            noteRigidbody.gravityScale = 0f;
+            Rigidbody noteRigidbody = note.GetComponent<Rigidbody>();
 
             // 이 부분에서 stringPos 값을 노트 컴포넌트에 설정
-            //noteComponent.stringPos = stringPos;
+            noteComponent.stringPos = stringPos;
+
+            noteMovement.ResetAndMove();
 
             Physics.SyncTransforms();
         }

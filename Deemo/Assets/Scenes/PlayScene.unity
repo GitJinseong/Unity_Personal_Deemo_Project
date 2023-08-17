@@ -806,7 +806,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -2434,6 +2434,24 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!1 &1595462108 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4841078786551754339, guid: 2450ca61cd9af6f43a8d3ea116efeef6, type: 3}
+  m_PrefabInstance: {fileID: 4841078787106119915}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &1595462112
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1595462108}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1300, y: 13, z: 100}
+  m_Center: {x: 0, y: 240, z: -600}
 --- !u!1 &1646966958
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,5 +3037,6 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: -20
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4841078786551754343, guid: 2450ca61cd9af6f43a8d3ea116efeef6, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 2450ca61cd9af6f43a8d3ea116efeef6, type: 3}

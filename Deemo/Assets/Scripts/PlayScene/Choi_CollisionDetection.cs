@@ -3,20 +3,20 @@ using UnityEngine;
 
 public class Choi_CollisionDetection : MonoBehaviour
 {
-    private Rigidbody2D rigid2D;
+    private Rigidbody rigid;
     private Animator animator;
     private Choi_Note script_Note;
-    private float hideTime = 1f;
+    private float hideTime = 0.5f;
     public bool isHide = false;
 
     private void Awake()
     {
-        rigid2D = GetComponent<Rigidbody2D>();
+        rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         script_Note = GetComponent<Choi_Note>();
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("JudgeLine") && isHide == false)
         {
@@ -41,18 +41,15 @@ public class Choi_CollisionDetection : MonoBehaviour
     private IEnumerator DelayForHide()
     {
         yield return new WaitForSeconds(hideTime);
-        rigid2D.gravityScale = 0f;
         StopObjectMovement();
         yield return new WaitForSeconds(hideTime);
-        rigid2D.gravityScale = 1f;
         gameObject.SetActive(false);
         isHide = false;
     }
 
     private void StopObjectMovement()
     {
-        rigid2D.velocity = Vector2.zero;
-        rigid2D.angularVelocity = 0f;
-        rigid2D.Sleep();
+        rigid.velocity = Vector2.zero;
+        rigid.Sleep();
     }
 }
