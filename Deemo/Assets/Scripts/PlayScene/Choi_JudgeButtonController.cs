@@ -30,7 +30,7 @@ public class Choi_JudgeButtonController : MonoBehaviour
         {
             Choi_CollisionDetection collisionDetection = note.GetComponent<Choi_CollisionDetection>();
             judgeTime = (Time.time - gameTime) - note.time;
-            if (judgeTime >= 0.4f && note.stringPos == stringPos && note.time < lowestTime && !collisionDetection.isHide)
+            if (judgeTime >= 0.4f && note.time < lowestTime && !collisionDetection.isHide)
             {
                 lowestTime = note.time;
                 noteToDeactivate = note;
@@ -51,20 +51,20 @@ public class Choi_JudgeButtonController : MonoBehaviour
                 if (judgeTime >= charmingTime)
                 {
                     Debug.Log("Charming");
-                    Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
+                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     Choi_GameManager.instance.AddCombo();
                     Choi_GameManager.instance.ChangeJudgeText("CHARMING!");
                 }
                 else if (judgeTime >= normalTime)
                 {
                     Debug.Log("Normal");
-                    Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
+                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     Choi_GameManager.instance.AddCombo();
                     Choi_GameManager.instance.ChangeJudgeText("NORMAL");
                 }
                 else
                 {
-                    Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
+                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
                     Choi_GameManager.instance.ResetCombo();
                     Choi_GameManager.instance.ChangeJudgeText("MISS!");
                 }

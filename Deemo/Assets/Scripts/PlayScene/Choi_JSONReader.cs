@@ -39,6 +39,9 @@ public class Choi_JSONReader : MonoBehaviour
         public List<NoteData> notes;
     }
 
+    // 사용된 노트의 Y 포지션을 저장하는 집합
+    private HashSet<float> usedYPositions = new HashSet<float>();
+
     void Start()
     {
         
@@ -85,6 +88,7 @@ public class Choi_JSONReader : MonoBehaviour
         foreach (NoteData note in notes.OrderBy(n => n._time))
         {
             int noteId = note.noteId;
+            Debug.Log($"아이디는 : {noteId}");
             int noteType = note.type;
             List<SoundData> sounds = note.sounds;
             float pos = note.pos;

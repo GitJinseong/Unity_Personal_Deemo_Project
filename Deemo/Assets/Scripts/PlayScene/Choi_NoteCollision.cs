@@ -5,7 +5,7 @@ public class Choi_NoteCollision : MonoBehaviour
     public delegate void NoteCollisionHandler(GameObject noteObject);
     public static event NoteCollisionHandler OnNoteCollision;
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Note") && other.gameObject != gameObject)
         {

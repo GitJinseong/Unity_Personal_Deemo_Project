@@ -2,8 +2,26 @@ using UnityEngine;
 
 public class Choi_Note : MonoBehaviour
 {
-    public int noteId; // 노트의 고유한 ID 값을 저장하는 변수
-    public float time; // 노트의 타임을 저장하는 변수
-    public string stringPos; // 노트의 좌우를 저장하는 변수
-    // 다른 노트 관련 코드들...
+    public int noteId;
+    public float time;
+    public float startTime;
+    public string stringJudge;
+
+    private void Start()
+    {
+        Initialize();
+    }
+
+    private void Update()
+    {
+        // 매 프레임마다 gameObject의 transform.position.y 값을 월드 좌표로 변환하여 디버그 출력
+        Vector3 worldPosition = transform.TransformPoint(new Vector3(0, 0, transform.position.z));
+        Debug.Log($"World Y Position: {worldPosition.z}");
+    }
+
+    public void Initialize()
+    {
+        startTime = Time.realtimeSinceStartup;
+        // 그 외 초기화 로직...
+    }
 }

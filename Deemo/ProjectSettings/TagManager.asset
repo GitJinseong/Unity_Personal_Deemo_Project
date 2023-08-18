@@ -8,6 +8,9 @@ TagManager:
   - JudgeCollider
   - Note
   - JudgeLine
+  - RayCast
+  - Normal
+  - Charming
   layers:
   - Default
   - TransparentFX
@@ -15,8 +18,8 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
+  - Note
+  - RayCast
   - 
   - 
   - 
@@ -53,4 +56,7 @@ TagManager:
     locked: 0
   - name: JudgeBtn
     uniqueID: 1271097017
+    locked: 0
+  - name: Note
+    uniqueID: 3230430745
     locked: 0

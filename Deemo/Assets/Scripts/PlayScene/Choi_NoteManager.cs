@@ -35,6 +35,7 @@ public class Choi_NoteManager : MonoBehaviour
 
     public IEnumerator SpawnNote(int id, float time, Vector3 spawnPosition, float size)
     {
+        Debug.Log($"ID는 {id}");
         yield return new WaitForSeconds(time);
         GameObject note = GetPooledNote();
         if (note != null)
@@ -50,15 +51,15 @@ public class Choi_NoteManager : MonoBehaviour
 
             Choi_Note noteComponent = note.GetComponent<Choi_Note>();
             Choi_NoteMovement noteMovement = note.GetComponent<Choi_NoteMovement>();
+            SpriteRenderer spriteRenderer = note.GetComponent<SpriteRenderer>();
             noteComponent.noteId = id;
             noteComponent.time = time;
-
-            noteComponent.stringPos = GetStringPos(spawnPosition);
+            noteComponent.stringJudge = "";
+            Color startColor = spriteRenderer.color;
+            Color newColor = new Color(startColor.r, startColor.g, startColor.b, 255f);
+            spriteRenderer.color = newColor;
 
             Rigidbody noteRigidbody = note.GetComponent<Rigidbody>();
-
-            // 이 부분에서 stringPos 값을 노트 컴포넌트에 설정
-            noteComponent.stringPos = stringPos;
 
             noteMovement.ResetAndMove();
 
@@ -66,19 +67,19 @@ public class Choi_NoteManager : MonoBehaviour
         }
     }
 
-    private string GetStringPos(Vector3 spawnPosition)
-    {
-        Debug.Log("aaa: " + spawnPosition.x);
-        if (spawnPosition.x <= 0f)
-        {
-            stringPos = "left";
-        }
-        else if (spawnPosition.x >= 0f)
-        {
-            stringPos = "right";
-        }
-        return stringPos;
-    }
+    //private string GetStringPos(Vector3 spawnPosition)
+    //{
+    //    //Debug.Log("aaa: " + spawnPosition.x);
+    //    if (spawnPosition.x <= 0f)
+    //    {
+    //        stringPos = "left";
+    //    }
+    //    else if (spawnPosition.x >= 0f)
+    //    {
+    //        stringPos = "right";
+    //    }
+    //    return stringPos;
+    //}
 
     private GameObject GetPooledNote()
     {
