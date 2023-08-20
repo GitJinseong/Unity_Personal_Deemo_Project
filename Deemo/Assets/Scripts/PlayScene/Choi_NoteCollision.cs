@@ -11,8 +11,12 @@ public class Choi_NoteCollision : MonoBehaviour
         {
             Choi_Note otherNote = other.GetComponent<Choi_Note>();
             Choi_Note myNote = GetComponent<Choi_Note>();
+            Choi_CollisionDetection otherCollisionDetection = other.GetComponent<Choi_CollisionDetection>();
+            Choi_CollisionDetection myCollisionDetection = GetComponent<Choi_CollisionDetection>();
 
-            if (otherNote != null && myNote != null)
+
+            if ((otherNote != null && myNote != null) &&
+                (otherCollisionDetection.isHide == false && myCollisionDetection.isHide == false))
             {
                 // 비활성화되지 않았으면 노트를 비활성화 처리
                 if (other.gameObject.activeSelf)

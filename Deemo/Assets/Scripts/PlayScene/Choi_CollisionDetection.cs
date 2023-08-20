@@ -10,6 +10,7 @@ public class Choi_CollisionDetection : MonoBehaviour
     private Choi_SpriteAlphaFade spriteAlphaFade;
     private float hideTime = 0.1f;
     public bool isHide = false;
+    public bool isJudgeHide = false;
 
     private void Awake()
     {
@@ -51,28 +52,31 @@ public class Choi_CollisionDetection : MonoBehaviour
             animator.SetBool("Destroy", true);
             script_NoteMovement.enabled = false;
             gameObject.SetActive(true);
-            StartCoroutine(DelayForHide());
+            StartCoroutine(DelayForHide(0.1f));
         }
     }
 
     public void HideForMissWithJudgeLine()
     {
-        if (isHide == false)
+        if (isHide == false && isJudgeHide == false)
         {
-            isHide = true;
+            isJudgeHide = true;
             //animator.SetBool("Destroy", true);
             gameObject.SetActive(true);
-            StartCoroutine(DelayForHide());
+            script_NoteMovement.enabled = false;
+            StartCoroutine(DelayForHide(0.3f));
             spriteAlphaFade.StartFadeOut();
         }
     }
 
-    private IEnumerator DelayForHide()
+    private IEnumerator DelayForHide(float t)
     {
         yield return new WaitForSeconds(hideTime);
-        StartCoroutine(StopObjectMovement(0.1f));
+        StartCoroutine(StopObjectMovement(t));
         yield return new WaitForSeconds(hideTime);
         script_NoteMovement.enabled = true;
+        isHide = false;
+        isJudgeHide = false;
         gameObject.SetActive(false);
     }
 
@@ -80,6 +84,5 @@ public class Choi_CollisionDetection : MonoBehaviour
     {
         yield return new WaitForSeconds(t);
         script_NoteMovement.enabled = false;
-        isHide = false;
     }
 }
