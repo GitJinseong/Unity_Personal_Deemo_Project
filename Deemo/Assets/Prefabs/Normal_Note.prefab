@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 3074841306303340994}
   - component: {fileID: -2395249521209625025}
   - component: {fileID: 4360806890108561386}
-  - component: {fileID: 718802041960825250}
   - component: {fileID: -6188738854110587270}
   - component: {fileID: 4589193885956628169}
   - component: {fileID: 5882425934867966613}
@@ -38,7 +37,7 @@ RectTransform:
   m_GameObject: {fileID: 1321263638598022035}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 20}
-  m_LocalScale: {x: 2.25, y: 2.25, z: 1}
+  m_LocalScale: {x: 2, y: 2, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -173,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isHide: 0
+  isJudgeHide: 0
 --- !u!114 &4360806890108561386
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,18 +189,6 @@ MonoBehaviour:
   time: 0
   startTime: 0
   stringJudge: 
---- !u!114 &718802041960825250
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1321263638598022035}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 17b73dd44f9f66243b3a2d9d2c12c5cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6188738854110587270
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,7 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   endCoords: {x: 0, y: -2, z: -6.2}
-  moveDuration: 3
+  moveDuration: 4
 --- !u!54 &4589193885956628169
 Rigidbody:
   m_ObjectHideFlags: 0

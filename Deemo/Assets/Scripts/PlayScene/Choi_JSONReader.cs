@@ -17,6 +17,22 @@ public class Choi_JSONReader : MonoBehaviour
         public float d;
         public int p;
         public int v;
+
+        // Get the minimum and maximum pitch values from a list of SoundData
+        public static void GetMinMaxPitch(List<SoundData> sounds, out int minPitch, out int maxPitch)
+        {
+            minPitch = int.MaxValue;
+            maxPitch = int.MinValue;
+
+            foreach (var sound in sounds)
+            {
+                if (sound.p < minPitch)
+                    minPitch = sound.p;
+
+                if (sound.p > maxPitch)
+                    maxPitch = sound.p;
+            }
+        }
     }
 
     [System.Serializable]
@@ -39,13 +55,13 @@ public class Choi_JSONReader : MonoBehaviour
         public List<NoteData> notes;
     }
 
-    // 사용된 노트의 Y 포지션을 저장하는 집합
-    private HashSet<float> usedYPositions = new HashSet<float>();
+    public float difficulty_time = 0.4f; // 0.4f는 easy
+    private float previous_PosX;
+    private int samePosXCount;
+    private int noteLine;
 
     void Start()
     {
-        
-
         for (int i = 0; i < Park_GameManager.instance.musicInformation["Title"].Count; i++)
         {
             if (Park_GameManager.instance.musicInformation["Title"][i] == Park_GameManager.instance.title)
@@ -85,9 +101,27 @@ public class Choi_JSONReader : MonoBehaviour
 
         int skippedNoteCount = 0;
 
+        // Dictionary to keep track of spawned notes based on their times
+        Dictionary<float, int> spawnedNotesByTime = new Dictionary<float, int>();
+
         foreach (NoteData note in notes.OrderBy(n => n._time))
         {
+            float noteTime = note._time;
+            float notePosX = note.pos;
+
+            // Check if a note has already been spawned at the same time or within 0.2 seconds
+            if (spawnedNotesByTime.ContainsKey(noteTime) ||
+            spawnedNotesByTime.Any(pair => Mathf.Abs(noteTime - pair.Key) < difficulty_time && Mathf.Abs(notePosX - pair.Key) >= 0.01f))
+            {
+                Debug.Log($"Note at time {noteTime} is being skipped due to overlapping.");
+                skippedNoteCount++;
+                continue;
+            }
+
+            // If the note is not overlapping, add its time and posX to the dictionary
             int noteId = note.noteId;
+            spawnedNotesByTime[noteTime] = noteId;
+
             Debug.Log($"아이디는 : {noteId}");
             int noteType = note.type;
             List<SoundData> sounds = note.sounds;
@@ -99,51 +133,11 @@ public class Choi_JSONReader : MonoBehaviour
             Debug.Log($"Time: {_time}");
             // 중앙을 기준으로 노트 생성
             Vector3 notePos = new Vector3(pos, DEFAULT_POS_Y);
+            float pitchPercentage = CalculatePitchPercentage(sounds);
+            Vector3 adjustedPosition = CalculateAdjustedPosition(pitchPercentage);
 
-            if (sounds.Count > 0)
-            {
-                pitch = sounds[0].p;
-                float pitchPercentage = (float)pitch / 127f;
-                float xPos = Mathf.Lerp(-6f, 6f, pitchPercentage);
-                notePos = new Vector3(xPos, DEFAULT_POS_Y);
-            }
-            else
-            {
-                if (pos <= -6f)
-                {
-                    notePos = new Vector3(-6f, DEFAULT_POS_Y);
-                }
-                else if (pos >= 6f)
-                {
-                    notePos = new Vector3(6f, DEFAULT_POS_Y);
-                }
-            }
-
-
-            // 현재 노트와 다음 노트의 간격이 0.2초내 리면 생성하지 않기
-            var sameTimeNotes = notes.Where(n => Mathf.Abs(n._time - _time) < 0.2f).ToList();
-
-            if (sameTimeNotes.Count >= 2)
-            {
-                bool shouldSkipNote = ShouldSkipNoteCreation(note, sameTimeNotes);
-
-                if (!shouldSkipNote)
-                {
-                    CreateNotesAtStarts(sameTimeNotes, noteId);
-                }
-                else
-                {
-                    Debug.Log($"Note ID: {noteId} - Skipping creation");
-                }
-            }
-            else
-            {
-                Vector3 adjustedPos = AdjustNotePosition(notePos, pitch, size);
-                StartCoroutine(Choi_NoteManager.instance.SpawnNote(noteId, _time, adjustedPos, size));
-                Debug.Log($"Note ID: {noteId} - Creating");
-            }
-
-
+            // 사이즈를 1.0f로 고정
+            StartCoroutine(Choi_NoteManager.instance.SpawnNote(noteId, _time, adjustedPosition, 1.0f, noteLine));
 
             // 각 노트의 사운드 데이터 처리
             foreach (SoundData sound in sounds)
@@ -159,116 +153,73 @@ public class Choi_JSONReader : MonoBehaviour
 
         Debug.Log($"Skipped Note Count: {skippedNoteCount}");
 
-        // 추가 데이터 처리 가능
+        //// 추가 데이터 처리 가능
 
-        // 유니티 오브젝트 생성, 애니메이션 등의 작업 가능
-    }
-    bool ShouldSkipNoteCreation(NoteData currentNote, List<NoteData> sameTimeNotes)
-    {
-        NoteData farthestNote = GetFarthestNoteFromList(sameTimeNotes);
-        return farthestNote != currentNote;
+        //// 유니티 오브젝트 생성, 애니메이션 등의 작업 가능
     }
 
-    void CreateNotesAtStarts(List<NoteData> sameTimeNotes, int id)
+    Vector3 CalculateAdjustedPosition(float pitchPercentage)
     {
-        NoteData leftNote = sameTimeNotes[0];
-        NoteData rightNote = sameTimeNotes[1];
+        float adjustedX = 0f;
 
-        // 큰 사이즈를 선택
-        float maxSize = Mathf.Max(leftNote.size, rightNote.size);
-
-        // 왼쪽과 오른쪽 노트의 시작 위치 계산
-        float leftStartX = -6f + maxSize;
-        float rightStartX = 6f - maxSize;
-
-        // 왼쪽 노트의 시작 위치가 범위를 벗어나지 않도록 조정
-        if (leftStartX < -3.5f + maxSize)
+        if (samePosXCount >= 2)
         {
-            leftStartX = -3.5f + maxSize;
+            Debug.Log("Same");
+            pitchPercentage = Random.Range(0.0f, 1.01f);
         }
 
-        // 오른쪽 노트의 시작 위치가 범위를 벗어나지 않도록 조정
-        if (rightStartX > 3.5f - maxSize)
+        // 피치에 따라 수정되는 노트 포지션
+        if (pitchPercentage >= 0.8f)
         {
-            rightStartX = 3.5f - maxSize;
+            adjustedX = 3.6f;
+            noteLine = 5;
         }
-
-        Vector3 leftStartPos = new Vector3(leftStartX, DEFAULT_POS_Y);
-        Vector3 rightStartPos = new Vector3(rightStartX, DEFAULT_POS_Y);
-
-        StartCoroutine(Choi_NoteManager.instance.SpawnNote(id, leftNote._time, leftStartPos, maxSize));
-        StartCoroutine(Choi_NoteManager.instance.SpawnNote(id, rightNote._time, rightStartPos, maxSize));
-
-        Debug.Log($"Note ID: {leftNote.noteId} - Creating at Left Start with Size {maxSize}");
-        Debug.Log($"Note ID: {rightNote.noteId} - Creating at Right Start with Size {maxSize}");
-    }
-
-    Vector3 AdjustNotePosition(Vector3 originalPosition, int pitch, float noteSize)
-    {
-        float adjustedX = originalPosition.x;
-
-        float pitchPercentage = (float)pitch / 127f;
-
-        if (pitchPercentage >= 0.5f)
+        else if (pitchPercentage >= 0.6f)
         {
-            float xPos = Mathf.Lerp(1.5f, 3.5f, (pitchPercentage - 0.5f) * 2);
-            adjustedX = xPos;
+            adjustedX = 1.8f;
+            noteLine = 4;
+        }
+        else if (pitchPercentage >= 0.4f)
+        {
+            adjustedX = 0f;
+            noteLine = 3;
+        }
+        else if (pitchPercentage >= 0.2f)
+        {
+            adjustedX = -1.8f;
+            noteLine = 2;
         }
         else
         {
-            float xPos = Mathf.Lerp(-3.5f, -1.5f, pitchPercentage * 2);
-            adjustedX = xPos;
-
-            if (pitch == 0)
-            {
-                adjustedX = -3.5f + noteSize;
-            }
-            else if (pitch == 1)
-            {
-                adjustedX = -1.5f + noteSize;
-            }
+            adjustedX = -3.6f;
+            noteLine = 1;
         }
 
-        float leftBoundary = -3.5f + noteSize;
-        if (adjustedX < leftBoundary)
+        if (previous_PosX != adjustedX)
         {
-            adjustedX = leftBoundary;
+            previous_PosX = adjustedX;
+            samePosXCount = 0;
         }
-
-        float rightBoundary = 3.5f - noteSize;
-        if (adjustedX > rightBoundary)
+        else
         {
-            adjustedX = rightBoundary;
+            samePosXCount++;
         }
 
-        Vector3 adjustedPosition = new Vector3(adjustedX, originalPosition.y);
-        Choi_NoteManager.instance.DeactivateOverlappingNotes(adjustedPosition, 0.1f);
-
-        return adjustedPosition;
+        return new Vector3(adjustedX, DEFAULT_POS_Y);
     }
 
 
-    NoteData GetFarthestNoteFromList(List<NoteData> noteList)
+    float CalculatePitchPercentage(List<SoundData> sounds)
+{
+    if (sounds.Count > 0)
     {
-        NoteData farthestNote = null;
-        float maxDistance = 0f;
+        int minPitch, maxPitch;
+        SoundData.GetMinMaxPitch(sounds, out minPitch, out maxPitch);
 
-        foreach (NoteData note in noteList)
-        {
-            foreach (NoteData otherNote in noteList)
-            {
-                if (note != otherNote)
-                {
-                    float distance = Mathf.Abs(note.pos - otherNote.pos);
-                    if (distance > maxDistance)
-                    {
-                        maxDistance = distance;
-                        farthestNote = note;
-                    }
-                }
-            }
-        }
-
-        return farthestNote;
+        // Calculate pitch percentage based on the minimum pitch value
+        float pitchPercentage = (float)minPitch / 100f;
+        return pitchPercentage;
     }
+    return 0.5f; // Default pitch percentage if no sounds
+}
 }

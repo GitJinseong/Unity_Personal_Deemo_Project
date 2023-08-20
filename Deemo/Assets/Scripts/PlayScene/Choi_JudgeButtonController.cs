@@ -3,72 +3,40 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UIElements;
 
-public class Choi_JudgeButtonController : MonoBehaviour
+public class Choi_JudgeButtonController : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject obj_Notes;
-    public TMP_Text text_judege;
-    public string stringPos;
-    private float gameTime;
-    private float judgeTime;
-    private float charmingTime = 2.9f;
-    private float normalTime = 2.8f;
-
-    private void Start()
+    public GameObject obj_Notes; // 버튼을 클릭하면 Y값이 가장 낮은 자식 오브젝트를 찾을 부모 오브젝트
+    private float min_SearchPosY = 2.0f; // 찾을 노트의 최소 y 값
+    // 버튼 클릭 시 실행되는 함수
+    public void OnPointerClick(PointerEventData eventData)
     {
-        gameTime = Choi_TimeTracker.instance.startTime;
+        // Y값이 가장 낮은 자식 오브젝트를 찾아서 저장
+        GameObject lowestYObject = GetLowestYObject(obj_Notes.transform);
+        if (lowestYObject != null)
+        {
+            Debug.Log($"낮은y: {lowestYObject.transform.position.y}");
+            // Y값이 가장 낮은 오브젝트를 매개변수로 하여 판정 함수 호출
+            Choi_JudgeManager.instance.CheckJudge(lowestYObject);
+        }
     }
 
-    public void CallJudgeButton()
+    // Y값이 가장 낮은 자식 오브젝트를 찾아서 반환
+    GameObject GetLowestYObject(Transform parentTransform)
     {
-        Choi_Note[] notes = obj_Notes.GetComponentsInChildren<Choi_Note>();
+        GameObject lowestYObject = null;
+        float lowestY = float.MaxValue;
 
-        Choi_Note noteToDeactivate = null;
-        float lowestTime = float.MaxValue;
-
-        foreach (Choi_Note note in notes)
+        foreach (Transform child in parentTransform)
         {
-            Choi_CollisionDetection collisionDetection = note.GetComponent<Choi_CollisionDetection>();
-            judgeTime = (Time.time - gameTime) - note.time;
-            if (judgeTime >= 0.4f && note.time < lowestTime && !collisionDetection.isHide)
+            if (child.gameObject.activeSelf && child.position.y < lowestY && child.position.y < min_SearchPosY)
             {
-                lowestTime = note.time;
-                noteToDeactivate = note;
+                lowestY = child.position.y;
+                lowestYObject = child.gameObject;
             }
         }
 
-        if (noteToDeactivate != null)
-        {
-            Choi_CollisionDetection collisionDetection = noteToDeactivate.GetComponent<Choi_CollisionDetection>();
-            if (collisionDetection != null)
-            {
-                Debug.Log("타임: " + ((Time.time - gameTime) - lowestTime));
-                judgeTime = (Time.time - gameTime) - lowestTime;
-                Choi_GameManager.instance.ChangeJudgeText(judgeTime.ToString());
-
-                collisionDetection.Hide(); // CollisionDetection 스크립트의 Hide 함수 호출
-
-                if (judgeTime >= charmingTime)
-                {
-                    Debug.Log("Charming");
-                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
-                    Choi_GameManager.instance.AddCombo();
-                    Choi_GameManager.instance.ChangeJudgeText("CHARMING!");
-                }
-                else if (judgeTime >= normalTime)
-                {
-                    Debug.Log("Normal");
-                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
-                    Choi_GameManager.instance.AddCombo();
-                    Choi_GameManager.instance.ChangeJudgeText("NORMAL");
-                }
-                else
-                {
-                    //Choi_GameManager.instance.ChangeTimingText(judgeTime.ToString());
-                    Choi_GameManager.instance.ResetCombo();
-                    Choi_GameManager.instance.ChangeJudgeText("MISS!");
-                }
-            }
-        }
+        return lowestYObject;
     }
 }

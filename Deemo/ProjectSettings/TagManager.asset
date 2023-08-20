@@ -54,9 +54,9 @@ TagManager:
   - name: Object
     uniqueID: 951516317
     locked: 0
-  - name: JudgeBtn
-    uniqueID: 1271097017
-    locked: 0
   - name: Note
     uniqueID: 3230430745
+    locked: 0
+  - name: JudgeBtn
+    uniqueID: 1271097017
     locked: 0

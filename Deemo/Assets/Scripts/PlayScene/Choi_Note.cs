@@ -15,8 +15,8 @@ public class Choi_Note : MonoBehaviour
     private void Update()
     {
         // 매 프레임마다 gameObject의 transform.position.y 값을 월드 좌표로 변환하여 디버그 출력
-        Vector3 worldPosition = transform.TransformPoint(new Vector3(0, 0, transform.position.z));
-        Debug.Log($"World Y Position: {worldPosition.z}");
+        //Vector3 worldPosition = transform.TransformPoint(new Vector3(0, 0, transform.position.z));
+        //Debug.Log($"World Y Position: {worldPosition.z}");
     }
 
     public void Initialize()

@@ -3,12 +3,12 @@ using UnityEngine;
 public class RaycastExample : MonoBehaviour
 {
     public Vector3 finalPosition = new Vector3(0f, 22f, 30f);
-    private Vector3 startPosition = new Vector3(0f, -2f, -6.2f);
+    private Vector3 leftStartPosition = new Vector3(-4f, -4f, -8.2f);
+    private Vector3 rightStartPosition = new Vector3(4f, -4f, -8.2f);
     public float realPositionScale = 0.4f; // 실제 포지션 배율
 
-    private float delayTime = 0f;
-    private float judge_Charming = 1.5f;
-    private float judge_Normal = 2.5f;
+    private float judge_Charming = 3.8f;
+    private float judge_Normal = 4.5f;
 
     private int layerMask; // 레이어 마스크
 
@@ -19,29 +19,52 @@ public class RaycastExample : MonoBehaviour
 
     private void Update()
     {
+        // 왼쪽 손가락 누름 처리
         if (Input.touchCount > 0)
         {
-            Touch touch = Input.GetTouch(0); // 첫 번째 터치만 처리
+            Touch leftTouch = Input.GetTouch(0);
 
-            if (touch.phase == TouchPhase.Began)
+            if (leftTouch.phase == TouchPhase.Began)
             {
-                Vector3 touchPosition = touch.position;
+                Vector3 touchPosition = leftTouch.position;
                 touchPosition.z = -Camera.main.transform.position.z;
                 Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
 
                 float startX = worldTouchPosition.x * realPositionScale;
 
-                startPosition = new Vector3(startX, startPosition.y, startPosition.z);
+                leftStartPosition = new Vector3(startX, leftStartPosition.y, leftStartPosition.z);
                 finalPosition = new Vector3(startX, finalPosition.y, finalPosition.z);
 
-                Debug.DrawLine(startPosition, finalPosition, Color.red);
+                Debug.DrawLine(leftStartPosition, finalPosition, Color.red);
 
-                FireRaycast();
+                FireRaycast(leftStartPosition, finalPosition);
+            }
+        }
+
+        // 오른쪽 손가락 누름 처리
+        if (Input.touchCount > 1)
+        {
+            Touch rightTouch = Input.GetTouch(1);
+
+            if (rightTouch.phase == TouchPhase.Began)
+            {
+                Vector3 touchPosition = rightTouch.position;
+                touchPosition.z = -Camera.main.transform.position.z;
+                Vector3 worldTouchPosition = Camera.main.ScreenToWorldPoint(touchPosition);
+
+                float startX = worldTouchPosition.x * realPositionScale;
+
+                rightStartPosition = new Vector3(startX, rightStartPosition.y, rightStartPosition.z);
+                finalPosition = new Vector3(startX, finalPosition.y, finalPosition.z);
+
+                Debug.DrawLine(rightStartPosition, finalPosition, Color.green);
+
+                FireRaycast(rightStartPosition, finalPosition);
             }
         }
     }
 
-    private void FireRaycast()
+    private void FireRaycast(Vector3 startPosition, Vector3 finalPosition)
     {
         Vector3 direction = (finalPosition - startPosition).normalized;
         Ray ray = new Ray(startPosition, direction);

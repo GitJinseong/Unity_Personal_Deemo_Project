@@ -16,7 +16,9 @@ public class Choi_NoteCollision : MonoBehaviour
 
 
             if ((otherNote != null && myNote != null) &&
-                (otherCollisionDetection.isHide == false && myCollisionDetection.isHide == false))
+                (otherCollisionDetection.isHide == false && myCollisionDetection.isHide == false)
+                ||
+                (otherCollisionDetection.isJudgeHide == false && myCollisionDetection.isJudgeHide == false))
             {
                 // 비활성화되지 않았으면 노트를 비활성화 처리
                 if (other.gameObject.activeSelf)

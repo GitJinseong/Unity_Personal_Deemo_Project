@@ -64,7 +64,7 @@ public class Choi_CollisionDetection : MonoBehaviour
             //animator.SetBool("Destroy", true);
             gameObject.SetActive(true);
             script_NoteMovement.enabled = false;
-            StartCoroutine(DelayForHide(0.3f));
+            StartCoroutine(DelayForHideWithJudgeLine(0.3f));
             spriteAlphaFade.StartFadeOut();
         }
     }
@@ -80,6 +80,21 @@ public class Choi_CollisionDetection : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    private IEnumerator DelayForHideWithJudgeLine(float t)
+    {
+        yield return new WaitForSeconds(hideTime);
+        script_NoteMovement.enabled = false;
+        yield return new WaitForSeconds(hideTime);
+        if (isHide == false)
+        {
+            Choi_GameManager.instance.ResetCombo();
+            Choi_GameManager.instance.ChangeJudgeText("MISS!");
+        }
+        isHide = false;
+        isJudgeHide = false;
+        script_NoteMovement.enabled = true;
+        gameObject.SetActive(false);
+    }
     private IEnumerator StopObjectMovement(float t)
     {
         yield return new WaitForSeconds(t);
