@@ -99,7 +99,7 @@ public class Park_OnClickEffectBackground : MonoBehaviour
 
     private void OnMouseDown()
     {
-
+        moveContent.GetComponent<Park_MoveContent>().scrollRect.inertia = true;
         moveContent.GetComponent<Park_MoveContent>().isStop = true;
         StartMousePosition = Input.mousePosition;
 

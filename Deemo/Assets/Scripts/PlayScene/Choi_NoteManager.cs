@@ -8,18 +8,25 @@ public class Choi_NoteManager : MonoBehaviour
 {
     public static Choi_NoteManager instance;
     public GameObject notePrefab;
-    public Transform notes_1;
-    public Transform notes_2;
-    public Transform notes_3;
-    public Transform notes_4;
-    public Transform notes_5;
+    public Transform[] notes;
+
+    //public Transform notes_1;
+    //public Transform notes_2;
+    //public Transform notes_3;
+    //public Transform notes_4;
+    //public Transform notes_5;
+
+    private const int NOTES_SIZE = 5;
     private int initialPoolSize = 20;
-    private Vector3 originalScale = default;
-    private List<GameObject> notes_1_Pool = new List<GameObject>();
-    private List<GameObject> notes_2_Pool = new List<GameObject>();
-    private List<GameObject> notes_3_Pool = new List<GameObject>();
-    private List<GameObject> notes_4_Pool = new List<GameObject>();
-    private List<GameObject> notes_5_Pool = new List<GameObject>();
+    // private Vector3 originalScale = default;
+
+    private List<GameObject>[] notes_Pool = new List<GameObject>[NOTES_SIZE];
+
+    //private List<GameObject> notes_1_Pool = new List<GameObject>();
+    //private List<GameObject> notes_2_Pool = new List<GameObject>();
+    //private List<GameObject> notes_3_Pool = new List<GameObject>();
+    //private List<GameObject> notes_4_Pool = new List<GameObject>();
+    //private List<GameObject> notes_5_Pool = new List<GameObject>();
 
     public List<GameObject> leftNotes = new List<GameObject>();
     public List<GameObject> rightNotes = new List<GameObject>();
@@ -35,34 +42,19 @@ public class Choi_NoteManager : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < initialPoolSize; i++)
+        for (int i = 0; i < NOTES_SIZE; i++)
         {
-            GameObject note = Instantiate(notePrefab);
-            note.transform.SetParent(notes_1);
-            note.SetActive(false);
-            notes_1_Pool.Add(note);
+            notes_Pool[i] = new List<GameObject>();
 
-            note = Instantiate(notePrefab);
-            note.transform.SetParent(notes_2);
-            note.SetActive(false);
-            notes_2_Pool.Add(note);
-
-            note = Instantiate(notePrefab);
-            note.transform.SetParent(notes_3);
-            note.SetActive(false);
-            notes_3_Pool.Add(note);
-
-            note = Instantiate(notePrefab);
-            note.transform.SetParent(notes_4);
-            note.SetActive(false);
-            notes_4_Pool.Add(note);
-
-            note = Instantiate(notePrefab);
-            note.transform.SetParent(notes_5);
-            note.SetActive(false);
-            notes_5_Pool.Add(note);
+            for (int j = 0; j < initialPoolSize; j++)
+            {
+                GameObject note = Instantiate(notePrefab);
+                note.transform.SetParent(notes[i]);
+                note.SetActive(false);
+                notes_Pool[i].Add(note);
+            }
         }
-        originalScale = notes_1_Pool[0].transform.localScale;
+        // originalScale = notes_Pool[0][0].transform.localScale;
     }
 
 
@@ -70,25 +62,7 @@ public class Choi_NoteManager : MonoBehaviour
     {
         Debug.Log($"ID는 {id}");
         yield return new WaitForSeconds(time);
-        GameObject note = default;
-        switch (noteLine)
-        {
-            case 1:
-                note = GetPooledNote_1();
-                break;
-            case 2:
-                note = GetPooledNote_2();
-                break;
-            case 3:
-                note = GetPooledNote_3();
-                break;
-            case 4:
-                note = GetPooledNote_4();
-                break;
-            case 5:
-                note = GetPooledNote_5();
-                break;
-        }
+        GameObject note = GetPooledNote(noteLine);
         if (note != null)
         {
             note.transform.position = spawnPosition;
@@ -113,13 +87,13 @@ public class Choi_NoteManager : MonoBehaviour
             Physics.SyncTransforms();
 
             note.SetActive(true);
-            note.transform.localScale = originalScale * size;
+            //note.transform.localScale = originalScale * size;
 
             // 왼쪽과 오른쪽 노트의 시작 위치 계산
-            float leftBoundary = -3.5f + size;
-            float rightBoundary = 3.5f - size;
+            // float leftBoundary = -3.5f + size;
+            // float rightBoundary = 3.5f - size;
 
-            string stringPos = CalculateStringPosition(spawnPosition.x, leftBoundary, rightBoundary);
+            //string stringPos = CalculateStringPosition(spawnPosition.x, leftBoundary, rightBoundary);
 
             if (spawnPosition.x > 0.0f)
             {
@@ -148,9 +122,10 @@ public class Choi_NoteManager : MonoBehaviour
     //    return stringPos;
     //}
 
-    private GameObject GetPooledNote_1()
+
+    private GameObject GetPooledNote(int noteLine)
     {
-        foreach (GameObject note in notes_1_Pool)
+        foreach (GameObject note in notes_Pool[noteLine])
         {
             if (!note.activeInHierarchy)
             {
@@ -159,54 +134,6 @@ public class Choi_NoteManager : MonoBehaviour
         }
         return null;
 
-    }
-
-    private GameObject GetPooledNote_2()
-    {
-        foreach (GameObject note in notes_2_Pool)
-        {
-            if (!note.activeInHierarchy)
-            {
-                return note;
-            }
-        }
-        return null;
-    }
-
-    private GameObject GetPooledNote_3()
-    {
-        foreach (GameObject note in notes_3_Pool)
-        {
-            if (!note.activeInHierarchy)
-            {
-                return note;
-            }
-        }
-        return null;
-    }
-
-    private GameObject GetPooledNote_4()
-    {
-        foreach (GameObject note in notes_4_Pool)
-        {
-            if (!note.activeInHierarchy)
-            {
-                return note;
-            }
-        }
-        return null;
-    }
-
-    private GameObject GetPooledNote_5()
-    {
-        foreach (GameObject note in notes_5_Pool)
-        {
-            if (!note.activeInHierarchy)
-            {
-                return note;
-            }
-        }
-        return null;
     }
 
     public string CalculateStringPosition(float adjustedX, float leftBoundary, float rightBoundary)

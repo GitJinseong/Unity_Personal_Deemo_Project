@@ -12,6 +12,11 @@ public class Choi_DelayedMusicPlayback : MonoBehaviour
     {
         musicSource = GetComponent<AudioSource>();
     }
+
+    private void Start()
+    {
+        musicSource.volume = Park_GameManager.instance.bgm * 0.1f;
+    }
     private void Update()
     {
         if (!isMusicStarted)

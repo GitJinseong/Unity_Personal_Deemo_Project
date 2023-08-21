@@ -9,11 +9,28 @@ public class Park_MoveScoreBar : MonoBehaviour
 
     public float duration = 0.0f;
 
-    public float moveStart, moveEnd;
+    public float moveStart;
+    private float moveEnd;
 
     private void Awake()
     {
         image = GetComponent<Image>();
+    }
+
+    private void Start()
+    {
+        int charmingNotes = Choi_GameManager.instance.GetTrueCharmingNotes();
+        int trueNotes = Choi_GameManager.instance.GetTrueNotes();
+
+        if (trueNotes != 0)
+        {
+            moveEnd = (float)charmingNotes / trueNotes; // 정수를 부동소수점으로 변환하여 나눗셈 수행
+        }
+        else
+        {
+            // trueNotes가 0인 경우에 대한 예외 처리
+            moveEnd = 0.0f; // 또는 원하는 기본값 설정
+        }
     }
 
     private void OnEnable()
@@ -34,7 +51,7 @@ public class Park_MoveScoreBar : MonoBehaviour
             float time = Mathf.Clamp01(timeElapsed / duration);
 
             // 보간된 값을 사용해서 moveStart에서 moveEnd로 이동
-            image.fillAmount = Mathf.Lerp(0.0f, 0.5f, time * time);
+            image.fillAmount = Mathf.Lerp(0.0f, moveEnd * 0.5f, time * time);
 
             yield return null;
         }
@@ -52,7 +69,7 @@ public class Park_MoveScoreBar : MonoBehaviour
 
             float time = 1.0f - Mathf.Pow(1.0f - Mathf.Clamp01(timeElapsed / duration), 2);
 
-            image.fillAmount = Mathf.Lerp(0.5f, 1.0f, time);
+            image.fillAmount = Mathf.Lerp(moveEnd * 0.5f, moveEnd, time);
 
             yield return null;
         }

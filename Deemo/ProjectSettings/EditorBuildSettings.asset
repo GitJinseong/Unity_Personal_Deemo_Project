@@ -6,11 +6,17 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
+    path: Assets/Scenes/TitleLoadScene.unity
+    guid: 5e2223ac6b1834941a316e42934dfada
+  - enabled: 1
     path: Assets/Scenes/TitleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/MainScene.unity
     guid: c62cbbc045ae65247902e6503e2f05fa
+  - enabled: 1
+    path: Assets/Scenes/MusicSelectionSceneLoad.unity
+    guid: 1fdea232bf0559a4ab99cf0dddf87402
   - enabled: 1
     path: Assets/Scenes/MusicSelectionScene.unity
     guid: 6a3238845fb19ae47beda9a466f6f5be
@@ -20,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ResultScene.unity
     guid: 5b663407471e63344abb5df374c7e9b2
+  - enabled: 1
+    path: Assets/Scenes/PlaySceneLoadingScene.unity
+    guid: 7e1c749b14c938d43a598df775bb8d4a
   m_configObjects: {}

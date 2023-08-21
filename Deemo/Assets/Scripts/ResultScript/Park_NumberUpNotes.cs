@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using TMPro;
 using UnityEngine;
 
-public class Park_NumberUp : MonoBehaviour
+public class Park_NumberUpNotes : MonoBehaviour
 {
     private TMP_Text numText;
 
@@ -12,7 +12,7 @@ public class Park_NumberUp : MonoBehaviour
     private float zeorScore = 0.0f;
 
 
-    public int score;
+    private int totalNotes = Choi_GameManager.instance.GetTrueCharmingNotes();
 
     public bool isFloat;
 
@@ -25,11 +25,11 @@ public class Park_NumberUp : MonoBehaviour
     {
         if (isFloat == false)
         {
-            StartCoroutine(IntUp(score, zeorScore));
+            StartCoroutine(IntUp(totalNotes, zeorScore));
         }
         else
         {
-            StartCoroutine(FloatUp(score, zeorScore));
+            StartCoroutine(FloatUp(totalNotes, zeorScore));
         }
     }
 

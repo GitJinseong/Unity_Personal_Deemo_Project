@@ -1,3 +1,4 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,12 @@ public class Choi_ButtonSettings : MonoBehaviour
     public TMP_Text txt_ClassicUI = default;
     private Color enableColor = new Color(0f, 0f, 0f);
     private Color disableColor = new Color(153f / 255f, 153f / 255f, 153f / 255f);
+
+    //********************************************************
+
+    private float duration = 0.25f;
+
+    //********************************************************
 
     public void OnClickRankingUI()
     {
@@ -56,19 +63,62 @@ public class Choi_ButtonSettings : MonoBehaviour
         ChangeColor(img_ClassicUI, txt_ClassicUI);
     }
 
-    public void ChangeColor(Image image, TMP_Text text)
+    public void ChangeColor(Image image_, TMP_Text text_)
     {
         // 활성화 된 상태일 경우
-        if (image.color.Equals(enableColor))
+        if (image_.color.Equals(enableColor))
         {
-            image.color = disableColor;
-            text.color = disableColor;
+            //image.color = disableColor;
+            //text.color = disableColor;
+
+            //********************************************************
+            StartCoroutine(FadeDown(image_, text_));
+            //********************************************************
         }
         // 비활성화 된 상태일 경우
         else
         {
-            image.color = enableColor;
-            text.color = enableColor;
+            //********************************************************
+
+            StartCoroutine(FadeUp(image_, text_));
+
+            //********************************************************
         }
     }
+
+    //********************************************************
+    private IEnumerator FadeDown(Image image_, TMP_Text text_)
+    {
+        float timeElapsed = 0.0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+
+            float time = Mathf.Clamp01(timeElapsed / duration);
+
+            image_.color = Color.Lerp(enableColor, disableColor, time);
+            text_.color = Color.Lerp(enableColor, disableColor, time);
+
+            yield return null;
+        }
+    }
+
+    private IEnumerator FadeUp(Image image_, TMP_Text text_)
+    {
+        float timeElapsed = 0.0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+
+            float time = Mathf.Clamp01(timeElapsed / duration);
+
+            image_.color = Color.Lerp(disableColor, enableColor, time);
+            text_.color = Color.Lerp(disableColor, enableColor, time);
+
+            yield return null;
+        }
+    }
+    //********************************************************
 }

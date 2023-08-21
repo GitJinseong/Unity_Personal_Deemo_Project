@@ -27,7 +27,10 @@ public class Choi_SkipTitleScene : MonoBehaviour
     // 스크롤을 즉시 목표 지점으로 이동시키는 함수
     public void SkipScroll()
     {
-        StartCoroutine(SkipDelay());
+        if (!obj_StartBtn.activeSelf)
+        {
+            StartCoroutine(SkipDelay());
+        }
     }
 
     public IEnumerator SkipDelay()

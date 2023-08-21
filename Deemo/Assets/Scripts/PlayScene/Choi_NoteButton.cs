@@ -43,18 +43,15 @@ public class Choi_NoteButton : MonoBehaviour
         Debug.Log($"클릭한 노트의 y좌표 : {transform.position.y}");
         if (transform.position.y < judge_Charming)
         {
-            Choi_GameManager.instance.AddCombo();
-            Choi_GameManager.instance.ChangeJudgeText("CHARMING!");
+            Choi_GameManager.instance.AddCharming();
         }
         else if (transform.position.y < judge_Normal)
         {
-            Choi_GameManager.instance.AddCombo();
-            Choi_GameManager.instance.ChangeJudgeText("NORMAL!");
+            Choi_GameManager.instance.AddNormal();
         }
         else
         {
-            Choi_GameManager.instance.ResetCombo();
-            Choi_GameManager.instance.ChangeJudgeText("MISS!");
+            Choi_GameManager.instance.AddMiss();
         }
         script_CollisionDetection.Hide();
     }

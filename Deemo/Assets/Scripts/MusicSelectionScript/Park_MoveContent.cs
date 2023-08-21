@@ -70,7 +70,6 @@ public class Park_MoveContent : MonoBehaviour
         {
             isScrolling = false;
 
-            //scrollRect.inertia = false;
             for (int i = 0; i < titleCount; i++)
             {
                 if (i * 720.0f - 360.0f < nowPosition && nowPosition < i * 720.0f + 360.0f)
@@ -79,6 +78,8 @@ public class Park_MoveContent : MonoBehaviour
 
                     while (timeElapsed < 5.0f)
                     {
+                        scrollRect.inertia = false;
+
                         timeElapsed += Time.deltaTime;
 
                         float time = Mathf.Clamp01(timeElapsed / 5.0f);
@@ -86,8 +87,11 @@ public class Park_MoveContent : MonoBehaviour
                         rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x,
                             Mathf.Lerp(rectTransform.anchoredPosition.y, (i * 720.0f) - (titleCount * 360.0f - 720.0f), time));
 
+
                         yield return null;
                     }
+
+                    scrollRect.inertia = true;
 
                     break;
 
@@ -101,6 +105,8 @@ public class Park_MoveContent : MonoBehaviour
         {
             isCoroutine = false;
         }
+
+
 
         //// 이제 덜덜 떨리지 않고 완료되도록 보강
         //if (!isScrolling)
@@ -124,6 +130,7 @@ public class Park_MoveContent : MonoBehaviour
         //    // 위치 보정
         //    rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, targetY);
         //}
+
     }
 
     //private void Update()

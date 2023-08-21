@@ -10,14 +10,14 @@ public class Choi_LoadScene : MonoBehaviour
     }
 
     // 비동기 로딩 씬(미리 로딩 완료하고 원하는 타이밍에 씬 호출)
-    public void asyncLoadScene(string name)
+    public void asyncLoadScene(string name, float delay)
     {
         // 비동기 씬 로딩 시작
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(name);
         asyncLoad.allowSceneActivation = false; // 씬 로딩 완료 후 자동 활성화 막기
 
         // 로딩이 완료될 때까지 대기
-        StartCoroutine(WaitForSceneLoad(asyncLoad));
+        StartCoroutine(WaitForSceneLoad(asyncLoad, delay));
     }
 
     public IEnumerator DelayForLoadScene(float t, string name)
@@ -26,7 +26,7 @@ public class Choi_LoadScene : MonoBehaviour
         SceneManager.LoadScene(name);
     }
 
-    private IEnumerator WaitForSceneLoad(AsyncOperation asyncLoad)
+    private IEnumerator WaitForSceneLoad(AsyncOperation asyncLoad, float delay)
     {
         while (!asyncLoad.isDone)
         {
@@ -37,7 +37,7 @@ public class Choi_LoadScene : MonoBehaviour
             // 조건을 만족하면 씬 활성화
             if (progress >= 1.0f)
             {
-                yield return new WaitForSeconds(1.0f);
+                yield return new WaitForSeconds(delay);
                 asyncLoad.allowSceneActivation = true; // 씬 활성화 허용
             }
 

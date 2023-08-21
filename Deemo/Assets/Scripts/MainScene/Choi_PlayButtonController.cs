@@ -9,7 +9,7 @@ public class Choi_PlayButtonController : MonoBehaviour
     public string sceneName;
     public void LoadScene()
     {
-        // 다음 씬으로 전환
+        //다음 씬으로 전환
         loadScene.Run(delay, sceneName);
     }
 }
