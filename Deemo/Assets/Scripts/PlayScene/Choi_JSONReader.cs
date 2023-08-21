@@ -229,16 +229,16 @@ public class Choi_JSONReader : MonoBehaviour
 
 
     float CalculatePitchPercentage(List<SoundData> sounds)
-{
-    if (sounds.Count > 0)
     {
-        int minPitch, maxPitch;
-        SoundData.GetMinMaxPitch(sounds, out minPitch, out maxPitch);
+        if (sounds.Count > 0)
+        {
+            int minPitch, maxPitch;
+            SoundData.GetMinMaxPitch(sounds, out minPitch, out maxPitch);
 
-        // Calculate pitch percentage based on the minimum pitch value
-        float pitchPercentage = (float)minPitch / 100f;
-        return pitchPercentage;
+            // Calculate pitch percentage based on the minimum pitch value
+            float pitchPercentage = (float)minPitch / 100f;
+            return pitchPercentage;
+        }
+        return 0.5f; // Default pitch percentage if no sounds
     }
-    return 0.5f; // Default pitch percentage if no sounds
-}
 }

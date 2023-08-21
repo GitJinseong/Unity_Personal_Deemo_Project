@@ -44,6 +44,7 @@ public class Park_OnClickSettingRight : MonoBehaviour
     {
         GetComponent<CanvasGroup>().alpha = 0.0f;
         GetComponent<Park_OpacityObject>().enabled = false;
+        isCheck = false;
     }
 
     // Update is called once per frame
@@ -79,7 +80,7 @@ public class Park_OnClickSettingRight : MonoBehaviour
             {
                 Park_GameManager.instance.HandleCoroutine(true); 
                 
-                scrollHandleObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(((Park_GameManager.instance.key - 1.0f) * 100.0f) - 400.0f, scrollHandleObject.GetComponent<RectTransform>().anchoredPosition.y);
+
 
                 left.GetComponent<Park_OpacityObject>().enabled = false;
                 left.GetComponent<Park_OnClickSettingLeft>().isCheck = false;
@@ -89,9 +90,11 @@ public class Park_OnClickSettingRight : MonoBehaviour
                 center.GetComponent<Park_OnClickSettingCenter>().isCheck = false;
                 center.GetComponent<CanvasGroup>().alpha = 0.0f;
 
+                
                 GetComponent<CanvasGroup>().alpha = 0.0f;
                 GetComponent<Park_OpacityObject>().enabled = true;
                 isCheck = true;
+                scrollHandleObject.GetComponent<RectTransform>().anchoredPosition = new Vector2(((Park_GameManager.instance.key - 1.0f) * 100.0f) - 400.0f, scrollHandleObject.GetComponent<RectTransform>().anchoredPosition.y);
             }
 
             isPressed = false;

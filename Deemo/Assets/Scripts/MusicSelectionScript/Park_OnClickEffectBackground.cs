@@ -38,6 +38,8 @@ public class Park_OnClickEffectBackground : MonoBehaviour
     // 이전 프레임의 시간
     private float lastFrameTime;
 
+    private float duration = 0.5f;
+
     // 버튼이 눌리고 있는지 확인
     private bool isPressed = false;
 
@@ -46,6 +48,8 @@ public class Park_OnClickEffectBackground : MonoBehaviour
 
     // 처음 SettingUi 호출 체크
     private bool isCheck = false;
+
+    private bool isCoroutine = false;
 
     // Start is called before the first frame update
     void Start()
@@ -112,23 +116,63 @@ public class Park_OnClickEffectBackground : MonoBehaviour
     {
         moveContent.GetComponent<Park_MoveContent>().isScrolling = true;
 
-        if (isPoint == true)
+        if (isCoroutine == false)
         {
-            if (isCheck == false)
+            if (isPoint == true)
             {
-                settingUi.SetActive(true);
-                settingUi.SetActive(false);
-                settingUi.SetActive(true);
+                if (isCheck == false)
+                {
+                    if (settingUi.activeSelf == false)
+                    {
+                        settingUi.SetActive(true);
+                        settingUi.SetActive(false);
+                        settingUi.SetActive(true);
+                    }
+                    else
+                    {
+                        StartCoroutine(AlphaDown());
+                    }
+
+                }
+                else
+                {
+                    if (settingUi.activeSelf == false)
+                    {
+                        settingUi.SetActive(true);
+                    }
+                    else
+                    {
+                        StartCoroutine(AlphaDown());
+                    }
+                }
 
                 isCheck = true;
-            }
-            else
-            {
-                settingUi.SetActive(true);
             }
         }
 
         isPressed = false;
+    }
+
+    private IEnumerator AlphaDown()
+    {
+        isCoroutine = true;
+
+        float timeElapsed = 0.0f;
+
+        while (timeElapsed < duration)
+        {
+            timeElapsed += Time.deltaTime;
+
+            float time = Mathf.Clamp01(timeElapsed / duration);
+
+            settingUi.GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1.0f, 0.0f, time);
+
+            yield return null;
+        }
+
+        settingUi.SetActive(false);
+
+        isCoroutine = false;
     }
 
     //private IEnumerator Frame()
