@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Choi_CollisionDetection : MonoBehaviour
 {
-    private Rigidbody rigid;
+    public GameObject circleEffect;
+    public GameObject obj_LightEffect;
     private Animator animator;
     private Choi_Note script_Note;
     private Choi_NoteMovement script_NoteMovement;
@@ -14,7 +15,6 @@ public class Choi_CollisionDetection : MonoBehaviour
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         script_Note = GetComponent<Choi_Note>();
         script_NoteMovement = GetComponent<Choi_NoteMovement>();
@@ -23,25 +23,21 @@ public class Choi_CollisionDetection : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Normal"))
-        {
-            script_Note.stringJudge = "Normal";
-        }
-        else if (collision.gameObject.CompareTag("Charming"))
-        {
-            script_Note.stringJudge = "Charming";
-        }
-
         if (collision.gameObject.CompareTag("JudgeLine") && isHide == false)
         {
-            float hideStartTime = Time.realtimeSinceStartup; // hide ½ÃÀÛ ½Ã°£ ±â·Ï
-            float noteCreationTime = script_Note.time; // ³ëÆ® »ý¼º ½Ã°£ °¡Á®¿À±â
-            float spendTime = hideStartTime - noteCreationTime; // µÎ ½Ã°£ÀÇ Â÷ÀÌ °è»ê
+            float hideStartTime = Time.realtimeSinceStartup; // hide ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½
+            float noteCreationTime = script_Note.time; // ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            float spendTime = hideStartTime - noteCreationTime; // ï¿½ï¿½ ï¿½Ã°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             Debug.Log("Note Creation to Hide - Time: " + spendTime);
             //Choi_GameManager.instance.ChangeTimingText(spendTime.ToString());
 
             HideForMissWithJudgeLine();
         }
+    }
+
+    public void LightMove()
+    {
+        obj_LightEffect.transform.position = gameObject.transform.position;
     }
 
     public void Hide()
@@ -50,7 +46,10 @@ public class Choi_CollisionDetection : MonoBehaviour
         {
             isHide = true;
             animator.SetBool("Destroy", true);
+            circleEffect.SetActive(true);
             script_NoteMovement.enabled = false;
+            LightMove();
+            obj_LightEffect.SetActive(true);
             gameObject.SetActive(true);
             StartCoroutine(DelayForHide(0.1f));
         }
@@ -77,6 +76,7 @@ public class Choi_CollisionDetection : MonoBehaviour
         script_NoteMovement.enabled = true;
         isHide = false;
         isJudgeHide = false;
+        circleEffect.SetActive(false);
         gameObject.SetActive(false);
     }
 
@@ -92,6 +92,7 @@ public class Choi_CollisionDetection : MonoBehaviour
         isHide = false;
         isJudgeHide = false;
         script_NoteMovement.enabled = true;
+        circleEffect.SetActive(false);
         gameObject.SetActive(false);
     }
     private IEnumerator StopObjectMovement(float t)

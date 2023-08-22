@@ -57,6 +57,9 @@ TagManager:
   - name: Note
     uniqueID: 3230430745
     locked: 0
+  - name: Combo
+    uniqueID: 356006083
+    locked: 0
   - name: JudgeBtn
     uniqueID: 1271097017
     locked: 0

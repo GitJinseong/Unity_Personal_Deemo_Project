@@ -1,13 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Collections;
-using TMPro;
-using Unity.VisualScripting;
 
 public class Choi_NoteManager : MonoBehaviour
 {
     public static Choi_NoteManager instance;
-    public GameObject notePrefab;
+    public GameObject noteParentPrefab;
     public Transform[] notes;
 
     //public Transform notes_1;
@@ -48,10 +46,11 @@ public class Choi_NoteManager : MonoBehaviour
 
             for (int j = 0; j < initialPoolSize; j++)
             {
-                GameObject note = Instantiate(notePrefab);
-                note.transform.SetParent(notes[i]);
+                GameObject noteParent = Instantiate(noteParentPrefab);
+                GameObject note = noteParent.transform.Find("Note").gameObject;
+                noteParent.transform.SetParent(notes[i]);
                 note.SetActive(false);
-                notes_Pool[i].Add(note);
+                notes_Pool[i].Add(noteParent);
             }
         }
         // originalScale = notes_Pool[0][0].transform.localScale;
@@ -66,11 +65,11 @@ public class Choi_NoteManager : MonoBehaviour
         if (note != null)
         {
             note.transform.position = spawnPosition;
-            if (size < 1.0f) { size = 1.0f; }
-            if (size > 1.0f)
-            {
-                size = (((size - 1.0f) * 0.4f) + 1.0f);
-            }
+            //if (size < 1.0f) { size = 1.0f; }
+            //if (size > 1.0f)
+            //{
+            //    size = (((size - 1.0f) * 0.4f) + 1.0f);
+            //}
 
             Choi_Note noteComponent = note.GetComponent<Choi_Note>();
             Choi_NoteMovement noteMovement = note.GetComponent<Choi_NoteMovement>();
@@ -86,6 +85,7 @@ public class Choi_NoteManager : MonoBehaviour
 
             Physics.SyncTransforms();
 
+            //GameObject realNote = note.transform.Find("Note").gameObject;
             note.SetActive(true);
             //note.transform.localScale = originalScale * size;
 
@@ -125,15 +125,16 @@ public class Choi_NoteManager : MonoBehaviour
 
     private GameObject GetPooledNote(int noteLine)
     {
-        foreach (GameObject note in notes_Pool[noteLine])
+        foreach (GameObject noteParent in notes_Pool[noteLine])
         {
-            if (!note.activeInHierarchy)
+            GameObject note = noteParent.transform.Find("Note").gameObject;
+            // 노트 오브젝트가 false 일 경우
+            if (note.activeInHierarchy == false)
             {
                 return note;
             }
         }
         return null;
-
     }
 
     public string CalculateStringPosition(float adjustedX, float leftBoundary, float rightBoundary)

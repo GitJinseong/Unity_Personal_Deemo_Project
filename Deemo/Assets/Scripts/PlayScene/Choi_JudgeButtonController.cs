@@ -30,10 +30,11 @@ public class Choi_JudgeButtonController : MonoBehaviour, IPointerClickHandler
 
         foreach (Transform child in parentTransform)
         {
-            if (child.gameObject.activeSelf && child.position.y < lowestY && child.position.y < min_SearchPosY)
+            GameObject note = child.transform.Find("Note").gameObject;
+            if (note.gameObject.activeSelf && note.transform.position.y < lowestY && note.transform.position.y < min_SearchPosY)
             {
-                lowestY = child.position.y;
-                lowestYObject = child.gameObject;
+                lowestY = note.transform.position.y;
+                lowestYObject = note.transform.gameObject;
             }
         }
 
