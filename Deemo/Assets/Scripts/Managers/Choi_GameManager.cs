@@ -10,12 +10,10 @@ public class Choi_GameManager : MonoBehaviour
     public TMP_Text judgeText;
     public TMP_Text timingText;
     public string formattedAccuracy = "0.00";
-    private int total_Notes;
     private int total_Charming;
     private int total_Normal;
     private int total_Miss;
     private int total_Combo;
-    private float total_Accuracy;
 
     public int activatedJudgeColliderCount = 0;
 
@@ -62,6 +60,15 @@ public class Choi_GameManager : MonoBehaviour
     {
         total_Combo = 0;
         GetAccuracy();
+    }
+
+    public void RemoveHistory()
+    {
+        formattedAccuracy = "0.00";
+        total_Charming = 0;
+        total_Normal = 0;
+        total_Miss = 0;
+        total_Combo = 0;
     }
 
     public int GetTrueNotes()

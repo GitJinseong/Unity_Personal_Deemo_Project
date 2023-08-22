@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Linq;
+using System.Text;
 
 public class Park_CSVReader : MonoBehaviour
 {
@@ -89,6 +91,33 @@ public class Park_CSVReader : MonoBehaviour
 
             Debug.Log(category + ": " + string.Join(", ", values));
         }
+    }
+
+    public void WriteCSVFile(string csvFileName)
+    {
+        string filePath = Application.dataPath + "/" + csvFileName;
+
+        StringBuilder csvContent = new StringBuilder();
+
+        // 헤더 라인 작성
+        csvContent.AppendLine(string.Join(DELIMITER.ToString(), dataDictionary.Keys));
+
+        // 각 데이터 행 작성
+        int rowCount = dataDictionary.Values.First().Count;
+        for (int i = 0; i < rowCount; i++)
+        {
+            List<string> row = new List<string>();
+            foreach (var key in dataDictionary.Keys)
+            {
+                row.Add(dataDictionary[key][i]);
+            }
+            csvContent.AppendLine(string.Join(DELIMITER.ToString(), row));
+        }
+
+        // 파일에 내용 쓰기
+        File.WriteAllText(filePath, csvContent.ToString());
+
+        Debug.Log("CSV file saved to: " + filePath);
     }
 }
 ////using System.Collections.Generic;
