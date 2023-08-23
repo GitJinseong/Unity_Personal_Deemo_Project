@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Deemo/Assets/Scripts/PlayScene/Choi_AudioPlaybackChecker.cs.meta
 guid: 4fc116e0f5e8097419c5f3aff50ae53a
+========
+guid: 4856c26b5bb5d48409be2579d320e105
+>>>>>>>> origin/Park:Deemo/Assets/Scripts/MyTools/Park_SceneChangeEditer.cs.meta
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

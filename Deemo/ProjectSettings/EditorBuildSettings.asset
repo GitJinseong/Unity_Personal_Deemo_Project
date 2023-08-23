@@ -21,6 +21,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MusicSelectionScene.unity
     guid: 6a3238845fb19ae47beda9a466f6f5be
   - enabled: 1
+    path: Assets/Scenes/MainSceneLoad.unity
+    guid: 24652e244f44ef24e9948386ad0d29c7
+  - enabled: 1
     path: Assets/Scenes/PlaySceneLoadingScene.unity
     guid: 7e1c749b14c938d43a598df775bb8d4a
   - enabled: 1

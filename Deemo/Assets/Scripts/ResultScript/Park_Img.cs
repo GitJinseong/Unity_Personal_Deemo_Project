@@ -14,15 +14,17 @@ public class Park_Img : MonoBehaviour
 
         for (int i = 0; i < Park_GameManager.instance.musicInformation["Title"].Count; i++)
         {
-            string targetSpriteName = Park_GameManager.instance.musicInformation["Sprite"][i];
-
             if (Park_GameManager.instance.musicInformation["Title"][i] == Park_GameManager.instance.title)
             {
-                if (targetSpriteName == spriteResources[i].name + ".png")
+                for (int j = 0; j < Park_GameManager.instance.musicInformation["Title"].Count; j++)
                 {
-                    GetComponent<Image>().sprite = spriteResources[i];
-                    break;
+                    if (Park_GameManager.instance.musicInformation["Sprite"][i] == spriteResources[j].name + ".png")
+                    {
+                        gameObject.GetComponent<Image>().sprite = spriteResources[j];
+                        break;
+                    }
                 }
+
             }
         }
     }

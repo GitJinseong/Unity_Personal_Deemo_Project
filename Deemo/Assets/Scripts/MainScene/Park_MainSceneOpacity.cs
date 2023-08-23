@@ -5,34 +5,15 @@ using UnityEngine.UI;
 
 public class Park_MainSceneOpacity : MonoBehaviour
 {
-    private Image image;
-
-    public bool isCheck;
-
     public float duration;
 
     void Start()
     {
-        image = GetComponent<Image>();
-
         StartCoroutine(StartOpacity());
     }
 
-    void Update()
+    public IEnumerator StartOpacity()
     {
-        if (isCheck == true)
-        {
-            StartCoroutine(EndOpacity());
-
-            isCheck = false;
-        }
-    }
-
-    private IEnumerator StartOpacity()
-    {
-        Color startColor = image.color; // 시작 색상
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 0.0f); // 끝 색상 (완전 불투명)
-
         float timeElapsed = 0.0f;
 
         while (timeElapsed < duration)
@@ -41,17 +22,14 @@ public class Park_MainSceneOpacity : MonoBehaviour
 
             float time = Mathf.Clamp01(timeElapsed / duration);
 
-            image.color = Color.Lerp(startColor, endColor, time);
+            GetComponent<CanvasGroup>().alpha = Mathf.Lerp(0.0f, 1.0f, time);
 
             yield return null;
         }
     }
 
-    private IEnumerator EndOpacity()
+    public IEnumerator EndOpacity()
     {
-        Color startColor = image.color; // 시작 색상
-        Color endColor = new Color(startColor.r, startColor.g, startColor.b, 1.0f); // 끝 색상 (완전 투명)
-
         float timeElapsed = 0.0f;
 
         while (timeElapsed < duration)
@@ -60,11 +38,9 @@ public class Park_MainSceneOpacity : MonoBehaviour
 
             float time = Mathf.Clamp01(timeElapsed / duration);
 
-            image.color = Color.Lerp(startColor, endColor, time);
+            GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1.0f, 0.0f, time);
 
             yield return null;
         }
     }
-
-
 }

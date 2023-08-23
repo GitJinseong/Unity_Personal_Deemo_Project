@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Deemo/Assets/Scenes/MusicSelectionSceneLoad.unity.meta
 guid: 1fdea232bf0559a4ab99cf0dddf87402
+========
+guid: 0e5371d34cd6ccf4bbcc9f3b48f8f2b7
+>>>>>>>> origin/Park:Deemo/Assets/Scenes/MainSceneLoad.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

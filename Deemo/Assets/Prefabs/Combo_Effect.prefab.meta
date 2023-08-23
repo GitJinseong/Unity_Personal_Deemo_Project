@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Deemo/Assets/Prefabs/Combo_Effect.prefab.meta
 guid: 5a796d80464534a4580628b6a49a5f50
 PrefabImporter:
+========
+guid: 1fdea232bf0559a4ab99cf0dddf87402
+DefaultImporter:
+>>>>>>>> origin/Park:Deemo/Assets/Scenes/MusicSelectionSceneLoad.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class Park_OnClickEffectBack : MonoBehaviour
 {
+    public Park_MainSceneOpacity park_MainSceneOpacity;
+
     // 실행 중인 코루틴 추적하기
     private Coroutine startOverScale;
     private Coroutine startOrignalScale;
@@ -28,8 +30,8 @@ public class Park_OnClickEffectBack : MonoBehaviour
     public float delay = 0f;
 
     // 이미지 크기 배수 변경의 위한 변수
-    public float pressedMult;
-    public float overMult;
+    public float pressedMult = 0.9f;
+    public float overMult = 1.05f;
 
     // 크기 변경을 부드럽게 하기 위한 변수
     private float durationFirst = 0.2f;
@@ -75,6 +77,8 @@ public class Park_OnClickEffectBack : MonoBehaviour
             startOverScale = StartCoroutine(StartOverScale());
 
             loadScene.Run(delay, sceneName);
+
+            StartCoroutine(park_MainSceneOpacity.EndOpacity());
 
             isPressed = false;
         }

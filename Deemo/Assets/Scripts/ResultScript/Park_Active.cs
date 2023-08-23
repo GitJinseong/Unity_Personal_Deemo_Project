@@ -36,10 +36,8 @@ public class Park_Active : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (isPoint == true)
+        if (isPoint == true && activeObject.activeSelf == false)
         {
-            activeObject.SetActive(true);
-            activeObject.SetActive(false);
             activeObject.SetActive(true);
         }
     }

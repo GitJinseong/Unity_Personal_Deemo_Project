@@ -329,6 +329,7 @@ GameObject:
   m_Component:
   - component: {fileID: 635965350}
   - component: {fileID: 635965349}
+  - component: {fileID: 635965351}
   m_Layer: 0
   m_Name: LoadScene
   m_TagString: Untagged
@@ -363,6 +364,20 @@ Transform:
   m_Father: {fileID: 294061376}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &635965351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 635965348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 337b8f7dab3ad0141a5a3605e3ed7e6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  park_MainSceneOpacity: {fileID: 2074560931}
+  choi_CallLoadScene: {fileID: 1415290057}
 --- !u!1 &1015017194
 GameObject:
   m_ObjectHideFlags: 0
@@ -794,6 +809,7 @@ GameObject:
   - component: {fileID: 2074560927}
   - component: {fileID: 2074560926}
   - component: {fileID: 2074560930}
+  - component: {fileID: 2074560931}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -897,3 +913,16 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &2074560931
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074560925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a22943e16b6874a4dafceb2e17a51d4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  duration: 1

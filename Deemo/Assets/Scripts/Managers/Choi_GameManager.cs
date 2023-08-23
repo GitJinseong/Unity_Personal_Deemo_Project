@@ -6,6 +6,8 @@ using UnityEngine;
 public class Choi_GameManager : MonoBehaviour
 {
     public static Choi_GameManager instance;
+    public GameObject obj_effect;
+    public GameObject obj_Charming;
     public TMP_Text txt_Accuracy;
     public TMP_Text judgeText;
     public TMP_Text comboText;
@@ -16,8 +18,6 @@ public class Choi_GameManager : MonoBehaviour
     private int total_Normal;
     private int total_Miss;
     private int total_Combo;
-
-    public int activatedJudgeColliderCount = 0;
 
     private void Awake()
     {
@@ -34,14 +34,15 @@ public class Choi_GameManager : MonoBehaviour
     {
         total_Charming++;
         AddCombo();
-        judgeText.text = "(" + total_Combo.ToString() + ") " + "CHARMING!";
+        obj_effect.SetActive(true);
+        obj_Charming.SetActive(true);
     }
 
     public void AddNormal()
     {
         total_Normal++;
         AddCombo();
-        judgeText.text = "(" + total_Combo.ToString() + ") " + "NORMAL!";
+        obj_effect.SetActive(true);
 
     }
 
@@ -49,7 +50,7 @@ public class Choi_GameManager : MonoBehaviour
     {
         total_Miss++;
         ResetCombo();
-        judgeText.text = "(" + total_Combo.ToString() + ") " + "MISS!";
+        obj_effect.SetActive(false);
     }
 
     public void AddCombo()
