@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Linq;
+using System.Collections;
 using TMPro;
 
 public class Choi_JSONReader : MonoBehaviour
@@ -55,11 +56,11 @@ public class Choi_JSONReader : MonoBehaviour
         public List<NoteData> notes;
     }
 
-    public float difficulty_time; // 난이도 구분 Hard = 0.15 / Normal = 0.3 / Easy = 0.4f
+    private float startTime = 6.0f;
+    private float difficulty_time; // 난이도 구분 Hard = 0.15 / Normal = 0.3 / Easy = 0.4f
     private float previous_PosX;
     private int samePosXCount;
     private int noteLine;
-
     private void Awake()
     {
         switch (Park_GameManager.instance.difficulty)
@@ -146,7 +147,7 @@ public class Choi_JSONReader : MonoBehaviour
             List<SoundData> sounds = note.sounds;
             float pos = note.pos;
             float size = note.size;
-            float _time = note._time;
+            float _time = note._time + startTime;
             int pitch = default;
 
             Debug.Log($"Time: {_time}");

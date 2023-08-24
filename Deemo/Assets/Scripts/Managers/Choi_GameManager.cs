@@ -30,20 +30,37 @@ public class Choi_GameManager : MonoBehaviour
         comboText_Shadow.text = comboText.text;
     }
 
+    public void CallComboEffect()
+    {
+        if (total_Combo >= 5)
+        {
+            obj_effect.SetActive(false);
+            obj_effect.SetActive(true);
+        }
+    }
+
+    public void CallCharmingEffect()
+    {
+        if (total_Combo >= 5)
+        {
+            obj_Charming.SetActive(false);
+            obj_Charming.SetActive(true);
+        }
+    }
+
     public void AddCharming()
     {
         total_Charming++;
         AddCombo();
-        obj_effect.SetActive(true);
-        obj_Charming.SetActive(true);
+        CallComboEffect();
+        CallCharmingEffect();
     }
 
     public void AddNormal()
     {
         total_Normal++;
         AddCombo();
-        obj_effect.SetActive(true);
-
+        CallComboEffect();
     }
 
     public void AddMiss()
@@ -51,6 +68,7 @@ public class Choi_GameManager : MonoBehaviour
         total_Miss++;
         ResetCombo();
         obj_effect.SetActive(false);
+        obj_Charming.SetActive(false);
     }
 
     public void AddCombo()

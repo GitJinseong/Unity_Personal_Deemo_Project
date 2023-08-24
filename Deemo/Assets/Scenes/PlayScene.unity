@@ -471,7 +471,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &290389242
 Transform:
   m_ObjectHideFlags: 0
@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   obj_effect: {fileID: 1698363862}
-  obj_Charming: {fileID: 896395092}
+  obj_Charming: {fileID: 8496125504225803692}
   txt_Accuracy: {fileID: 1646966960}
   judgeText: {fileID: 1036355066}
   comboText: {fileID: 939342603}
@@ -1500,7 +1500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcf7426bd25962c4bbcd457584d08542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayInSeconds: 0
+  delayInSeconds: 9
 --- !u!114 &500285112 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8496125504200084760, guid: 5a796d80464534a4580628b6a49a5f50, type: 3}
@@ -3766,7 +3766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c86ca27e823e08c43b00af1a7cf97d40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty_time: 0.4
 --- !u!4 &1223476547
 Transform:
   m_ObjectHideFlags: 0
@@ -3974,8 +3973,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c973ecc55f728224685df4e5084c8842, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noteParentPrefab: {fileID: 0}
-  notes: []
+  noteParentPrefab: {fileID: 3761097276406527339, guid: 18e467f4a6a6054499d30108fa064a30, type: 3}
+  notes:
+  - {fileID: 1402795356}
+  - {fileID: 1775893344}
+  - {fileID: 1663078931}
+  - {fileID: 1167174874}
+  - {fileID: 1901688020}
   leftNotes: []
   rightNotes: []
   noteLayerMask:
@@ -5205,7 +5209,7 @@ MonoBehaviour:
   txt_SongName: {fileID: 251281087}
   txt_Difficulty: {fileID: 320883605}
   txt_backSongName: {fileID: 954160786}
-  img_Difficulty: {fileID: 0}
+  img_Difficulty: {fileID: 2056325297}
   sprite_HardIcon: {fileID: 21300000, guid: 5b360a303cc783b428d03f87e79dc5ce, type: 3}
   sprite_NormalIcon: {fileID: 21300000, guid: f1f73c4de54ccfa4b968b2825cfc7e98, type: 3}
   sprite_EasyIcon: {fileID: 21300000, guid: e39f742976aa1aa4f925b331c0cac798, type: 3}
@@ -5899,3 +5903,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a796d80464534a4580628b6a49a5f50, type: 3}
+--- !u!1 &8496125504225803692 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8496125504280385837, guid: 5a796d80464534a4580628b6a49a5f50, type: 3}
+  m_PrefabInstance: {fileID: 8496125504225803691}
+  m_PrefabAsset: {fileID: 0}
