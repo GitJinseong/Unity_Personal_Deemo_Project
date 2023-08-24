@@ -14,13 +14,19 @@ public class Park_Active : MonoBehaviour
     // 버튼 클릭을 확인
     private bool isPoint = false;
 
+    private float timeElapsed = 0.0f;
+
     void Start()
     {
         targetObject.SetActive(true);
+
+        timeElapsed = 0.0f;
     }
 
     private void Update()
     {
+        timeElapsed += Time.deltaTime;
+
         if (StartMousePosition != (Vector2)Input.mousePosition)
         {
             isPoint = false;
@@ -36,7 +42,7 @@ public class Park_Active : MonoBehaviour
 
     private void OnMouseUp()
     {
-        if (isPoint == true && activeObject.activeSelf == false)
+        if (isPoint == true && activeObject.activeSelf == false && 5.0f <= timeElapsed)
         {
             activeObject.SetActive(true);
         }

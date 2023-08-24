@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class Park_BtnSetting : MonoBehaviour
 {
-    // 실행 중인 코루틴 추적하기
-    private Coroutine startOverScale;
-    private Coroutine startOrignalScale;
+    public GameObject settingBtn;
+    public GameObject btnGroup;
 
     // 마우스 포인터가 오브젝트 위에 있는지 체크 하기 위한 변수(Camera)
     public Camera mainCamera;
@@ -27,73 +26,19 @@ public class Park_BtnSetting : MonoBehaviour
     private float durationFirst = 0.2f;
     private float durationSecound = 0.1f;
 
-    // 버튼이 눌리고 있는지 확인
-    private bool isPressed = false;
-
-    // 마우스 포인터가 오브젝트 안에 있는지 확인
-    private bool isPoint = false;
-
-    // Start is called before the first frame update
     void Start()
     {
         // 이미지 크기 지정
-        orignalScale = transform.localScale;
+        orignalScale = settingBtn.GetComponent<RectTransform>().localScale;
         pressedScale = orignalScale * pressedMult;
         overScale = orignalScale * overMult;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (isPressed == true)
-        {
-            transform.localScale = pressedScale;
-        }
-    }
-
     private void OnMouseDown()
     {
-        // 코루틴을 중지하고 새로운 코루틴을 시작
-        if (startOverScale != null) { StopCoroutine(startOverScale); }
-        if (startOrignalScale != null) { StopCoroutine(startOrignalScale); }
+        StartCoroutine(StartOverScale());
 
-        isPressed = true;
-    }
-
-    private void OnMouseUp()
-    {
-        if (isPoint == true)
-        {
-            startOverScale = StartCoroutine(StartOverScale());
-
-            Debug.Log("잘찍히는가?");
-
-            isPressed = false;
-        }
-    }
-
-    private void OnMouseDrag()
-    {
-        // 마우스 포인터 위치를 카메라 스크린 좌표로 변환
-        Vector3 mousePosition = Input.mousePosition;
-
-        // 카메라 스크린 좌표를 레이로 변환
-        Vector2 rayOrigin = mainCamera.ScreenToWorldPoint(mousePosition);
-
-        // 레이캐스트로 2D 오브젝트와의 충돌 검사
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin, Vector2.zero, 0f, targetLayer);
-
-        if (hit.collider != null)
-        {
-            isPoint = true;
-        }
-        else
-        {
-            StartCoroutine(StartOverScale());
-
-            isPressed = false;
-            isPoint = false;
-        }
+        btnGroup.SetActive(true);
     }
 
     private IEnumerator StartOverScale()
@@ -109,12 +54,12 @@ public class Park_BtnSetting : MonoBehaviour
             float time = Mathf.Clamp01(timeElapsed / durationFirst);
 
             // 보간된 값을 사용하여 스케일 값을 변경
-            transform.localScale = Vector2.Lerp(pressedScale, overScale, time);
+            settingBtn.GetComponent<RectTransform>().localScale = Vector2.Lerp(pressedScale, overScale, time);
 
             yield return null;
         }
 
-        startOrignalScale = StartCoroutine(StartOrignalScale());
+        StartCoroutine(StartOrignalScale());
     }
 
     private IEnumerator StartOrignalScale()
@@ -130,7 +75,7 @@ public class Park_BtnSetting : MonoBehaviour
             float time = Mathf.Clamp01(timeElapsed / durationSecound);
 
             // 보간된 값을 사용하여 스케일 값을 변경
-            transform.localScale = Vector2.Lerp(overScale, orignalScale, time);
+            settingBtn.GetComponent<RectTransform>().localScale = Vector2.Lerp(overScale, orignalScale, time);
 
             yield return null;
         }

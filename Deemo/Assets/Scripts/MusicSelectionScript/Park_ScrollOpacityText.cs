@@ -8,7 +8,7 @@ public class Park_ScrollOpacityText : MonoBehaviour
 
     public RectTransform scrollContent;
 
-    public TMP_Text mainTitle, composer;
+    public TMP_Text mainTitle, mainTitleShadow, composer;
 
     private Coroutine alphaUp, alphaDown;
 
@@ -52,6 +52,7 @@ public class Park_ScrollOpacityText : MonoBehaviour
         composerObj.GetComponent<CanvasGroup>().alpha = 0.0f;
 
         mainTitle.text = Park_GameManager.instance.musicInformation["Title"][titleCount - currentIndex - 1];
+        mainTitleShadow.text = Park_GameManager.instance.musicInformation["Title"][titleCount - currentIndex - 1];
         composer.text = Park_GameManager.instance.musicInformation["Composer"][titleCount - currentIndex - 1];
 
         Park_GameManager.instance.Title(mainTitle.text);

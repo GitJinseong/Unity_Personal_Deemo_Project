@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Park_OnClickEffectSetting : MonoBehaviour
 {
+    public Park_MainSceneOpacity park_MainSceneOpacity;
+
     // 실행 중인 코루틴 추적하기
     private Coroutine startOverScale;
     private Coroutine startOrignalScale;
@@ -14,10 +16,16 @@ public class Park_OnClickEffectSetting : MonoBehaviour
     // 마우스 포인터가 오브젝트 위에 있는지 체크 하기 위한 변수(LayerMask)
     public LayerMask targetLayer;
 
+    public Choi_LoadScene loadScene;
+
     // 이미지 크기 변경을 위한 변수
     private Vector2 orignalScale;
     private Vector2 pressedScale;
     private Vector2 overScale;
+
+    // 씬 변경을 위한 변수
+    public string sceneName;
+    public float delay = 0f;
 
     // 크기 변경을 부드럽게 하기 위한 변수
     private float durationFirst = 0.2f;
