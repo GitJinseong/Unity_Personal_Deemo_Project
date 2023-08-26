@@ -22,15 +22,16 @@ public class Park_GameManager : MonoBehaviour
 
     public AudioSource audioSource;
 
+    public static int index;
     public string title;
     public string difficulty;
     public float score;
 
+    public static bool isNewRecord = false;
+
     public float bgm;
     public float speed;
     public float key;
-
-
 
     private Sprite[] spriteResources;
 
@@ -58,9 +59,9 @@ public class Park_GameManager : MonoBehaviour
             Instantiate(barPrefab, scrollBar);
         }
 
-        content.GetComponent<RectTransform>().anchoredPosition =
-            new Vector2(content.GetComponent<RectTransform>().anchoredPosition.x,
-            musicInformation["Title"].Count * 720.0f / 2.0f); 
+        //content.GetComponent<RectTransform>().anchoredPosition =
+        //    new Vector2(content.GetComponent<RectTransform>().anchoredPosition.x,
+        //    musicInformation["Title"].Count * 720.0f / 2.0f); 
 
         spriteResources = Resources.LoadAll<Sprite>(path + "Sprite");
 

@@ -1,0 +1,26 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+guid: fc38994f5fb70aa4db844b647dbd7b78
+=======
+guid: 5ca4414085ab71a4b99cec2db206dea1
+>>>>>>> origin/Park
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

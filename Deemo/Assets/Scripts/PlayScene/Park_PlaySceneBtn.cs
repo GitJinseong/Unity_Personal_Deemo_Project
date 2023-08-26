@@ -154,35 +154,33 @@ public class Park_PlaySceneBtn : MonoBehaviour
 
     public IEnumerator StartScale()
     {
-        isCoroutine = true;
+        float startTime = Time.realtimeSinceStartup;
+        float elapsedTime = 0.0f;
 
-        float timeElapsed = 0.0f;
-
-        while (timeElapsed < durationFirst)
+        while (elapsedTime < durationFirst)
         {
-            timeElapsed += Time.deltaTime;
+            elapsedTime = Time.realtimeSinceStartup - startTime;
 
-            float time = Mathf.Clamp01(timeElapsed / durationFirst);
+            float time = Mathf.Clamp01(elapsedTime / durationFirst);
 
             transform.localScale = Vector2.Lerp(new Vector2(0.0f, 0.0f), overScale, time);
 
             yield return null;
         }
 
-        timeElapsed = 0.0f;
+        startTime = Time.realtimeSinceStartup;
+        elapsedTime = 0.0f;
 
-        while (timeElapsed < durationSecound)
+        while (elapsedTime < durationSecound)
         {
-            timeElapsed += Time.deltaTime;
+            elapsedTime = Time.realtimeSinceStartup - startTime;
 
-            float time = Mathf.Clamp01(timeElapsed / durationSecound);
+            float time = Mathf.Clamp01(elapsedTime / durationSecound);
 
             transform.localScale = Vector2.Lerp(overScale, orignalScale, time);
 
             yield return null;
         }
-
-        isCoroutine = false;
     }
 
     private IEnumerator StartOverScale()

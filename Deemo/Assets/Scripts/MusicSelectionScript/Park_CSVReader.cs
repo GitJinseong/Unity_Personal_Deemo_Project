@@ -34,6 +34,7 @@ public class Park_CSVReader : MonoBehaviour
 
     // CSV 파일을 읽는 함수
     // csvFileName에는 "MusicList"와 같이 파일의 이름을 입력한다. (확장자 제외)
+
     public Dictionary<string, List<string>> ReadCSVFile(string csvFileName)
     {
         dataDictionary = new Dictionary<string, List<string>>();
@@ -95,21 +96,38 @@ public class Park_CSVReader : MonoBehaviour
 
     public void WriteCSVFile(string csvFileName)
     {
-        string filePath = Application.dataPath + "/" + csvFileName;
+        // 리소스 폴더와는 별도의 폴더에 저장할 절대 경로 설정
+        string folderPath = Path.Combine(Application.dataPath, "CSVFiles");
+        string filePath = Path.Combine(folderPath, csvFileName);
+
+        // 폴더가 없으면 생성
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+        }
 
         StringBuilder csvContent = new StringBuilder();
 
         // 헤더 라인 작성
         csvContent.AppendLine(string.Join(DELIMITER.ToString(), dataDictionary.Keys));
 
-        // 각 데이터 행 작성
-        int rowCount = dataDictionary.Values.First().Count;
-        for (int i = 0; i < rowCount; i++)
+        // 최대 데이터 행 개수 확인
+        int maxRowCount = dataDictionary.Values.Max(list => list.Count);
+
+        for (int i = 0; i < maxRowCount; i++)
         {
             List<string> row = new List<string>();
             foreach (var key in dataDictionary.Keys)
             {
-                row.Add(dataDictionary[key][i]);
+                // 행 개수보다 작은 범위에서 값 가져오기
+                if (i < dataDictionary[key].Count)
+                {
+                    row.Add(dataDictionary[key][i]);
+                }
+                else
+                {
+                    row.Add(""); // 값이 없는 경우 빈 문자열 추가
+                }
             }
             csvContent.AppendLine(string.Join(DELIMITER.ToString(), row));
         }
@@ -119,177 +137,27 @@ public class Park_CSVReader : MonoBehaviour
 
         Debug.Log("CSV file saved to: " + filePath);
     }
+    
+    // CSV 데이터를 PlayerPrefs에 저장하는 함수
+    public void SaveCSVDataToPlayerPrefs(string csvFileName)
+    {
+        ReadCSVFile(csvFileName); // CSV 파일 읽기
+
+        // 딕셔너리의 각 항목을 순회하면서 PlayerPrefs에 저장
+        foreach (KeyValuePair<string, List<string>> entry in dataDictionary)
+        {
+            string category = entry.Key;
+            List<string> values = entry.Value;
+
+            // List<string>을 문자열로 변환하여 PlayerPrefs에 저장
+            string valuesString = string.Join(",", values.ToArray());
+            PlayerPrefs.SetString(category, valuesString);
+        }
+
+        Debug.Log("CSV data saved to PlayerPrefs.");
+
+        // <외부에서 저장 예시>
+        // CSV 데이터를 PlayerPrefs에 저장하기
+        //Park_CSVReader.instance.SaveCSVDataToPlayerPrefs("MusicList");
+    }
 }
-////using System.Collections.Generic;
-////using UnityEngine;
-////using System.IO;
-
-////public class CSVReader : MonoBehaviour
-////{
-////    #region 싱글톤 선언
-////    private static CSVReader m_instance; // 싱글톤이 할당될 static 변수
-////    public static CSVReader instance
-////    {
-////        get
-////        {
-////            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
-////            if (m_instance == null)
-////            {
-////                // 씬에서 CSVReader 오브젝트를 찾아 할당
-////                m_instance = FindObjectOfType<CSVReader>();
-////            }
-
-////            // 싱글톤 오브젝트를 반환
-////            return m_instance;
-////        }
-////    }
-////    #endregion
-
-////    public const char DELIMITER = ','; // CSV 파일에서 사용하는 구분자 (기본값은 콤마)
-
-////    // csv 파일의 정보를 행과 열로 구분하여 저장할 딕셔너리
-////    // 행은 키 값이 되고, 열은 키 값 내부의 값이 된다.
-////    public Dictionary<string, List<string>> dataDictionary = default;
-
-////    // CSV 파일을 읽는 함수
-////    // dirPath에는 "Assets/Resources/ZombieDatas"과 같이 디렉토리 경로를 입력한다.
-////    // csvFileName에는 "ZombieSurvivalDatas.csv"과 같이 csv 파일의 이름을 입력한다.
-////    public Dictionary<string, List<string>> ReadCSVFile()
-////    {
-////        dataDictionary = new Dictionary<string, List<string>>();
-////        string filePath = "Assets/Resources/" + "MusicList.csv";
-////        try
-////        {
-////            using (StreamReader reader = new StreamReader(filePath))
-////            {
-////                string[] headers = reader.ReadLine().Split(DELIMITER);
-
-////                foreach (string header in headers)
-////                {
-////                    dataDictionary.Add(header, new List<string>());
-////                }
-
-////                while (!reader.EndOfStream)
-////                {
-////                    string line = reader.ReadLine();
-////                    string[] values = line.Split(DELIMITER);
-
-////                    for (int i = 0; i < values.Length; i++)
-////                    {
-////                        dataDictionary[headers[i]].Add(values[i]);
-////                    }
-////                }
-////            }
-////            return dataDictionary;
-////        }
-
-////        // csv 파일에 문제가 있을 경우 오류 메시지 출력
-////        catch (IOException e)
-////        {
-////            Debug.LogError("Error reading the CSV file: " + e.Message);
-////            return default;
-////        }
-////    }
-
-////    // 변환된 csv 파일의 정보가 저장된 딕셔너리 내부의 값을 출력하는 함수.
-////    // "행:열1,열2,열3"과 같이 출력된다.
-////    // 매개 변수로 받을 딕셔너리의 구조는 <string, List<string>> 이어야 한다.
-////    public void PrintData(Dictionary<string, List<string>> dictionary)
-////    {
-////        // 딕셔너리의 각 항목을 출력
-////        foreach (KeyValuePair<string, List<string>> entry in dictionary)
-////        {
-////            string category = entry.Key;
-////            List<string> values = entry.Value;
-
-////            Debug.Log(category + ": " + string.Join(", ", values));
-////        }
-////    }
-////}
-
-//using System.Collections.Generic;
-//using UnityEngine;
-//using System.IO;
-
-//public class CSVReader : MonoBehaviour
-//{
-//    #region 싱글톤 선언
-//    private static CSVReader m_instance; // 싱글톤이 할당될 static 변수
-//    public static CSVReader instance
-//    {
-//        get
-//        {
-//            // 만약 싱글톤 변수에 아직 오브젝트가 할당되지 않았다면
-//            if (m_instance == null)
-//            {
-//                // 씬에서 CSVReader 오브젝트를 찾아 할당
-//                m_instance = FindObjectOfType<CSVReader>();
-//            }
-
-//            // 싱글톤 오브젝트를 반환
-//            return m_instance;
-//        }
-//    }
-//    #endregion
-
-//    public const char DELIMITER = ','; // CSV 파일에서 사용하는 구분자 (기본값은 콤마)
-
-//    // csv 파일의 정보를 행과 열로 구분하여 저장할 딕셔너리
-//    // 행은 키 값이 되고, 열은 키 값 내부의 값이 된다.
-//    public Dictionary<string, List<string>> dataDictionary = default;
-
-//    // CSV 파일을 읽는 함수
-//    // dirPath에는 "Assets/Resources/ZombieDatas"과 같이 디렉토리 경로를 입력한다.
-//    // csvFileName에는 "ZombieSurvivalDatas.csv"과 같이 csv 파일의 이름을 입력한다.
-//    public Dictionary<string, List<string>> ReadCSVFile()
-//    {
-//        dataDictionary = new Dictionary<string, List<string>>();
-//        string filePath = "Assets/Resources/" + "MusicList.csv";
-//        try
-//        {
-//            using (StreamReader reader = new StreamReader(filePath))
-//            {
-//                string[] headers = reader.ReadLine().Split(DELIMITER);
-
-//                foreach (string header in headers)
-//                {
-//                    dataDictionary.Add(header, new List<string>());
-//                }
-
-//                while (!reader.EndOfStream)
-//                {
-//                    string line = reader.ReadLine();
-//                    string[] values = line.Split(DELIMITER);
-
-//                    for (int i = 0; i < values.Length; i++)
-//                    {
-//                        dataDictionary[headers[i]].Add(values[i]);
-//                    }
-//                }
-//            }
-//            return dataDictionary;
-//        }
-
-//        // csv 파일에 문제가 있을 경우 오류 메시지 출력
-//        catch (IOException e)
-//        {
-//            Debug.LogError("Error reading the CSV file: " + e.Message);
-//            return default;
-//        }
-//    }
-
-//    // 변환된 csv 파일의 정보가 저장된 딕셔너리 내부의 값을 출력하는 함수.
-//    // "행:열1,열2,열3"과 같이 출력된다.
-//    // 매개 변수로 받을 딕셔너리의 구조는 <string, List<string>> 이어야 한다.
-//    public void PrintData(Dictionary<string, List<string>> dictionary)
-//    {
-//        // 딕셔너리의 각 항목을 출력
-//        foreach (KeyValuePair<string, List<string>> entry in dictionary)
-//        {
-//            string category = entry.Key;
-//            List<string> values = entry.Value;
-
-//            Debug.Log(category + ": " + string.Join(", ", values));
-//        }
-//    }
-//}

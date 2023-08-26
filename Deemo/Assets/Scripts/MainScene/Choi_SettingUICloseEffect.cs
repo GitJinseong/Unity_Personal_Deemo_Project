@@ -9,6 +9,7 @@ public class Choi_SettingUICloseEffect : MonoBehaviour
     public GameObject obj_BtnSetting = default;
     public GameObject obj_Btns = default;
     public GameObject obj_SettingUIPanel = default;
+    public BoxCollider2D collider_SongSettingUI = default;
 
     public float waitForCloseTime = 1.2f;
 
@@ -46,6 +47,7 @@ public class Choi_SettingUICloseEffect : MonoBehaviour
         yield return new WaitForSeconds(waitForCloseTime);
         delayCoroutine = null; // 코루틴 실행이 끝났으므로 참조를 초기화합니다.
         img_BtnSetting.raycastTarget = true;
+        //collider_SongSettingUI.enabled = true;
         obj_closeUI.SetActive(false);
     }
 }

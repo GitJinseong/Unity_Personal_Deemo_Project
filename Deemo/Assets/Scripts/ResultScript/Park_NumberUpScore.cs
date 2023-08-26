@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -14,8 +15,6 @@ public class Park_NumberUpScore : MonoBehaviour
 
     private float score = float.Parse(Choi_GameManager.instance.formattedAccuracy);
 
-    private bool isFloat = true;
-
     private void Awake()
     {
         numText = GetComponent<TMP_Text>();
@@ -23,32 +22,7 @@ public class Park_NumberUpScore : MonoBehaviour
 
     private void OnEnable()
     {
-        if (isFloat == false)
-        {
-            StartCoroutine(IntUp(score, zeorScore));
-        }
-        else
-        {
-            StartCoroutine(FloatUp(score, zeorScore));
-        }
-    }
-
-    private IEnumerator IntUp(float maxNum, float current)
-    {
-        float time = maxNum / duration;
-
-        while (current < maxNum)
-        {
-            current += time * Time.deltaTime;
-
-            numText.text = string.Format("{0}", (int)current);
-
-            yield return null;
-        }
-
-        current = maxNum;
-
-        numText.text = string.Format("{0}", (int)current);
+        StartCoroutine(FloatUp(score, zeorScore));
     }
 
     private IEnumerator FloatUp(float maxNum, float current)
@@ -69,6 +43,14 @@ public class Park_NumberUpScore : MonoBehaviour
         if (score != 0f)
         {
             numText.text = string.Format("{0:F2} %", current);
+        }
+
+        for (int i = 0; i < Park_GameManager.instance.musicInformation["Title"].Count; i++)
+        {
+            if (Park_GameManager.instance.musicInformation["Title"][i] == Park_GameManager.instance.title)
+            {
+                Park_GameManager.instance.musicInformation[Park_GameManager.instance.difficulty + "BestScore"][i] = "25";
+            }
         }
     }
 }

@@ -1,0 +1,34 @@
+fileFormatVersion: 2
+<<<<<<< HEAD
+<<<<<<<< HEAD:Deemo/Assets/Resources/Scenes/MusicSelectionScene/MusicList/MusicFileName/altale.wav.meta
+guid: 2221c48e0713467498e756f5ee7c5e45
+========
+guid: b64a0e9a13560354abe6d5844f55c6e4
+>>>>>>>> origin/Park:Deemo/Assets/Resources/Scenes/MusicSelectionScene/MusicList/MusicFileName/anima.wav.meta
+=======
+<<<<<<<< HEAD:Deemo/Assets/Resources/Songs/queenofice.wav.meta
+guid: 61456ade54802e54da024e0f5520a947
+========
+guid: ec0922dbb3eb9fb4a899efb6dc1a99a6
+>>>>>>>> origin/Park:Deemo/Assets/Resources/Scenes/MusicSelectionScene/MusicList/MusicFileName/altale.wav.meta
+>>>>>>> origin/Park
+AudioImporter:
+  externalObjects: {}
+  serializedVersion: 6
+  defaultSettings:
+    loadType: 0
+    sampleRateSetting: 0
+    sampleRateOverride: 44100
+    compressionFormat: 1
+    quality: 1
+    conversionMode: 0
+  platformSettingOverrides: {}
+  forceToMono: 0
+  normalize: 1
+  preloadAudioData: 1
+  loadInBackground: 0
+  ambisonic: 0
+  3D: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

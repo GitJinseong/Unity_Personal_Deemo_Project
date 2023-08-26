@@ -9,6 +9,11 @@ public class Choi_LoadScene : MonoBehaviour
         StartCoroutine(DelayForLoadScene(t, name));
     }
 
+    public void RunForPause(float t, string name)
+    {
+        StartCoroutine(DelayForLoadSceneForPause(t, name));
+    }
+
     // 비동기 로딩 씬(미리 로딩 완료하고 원하는 타이밍에 씬 호출)
     public void asyncLoadScene(string name, float delay)
     {
@@ -23,6 +28,24 @@ public class Choi_LoadScene : MonoBehaviour
     public IEnumerator DelayForLoadScene(float t, string name)
     {
         yield return new WaitForSeconds(t);
+        SceneManager.LoadScene(name);
+    }
+
+    public IEnumerator DelayForLoadSceneForPause(float t, string name)
+    {
+        float startTime = Time.realtimeSinceStartup;
+
+        while (Time.realtimeSinceStartup - startTime < t)
+        {
+            yield return null;
+
+            // 일시정지된 상태에서 시간을 계산하기 위해 unscaledDeltaTime을 사용
+            if (Time.timeScale == 0.0f)
+            {
+                startTime += Time.unscaledDeltaTime;
+            }
+        }
+
         SceneManager.LoadScene(name);
     }
 

@@ -7,11 +7,13 @@ using UnityEngine.UI;
 public class Park_PlaySceneREADY : MonoBehaviour
 {
     private Vector2 startPos;
+    private Vector2 originalPos; // 원래 포지션 값을 저장할 변수
 
+    private RectTransform rectTransform;
     public float endPos;
     public float effectPos;
 
-    public float delay;
+    public float delay = 3.0f;
     public float wordDelay;
 
     public float durationOpacity;
@@ -20,17 +22,37 @@ public class Park_PlaySceneREADY : MonoBehaviour
     private float timeElapsed = 0.0f;
 
     public bool isScale = false;
+    private int runTime = 0;
 
-    private void Start()
+    private void Awake()
     {
-        startPos = GetComponent<RectTransform>().anchoredPosition;
+        originalPos = GetComponent<RectTransform>().anchoredPosition; // 원래 포지션 값을 저장
+        rectTransform = GetComponent<RectTransform>();
+    }
 
+    private void OnEnable()
+    {
+        delay = 1.0f;
+        startPos = originalPos; // 원래 포지션 값으로 복원
+        startPos.y = originalPos.y; // position.y도 원래 값으로 초기화
+        rectTransform.anchoredPosition = new Vector2(originalPos.x, originalPos.y);
+        Debug.Log(startPos.y);
         StartCoroutine(PostionChange());
+        Debug.Log("OnEnable");
+    }
+
+    private IEnumerator WaitForSecondsRealtimeCustom(float time)
+    {
+        float startTime = Time.realtimeSinceStartup;
+        while (Time.realtimeSinceStartup < startTime + time)
+        {
+            yield return null;
+        }
     }
 
     private IEnumerator PostionChange()
     {
-        yield return new WaitForSeconds(delay);
+        yield return StartCoroutine(WaitForSecondsRealtimeCustom(delay));
 
         timeElapsed = 0.0f;
 
@@ -38,7 +60,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
         {
             while (timeElapsed < durationOpacity)
             {
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.unscaledDeltaTime; // unscaledDeltaTime 사용
 
                 float timeOpacity = 1.0f - Mathf.Pow(1.0f - Mathf.Clamp01(timeElapsed / durationOpacity), 2);
                 float timePosition = Mathf.Clamp01(timeElapsed / durationOpacity);
@@ -59,7 +81,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
         {
             while (timeElapsed < durationOpacity)
             {
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.unscaledDeltaTime; // unscaledDeltaTime 사용
 
                 float timeOpacity = 1.0f - Mathf.Pow(1.0f - Mathf.Clamp01(timeElapsed / durationOpacity), 2);
                 float timeScale = Mathf.Clamp01(timeElapsed / durationOpacity);
@@ -82,7 +104,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
 
     private IEnumerator wordEffect()
     {
-        yield return new WaitForSeconds(wordDelay);
+        yield return StartCoroutine(WaitForSecondsRealtimeCustom(wordDelay));
 
         timeElapsed = 0.0f;
 
@@ -90,9 +112,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
         {
             while (timeElapsed < durationChange)
             {
-                Debug.Log(durationChange);
-
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.unscaledDeltaTime; // unscaledDeltaTime 사용
 
                 float time = Mathf.Clamp01(timeElapsed / durationChange);
 
@@ -112,7 +132,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
         {
             while (timeElapsed < durationChange)
             {
-                timeElapsed += Time.deltaTime;
+                timeElapsed += Time.unscaledDeltaTime; // unscaledDeltaTime 사용
 
                 float time = Mathf.Clamp01(timeElapsed / durationChange);
 
@@ -125,5 +145,15 @@ public class Park_PlaySceneREADY : MonoBehaviour
                 yield return null;
             }
         }
+
+        StartCoroutine(DeactivateParentObject());
+    }
+
+    private IEnumerator DeactivateParentObject()
+    {
+        yield return StartCoroutine(WaitForSecondsRealtimeCustom(durationChange));
+
+        // 부모 오브젝트를 비활성화
+        transform.parent.gameObject.SetActive(false);
     }
 }

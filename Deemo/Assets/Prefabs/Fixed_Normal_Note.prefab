@@ -172,7 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   originalScale: 7
-  originalAlpha: 0.75
+  originalAlpha: 1
   finalScale: 11
   finalAlpha: 0
   duration: 1
@@ -187,6 +187,10 @@ PrefabInstance:
       propertyPath: obj_LightEffect
       value: 
       objectReference: {fileID: 7032744391186045050}
+    - target: {fileID: -2395249521209625025, guid: 2e61e25c21bc7b0458e953a192301cb7, type: 3}
+      propertyPath: spriteAlphaFade
+      value: 
+      objectReference: {fileID: 2339974351284912845, guid: 0ef9a28786e5695428d22f74fdba2d0e, type: 3}
     - target: {fileID: 910343273, guid: 2e61e25c21bc7b0458e953a192301cb7, type: 3}
       propertyPath: m_SortingLayer
       value: 3

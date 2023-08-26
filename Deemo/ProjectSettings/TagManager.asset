@@ -19,8 +19,8 @@ TagManager:
   - Water
   - UI
   - Note
-  - TopUi
-  - 
+  - TopUI
+  - SettingUI
   - 
   - 
   - 
@@ -62,4 +62,10 @@ TagManager:
     locked: 0
   - name: JudgeBtn
     uniqueID: 1271097017
+    locked: 0
+  - name: SettingUI
+    uniqueID: 2840000663
+    locked: 0
+  - name: ReadyUI
+    uniqueID: 1500043885
     locked: 0

@@ -8,6 +8,9 @@ public class Park_OnClickEffectBackground : MonoBehaviour
 {
     public Park_MoveContent moveContent;
 
+    public GameObject difficulty;
+    public GameObject backBtn;
+
     // 세팅 창이 활성화 되게 하기 위한 변수
     public GameObject settingUi;
 
@@ -116,7 +119,7 @@ public class Park_OnClickEffectBackground : MonoBehaviour
     {
         moveContent.GetComponent<Park_MoveContent>().isScrolling = true;
 
-        if (isCoroutine == false)
+        if (isCoroutine == false && settingUi.GetComponent<Park_OnClickSettingUi>().isCoroutine == false)
         {
             if (isPoint == true)
             {
@@ -124,12 +127,18 @@ public class Park_OnClickEffectBackground : MonoBehaviour
                 {
                     if (settingUi.activeSelf == false)
                     {
+                        difficulty.GetComponent<CircleCollider2D>().radius = 0;
+                        backBtn.GetComponent<CircleCollider2D>().radius = 0;
+
                         settingUi.SetActive(true);
                         settingUi.SetActive(false);
                         settingUi.SetActive(true);
                     }
                     else
                     {
+                        difficulty.GetComponent<CircleCollider2D>().radius = 80;
+                        backBtn.GetComponent<CircleCollider2D>().radius = 30;
+
                         StartCoroutine(AlphaDown());
                     }
 
@@ -138,10 +147,16 @@ public class Park_OnClickEffectBackground : MonoBehaviour
                 {
                     if (settingUi.activeSelf == false)
                     {
+                        difficulty.GetComponent<CircleCollider2D>().radius = 0;
+                        backBtn.GetComponent<CircleCollider2D>().radius = 0;
+
                         settingUi.SetActive(true);
                     }
                     else
                     {
+                        difficulty.GetComponent<CircleCollider2D>().radius = 80;
+                        backBtn.GetComponent<CircleCollider2D>().radius = 30;
+
                         StartCoroutine(AlphaDown());
                     }
                 }

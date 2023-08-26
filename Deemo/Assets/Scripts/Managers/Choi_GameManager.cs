@@ -13,6 +13,7 @@ public class Choi_GameManager : MonoBehaviour
     public TMP_Text comboText;
     public TMP_Text comboText_Shadow;
     public string formattedAccuracy = "0.00";
+    public float total_Accuracy;
 
     private int total_Charming;
     private int total_Normal;
@@ -95,6 +96,17 @@ public class Choi_GameManager : MonoBehaviour
         total_Combo = 0;
     }
 
+    public bool CheckIsFullCombo()
+    {
+        Debug.Log($"¹Ì½º°¹¼ö : {total_Miss}");
+        if (total_Miss == 0)
+        {
+            Debug.Log("Ç®ÄÞº¸ : true");
+            return true;
+        }
+        return false;
+    }
+
     public int GetTrueNotes()
     {
         int truenotes = 0;
@@ -114,8 +126,6 @@ public class Choi_GameManager : MonoBehaviour
     {
         int total_Notes = total_Charming + total_Normal + total_Miss;
         Debug.Log("Total Notes: " + total_Notes);
-
-        float total_Accuracy;
 
         total_Accuracy = Mathf.Clamp(((total_Charming * 1.0f) + (total_Normal * 0.9f) - (total_Miss * 1.0f)) / total_Notes, 0f, 1f);
 

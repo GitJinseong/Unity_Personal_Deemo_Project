@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Park_OpacitySubTitle : MonoBehaviour
 {
+    private Park_ScrollSubTitle park_ScrollSubTitle;
+
     // 컴포넌트 canvasGroup을 저장하기 위한 변수
     private CanvasGroup canvasGroup;
 
@@ -16,18 +18,33 @@ public class Park_OpacitySubTitle : MonoBehaviour
     // 계산된 좌표(y)
     private float distance = 0.0f;
 
+    private int count;
+
     // Start is called before the first frame update
     void Start()
     {
         canvasGroup = GetComponent<CanvasGroup>();
         rectTransform = GetComponent<RectTransform>();
+
+        count = transform.GetSiblingIndex();
     }
 
     // Update is called once per frame
     void Update()
     {
-        distance = alphaDistance - Mathf.Abs(rectTransform.anchoredPosition.y);
+        park_ScrollSubTitle = GameObject.Find("TextTitleSub").GetComponent<Park_ScrollSubTitle>();
 
-        canvasGroup.alpha = Mathf.Clamp01(distance / alphaDistance);
+        if (Mathf.Abs(count * 15.0f + park_ScrollSubTitle.speed) <= 60)
+        {
+            canvasGroup.alpha = 1.0f - Mathf.Abs(count * 15.0f + park_ScrollSubTitle.speed) / 60.0f;
+        }
+        else
+        {
+            canvasGroup.alpha = 0.0f;
+        }
+
+        //distance = alphaDistance - Mathf.Abs(rectTransform.anchoredPosition.y);
+
+        //canvasGroup.alpha = Mathf.Clamp01(distance / alphaDistance);
     }
 }

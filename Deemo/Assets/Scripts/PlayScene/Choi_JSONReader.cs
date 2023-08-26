@@ -56,7 +56,7 @@ public class Choi_JSONReader : MonoBehaviour
         public List<NoteData> notes;
     }
 
-    private float startTime = 6.0f;
+    public float startTime = 6.0f;
     private float difficulty_time; // 난이도 구분 Hard = 0.15 / Normal = 0.3 / Easy = 0.4f
     private float previous_PosX;
     private int samePosXCount;
@@ -124,6 +124,8 @@ public class Choi_JSONReader : MonoBehaviour
         // Dictionary to keep track of spawned notes based on their times
         Dictionary<float, int> spawnedNotesByTime = new Dictionary<float, int>();
 
+        int index = Park_GameManager.index;
+        float musicTime = float.Parse(Park_GameManager.instance.musicInformation["Time"][index]) - 3.0f;
         foreach (NoteData note in notes.OrderBy(n => n._time))
         {
             float noteTime = note._time;
@@ -137,7 +139,6 @@ public class Choi_JSONReader : MonoBehaviour
                 skippedNoteCount++;
                 continue;
             }
-
             // If the note is not overlapping, add its time and posX to the dictionary
             int noteId = note.noteId;
             spawnedNotesByTime[noteTime] = noteId;
@@ -149,6 +150,9 @@ public class Choi_JSONReader : MonoBehaviour
             float size = note.size;
             float _time = note._time + startTime;
             int pitch = default;
+
+            // 노트 출력 시간이 뮤직 시간(-3초)과 같거나 클 경우 처리 종료
+            if (_time >= (musicTime - 3.0f)) { return; }
 
             Debug.Log($"Time: {_time}");
             // 중앙을 기준으로 노트 생성

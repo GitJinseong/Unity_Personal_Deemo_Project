@@ -5,15 +5,18 @@ using UnityEngine;
 public class Choi_NoteMovement : MonoBehaviour
 {
     public Vector3 endCoords = new Vector3(0f, -2f, -6.2f);
-    public float moveDuration = 3.0f;
+    public float moveDuration = 4.0f;
 
     private Vector3 startCoords = new Vector3(0f, 20f, 30f); // 노트 시작 위치(x는 다른 곳에서 값설정)
     private float startTime;
 
     private bool isMoving = true; // 이동 중인지 여부를 판단하는 변수
+    public float speed;
 
     private void Start()
     {
+        speed = Park_GameManager.instance.speed;
+        AdjustMoveDuration();
         startCoords = transform.position; // 현재 위치를 시작 위치로 설정
         endCoords.x = startCoords.x;
         startTime = Time.time;
@@ -58,4 +61,28 @@ public class Choi_NoteMovement : MonoBehaviour
         endCoords.x = startCoords.x;
         ResumeMoving(); // 이동 재개
     }
+
+    private void AdjustMoveDuration()
+    {
+        if (speed == 5.0f)
+        {
+            moveDuration = 4.0f;
+        }
+        else if (speed == 1.5f)
+        {
+            moveDuration = 10.0f;
+        }
+        else if (speed == 8.5f)
+        {
+            moveDuration = 1.0f;
+        }
+        else if (speed > 1.5f && speed < 8.5f)
+        {
+            // speed가 1.5보다 크고 8.5보다 작을 때
+            // speed가 1.5에서 8.5 사이에 있는 경우에 비례하여 moveDuration 값을 조정
+            float normalizedSpeed = (speed - 1.5f) / 7.0f; // 1.5부터 8.5까지의 범위를 0에서 1 사이의 값으로 정규화
+            moveDuration = Mathf.Lerp(10.0f, 1.0f, normalizedSpeed); // 1.0에서 10.0 사이로 보간하여 moveDuration 설정
+        }
+    }
+
 }

@@ -10,36 +10,39 @@ public class Park_PlaySceneBackgroundOpacity : MonoBehaviour
     public Park_PlaySceneBtn home;
 
     private float timeElapsed = 0.0f;
+    private float duration = 0.5f;
+    private float loopDuration = 2.0f;
 
     private bool isCheck = false;
 
     private void OnEnable()
     {
+        Choi_TimeManager.instance.PauseGame();
         StartCoroutine(StartScale());
     }
 
     private void Update()
     {
-        if (isCheck == true)
+        if (isCheck)
         {
             StartCoroutine(StartScale());
-
             isCheck = false;
         }
     }
 
     private IEnumerator StartScale()
     {
-        timeElapsed = 0.0f;
+        float startTime = Time.realtimeSinceStartup;
 
-        while (timeElapsed < 2.0f)
+        while (timeElapsed < duration)
         {
-            timeElapsed += Time.deltaTime;
+            float elapsedTime = Time.realtimeSinceStartup - startTime;
+            timeElapsed = elapsedTime;
 
-            float time = Mathf.Clamp01(timeElapsed / 2.0f);
+            float time = Mathf.Clamp01(timeElapsed / duration);
 
-            GetComponent<Transform>().localScale = new Vector2(GetComponent<Transform>().localScale.x,
-                Mathf.Lerp(0.0f, 1.0f, time * time));
+            Vector2 newScale = new Vector2(transform.localScale.x, Mathf.Lerp(0.0f, 1.0f, time * time));
+            GetComponent<Transform>().localScale = newScale;
 
             yield return null;
         }
@@ -53,56 +56,60 @@ public class Park_PlaySceneBackgroundOpacity : MonoBehaviour
 
     private IEnumerator LoopScaleDown()
     {
-        timeElapsed = 0.0f;
+        float startTime = Time.realtimeSinceStartup;
 
-        while (timeElapsed < 2.0f)
+        while (timeElapsed < loopDuration)
         {
-            timeElapsed += Time.deltaTime;
+            float elapsedTime = Time.realtimeSinceStartup - startTime;
+            timeElapsed = elapsedTime;
 
-            float time = Mathf.Clamp01(timeElapsed / 2.0f);
+            float time = Mathf.Clamp01(timeElapsed / loopDuration);
 
-            GetComponent<Transform>().localScale = new Vector2(GetComponent<Transform>().localScale.x,
-                Mathf.Lerp(1.0f, 0.5f, time));
+            Vector2 newScale = new Vector2(transform.localScale.x, Mathf.Lerp(1.0f, 0.5f, time));
+            GetComponent<Transform>().localScale = newScale;
 
             yield return null;
         }
 
-        StartCoroutine(LoopScaleUp());
+        // 스택 오버플로우 발생으로 예외처리
+        //StartCoroutine(LoopScaleUp());
     }
 
     private IEnumerator LoopScaleUp()
     {
-        timeElapsed = 0.0f;
+        float startTime = Time.realtimeSinceStartup;
 
-        while (timeElapsed < 2.0f)
+        while (timeElapsed < loopDuration)
         {
-            timeElapsed += Time.deltaTime;
+            float elapsedTime = Time.realtimeSinceStartup - startTime;
+            timeElapsed = elapsedTime;
 
-            float time = Mathf.Clamp01(timeElapsed / 2.0f);
+            float time = Mathf.Clamp01(timeElapsed / loopDuration);
 
-            GetComponent<Transform>().localScale = new Vector2(GetComponent<Transform>().localScale.x,
-                Mathf.Lerp(0.5f, 1.0f, time));
+            Vector2 newScale = new Vector2(transform.localScale.x, Mathf.Lerp(0.5f, 1.0f, time));
+            GetComponent<Transform>().localScale = newScale;
 
             yield return null;
         }
 
-        StartCoroutine(LoopScaleDown());
+        // 스택 오버플로우 발생으로 예외처리
+        //StartCoroutine(LoopScaleDown());
     }
 
     public IEnumerator EndScale()
     {
         float yPos = GetComponent<Transform>().localScale.y;
+        float startTime = Time.realtimeSinceStartup;
 
-        timeElapsed = 0.0f;
-
-        while (timeElapsed < 2.0f)
+        while (timeElapsed < loopDuration)
         {
-            timeElapsed += Time.deltaTime;
+            float elapsedTime = Time.realtimeSinceStartup - startTime;
+            timeElapsed = elapsedTime;
 
-            float time = Mathf.Clamp01(timeElapsed / 2.0f);
+            float time = Mathf.Clamp01(timeElapsed / loopDuration);
 
-            GetComponent<Transform>().localScale = new Vector2(GetComponent<Transform>().localScale.x,
-                Mathf.Lerp(yPos, 0.0f, time * time));
+            Vector2 newScale = new Vector2(transform.localScale.x, Mathf.Lerp(yPos, 0.0f, time * time));
+            GetComponent<Transform>().localScale = newScale;
 
             yield return null;
         }

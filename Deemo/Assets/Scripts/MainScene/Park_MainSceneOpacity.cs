@@ -35,7 +35,7 @@ public class Park_MainSceneOpacity : MonoBehaviour
         while (timeElapsed < duration)
         {
             timeElapsed += Time.deltaTime;
-
+            Debug.Log($"d: {timeElapsed}");
             float time = Mathf.Clamp01(timeElapsed / duration);
 
             GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1.0f, 0.0f, time);
@@ -43,4 +43,23 @@ public class Park_MainSceneOpacity : MonoBehaviour
             yield return null;
         }
     }
+
+    public IEnumerator EndOpacityForPause()
+    {
+        float startTime = Time.realtimeSinceStartup;
+
+        while (Time.realtimeSinceStartup - startTime < duration)
+        {
+            float elapsed = Time.realtimeSinceStartup - startTime;
+            float time = Mathf.Clamp01(elapsed / duration);
+
+            GetComponent<CanvasGroup>().alpha = Mathf.Lerp(1.0f, 0.0f, time);
+
+            yield return null;
+        }
+    }
+
+
+
+
 }
