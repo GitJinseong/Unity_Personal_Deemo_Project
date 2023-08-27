@@ -2,26 +2,38 @@ using UnityEngine;
 
 public class Choi_Note : MonoBehaviour
 {
+    public Choi_CollisionDetection collisionDetection;
     public int noteId;
     public float time;
-    public float startTime;
-    public string stringJudge;
-
-    private void Start()
-    {
-        Initialize();
-    }
+    public float runTime;
+    public float duration = 0.0f;
+    public float durtationDifference = 0.0f;
+    private bool isEnabled = false;
 
     private void Update()
     {
-        // 매 프레임마다 gameObject의 transform.position.y 값을 월드 좌표로 변환하여 디버그 출력
-        //Vector3 worldPosition = transform.TransformPoint(new Vector3(0, 0, transform.position.z));
-        //Debug.Log($"World Y Position: {worldPosition.z}");
+        if (isEnabled)
+        {
+            runTime += Time.deltaTime;
+
+            if (runTime >= duration - durtationDifference)
+            {
+                isEnabled = false;
+                collisionDetection.JudgeLineRemoveNote();
+            }
+        }
     }
 
-    public void Initialize()
+    private void OnEnable()
     {
-        startTime = Time.realtimeSinceStartup;
-        // 그 외 초기화 로직...
+        isEnabled = true;
+        runTime = 0f;
+    }
+
+    private void OnDisable()
+    {
+        isEnabled = false;
+        // 비활성화될 때 경과 시간을 계산하여 출력
+        Debug.Log($"{runTime} seconds.");
     }
 }

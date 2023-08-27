@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Choi_NoteMovement : MonoBehaviour
 {
+    public Choi_Note note;
     public Vector3 endCoords = new Vector3(0f, -2f, -6.2f);
+    private const float DEFAULT_MOVE_DURATION = 4.0f;
     public float moveDuration = 4.0f;
 
     private Vector3 startCoords = new Vector3(0f, 20f, 30f); // 노트 시작 위치(x는 다른 곳에서 값설정)
@@ -68,21 +71,40 @@ public class Choi_NoteMovement : MonoBehaviour
         {
             moveDuration = 4.0f;
         }
-        else if (speed == 1.5f)
+        else if (speed == 1.0f)
         {
             moveDuration = 10.0f;
         }
-        else if (speed == 8.5f)
+        else if (speed == 9.0f)
         {
             moveDuration = 1.0f;
         }
-        else if (speed > 1.5f && speed < 8.5f)
+        else if (speed > 1.0f && speed < 9.0f)
         {
             // speed가 1.5보다 크고 8.5보다 작을 때
             // speed가 1.5에서 8.5 사이에 있는 경우에 비례하여 moveDuration 값을 조정
-            float normalizedSpeed = (speed - 1.5f) / 7.0f; // 1.5부터 8.5까지의 범위를 0에서 1 사이의 값으로 정규화
+            float normalizedSpeed = (speed - 1.0f) / 9.0f; // 1.0부터 9.0까지의 범위를 0에서 1 사이의 값으로 정규화
             moveDuration = Mathf.Lerp(10.0f, 1.0f, normalizedSpeed); // 1.0에서 10.0 사이로 보간하여 moveDuration 설정
         }
+
+        note.duration = moveDuration;
+        DurationDifference();
     }
 
+    public void DurationDifference()
+    {
+        float difference = 0.0f;
+
+        // 스피드가 기본 스피드 보다 높거나 같을 경우
+        if (moveDuration <= DEFAULT_MOVE_DURATION)
+        {
+            difference = 0.025f * moveDuration;
+        }
+        // 스피드가 기본 스피드 보다 낮을 경우
+        else if (moveDuration > DEFAULT_MOVE_DURATION)
+        {
+            difference = 0.019f * moveDuration;
+        }
+        note.durtationDifference = difference;
+    }    
 }

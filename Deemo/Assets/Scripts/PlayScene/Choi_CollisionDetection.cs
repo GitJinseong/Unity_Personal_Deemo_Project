@@ -27,14 +27,19 @@ public class Choi_CollisionDetection : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("JudgeLine") && isHide == false)
         {
-            float hideStartTime = Time.realtimeSinceStartup; // hide ���� �ð� ���
-            float noteCreationTime = script_Note.time; // ��Ʈ ���� �ð� ��������
-            float spendTime = hideStartTime - noteCreationTime; // �� �ð��� ���� ���
-            Debug.Log("Note Creation to Hide - Time: " + spendTime);
-            //Choi_GameManager.instance.ChangeTimingText(spendTime.ToString());
-
-            HideForMissWithJudgeLine();
+            JudgeLineRemoveNote();
         }
+    }
+
+    public void JudgeLineRemoveNote()
+    {
+        float hideStartTime = Time.realtimeSinceStartup; 
+        float noteCreationTime = script_Note.time;
+        float spendTime = hideStartTime - noteCreationTime; 
+        Debug.Log("Note Creation to Hide - Time: " + spendTime);
+        //Choi_GameManager.instance.ChangeTimingText(spendTime.ToString());
+
+        HideForMissWithJudgeLine();
     }
 
     public void LightMove()
@@ -61,7 +66,7 @@ public class Choi_CollisionDetection : MonoBehaviour
     {
         if (isHide == false && isJudgeHide == false)
         {
-            isJudgeHide = true;
+            //isJudgeHide = true;
             gameObject.SetActive(true);
             script_NoteMovement.enabled = false;
             StartCoroutine(DelayForHideWithJudgeLine(0.3f));
@@ -109,8 +114,9 @@ public class Choi_CollisionDetection : MonoBehaviour
 
     private IEnumerator DelayForHideWithJudgeLine(float t)
     {
-        yield return new WaitForSeconds(hideTime);
         script_NoteMovement.enabled = false;
+        yield return new WaitForSeconds(hideTime);
+        isJudgeHide = true;
 
         float startAlpha = spriteRenderer.color.a / 255f; // 알파 값을 정규화
         float targetAlpha = 0f; // 목표 알파 값

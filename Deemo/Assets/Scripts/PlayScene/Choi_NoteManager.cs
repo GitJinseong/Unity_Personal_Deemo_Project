@@ -76,7 +76,6 @@ public class Choi_NoteManager : MonoBehaviour
             SpriteRenderer spriteRenderer = note.GetComponent<SpriteRenderer>();
             noteComponent.noteId = id;
             noteComponent.time = time;
-            noteComponent.stringJudge = "";
             Color startColor = spriteRenderer.color;
             Color newColor = new Color(startColor.r, startColor.g, startColor.b, 255f);
             spriteRenderer.color = newColor;

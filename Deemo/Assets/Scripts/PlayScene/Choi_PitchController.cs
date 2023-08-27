@@ -20,7 +20,7 @@ public class Choi_PitchController : MonoBehaviour
         {
             pitch = 1.0f;
         }
-        else if (key == 8.5f)
+        else if (key == 9.0f)
         {
             pitch = 1.5f;
         }
@@ -29,7 +29,7 @@ public class Choi_PitchController : MonoBehaviour
             // 1.5와 5.0 사이 값의 경우 계산식을 참고하여 중간 pitch 값 설정
             pitch = (key - 1.5f) * 0.1f + 0.5f;
         }
-        else if (key > 5.0f && key < 8.5f)
+        else if (key > 5.0f && key < 9.0f)
         {
             // 5.0와 8.5 사이 값의 경우 계산식을 참고하여 중간 pitch 값 설정
             pitch = (key - 5.0f) * 0.1f + 1.0f;
