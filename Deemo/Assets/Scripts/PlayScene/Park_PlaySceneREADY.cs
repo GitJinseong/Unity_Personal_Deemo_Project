@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Park_PlaySceneREADY : MonoBehaviour
 {
+    public GameObject pause_Button;
     private Vector2 startPos;
     private Vector2 originalPos; // 원래 포지션 값을 저장할 변수
 
@@ -18,7 +19,7 @@ public class Park_PlaySceneREADY : MonoBehaviour
 
     public float durationOpacity;
     public float durationChange;
-
+    public bool remotePauseButton = false;
     private float timeElapsed = 0.0f;
 
     public bool isScale = false;
@@ -153,6 +154,8 @@ public class Park_PlaySceneREADY : MonoBehaviour
     {
         yield return StartCoroutine(WaitForSecondsRealtimeCustom(durationChange));
 
+        // 정지 버튼 활성화
+        pause_Button.SetActive(true);
         // 부모 오브젝트를 비활성화
         transform.parent.gameObject.SetActive(false);
     }

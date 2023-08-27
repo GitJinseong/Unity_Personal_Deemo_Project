@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Park_PlaySceneBackgroundOpacity : MonoBehaviour
 {
+    public GameObject pauseButton;
     public Park_PlaySceneBtn resume;
     public Park_PlaySceneBtn retry;
     public Park_PlaySceneBtn songs;
@@ -17,6 +18,7 @@ public class Park_PlaySceneBackgroundOpacity : MonoBehaviour
 
     private void OnEnable()
     {
+        pauseButton.SetActive(false);
         Choi_TimeManager.instance.PauseGame();
         StartCoroutine(StartScale());
     }

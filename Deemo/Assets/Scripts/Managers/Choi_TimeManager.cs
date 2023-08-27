@@ -15,13 +15,13 @@ public class Choi_TimeManager : MonoBehaviour
     public void PauseGame()
     {
         Time.timeScale = 0f;
-        MusicPlay();
+        musicPlayer.Pause();
     }
 
     public void ResumeGame()
     {
         Time.timeScale = 1f;
-        MusicPlay();
+        musicPlayer.Play();
     }
 
     public void CoroutineDelayForResumeGame(float t)
@@ -32,7 +32,7 @@ public class Choi_TimeManager : MonoBehaviour
     public IEnumerator DelayForPauseGame(float t)
     {
         yield return new WaitForSecondsRealtime(t);
-        MusicPlay();
+        musicPlayer.Pause();
         Time.timeScale = 0f;
     }
 
@@ -40,18 +40,6 @@ public class Choi_TimeManager : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(t);
         Time.timeScale = 1f;
-        MusicPlay();
-    }
-
-    public void MusicPlay()
-    {
-        if (musicPlayer.isPlaying)
-        {
-            musicPlayer.Pause();
-        }
-        else
-        {
-            musicPlayer.Play();
-        }
+        musicPlayer.Play();
     }
 }

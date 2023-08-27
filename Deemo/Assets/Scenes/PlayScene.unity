@@ -745,12 +745,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: 0
   effectPos: 0
   delay: 1
   wordDelay: 0.75
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 1
 --- !u!1 &290389241
 GameObject:
@@ -1475,12 +1477,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: 0
   effectPos: 0
   delay: 3
   wordDelay: 0.75
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 1
 --- !u!1 &399672196
 GameObject:
@@ -2736,12 +2740,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: 100
   effectPos: 73
   delay: 3
   wordDelay: 0.25
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 0
 --- !u!1 &791161794
 GameObject:
@@ -4010,12 +4016,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: 0
   effectPos: 73
   delay: 3
   wordDelay: 0
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 0
 --- !u!1 &1108493337
 GameObject:
@@ -4885,6 +4893,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseButton: {fileID: 1013653672}
   settingUI: {fileID: 290389241}
+  musicPlayer: {fileID: 499663648}
 --- !u!1 &1281688542
 GameObject:
   m_ObjectHideFlags: 0
@@ -5706,12 +5715,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: -100
   effectPos: 73
   delay: 3
   wordDelay: 0.25
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 0
 --- !u!1 &1589708791
 GameObject:
@@ -6637,12 +6648,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: 200
   effectPos: 73
   delay: 3
   wordDelay: 0.5
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 1
   isScale: 0
 --- !u!1 &1901688019
 GameObject:
@@ -6774,6 +6787,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 57c62cb6a3e21d04e91e64ab551cfa91, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseButton: {fileID: 1013653672}
   resume: {fileID: 1242532284}
   retry: {fileID: 742396415}
   songs: {fileID: 184963324}
@@ -6937,12 +6951,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c496400e08f00a645b2b288f16bbaa93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pause_Button: {fileID: 1013653672}
   endPos: -200
   effectPos: 73
   delay: 3
   wordDelay: 0.5
   durationOpacity: 1
   durationChange: 1
+  remotePauseButton: 0
   isScale: 0
 --- !u!1 &2000278487
 GameObject:
